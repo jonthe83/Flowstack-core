@@ -1,0 +1,3684 @@
+/* Orchid Påminnelser — tokens and layout copied from
+   https://orchid-blue-flora-slate.grok.me/paminnelser
+   (styles-C_QoqymS.css + paminnelser-CyOmz1-t.js). */
+
+/* Orchid-namnen pekar på de delade temavariablerna så att både mörkt och
+   ljust läge slår igenom här (värdena är identiska med mörka temat). */
+html body.page-reminders {
+    --orchid-bg: var(--bg-page);
+    --orchid-surface: var(--bg-subtle);
+    --orchid-raised: var(--bg-raised);
+    --orchid-fg: var(--text-primary);
+    --orchid-muted: var(--text-secondary);
+    --orchid-subtle: var(--text-subtle);
+    --orchid-border: var(--border);
+    --orchid-border-strong: var(--border-strong);
+    --orchid-accent: var(--brand);
+    --orchid-accent-fg: var(--text-inverse);
+    --orchid-ok: var(--success);
+    --orchid-ok-fg: var(--text-inverse);
+    --orchid-sms: var(--channel-sms);
+    --orchid-chat: var(--channel-chat);
+    --orchid-call: var(--channel-call);
+    --orchid-radius-sm: 8px;
+    --orchid-radius-md: 12px;
+    --orchid-radius-lg: 18px;
+    font-family: var(--font);
+    background: var(--orchid-bg);
+    color: var(--orchid-fg);
+    -webkit-font-smoothing: antialiased;
+}
+
+html body.page-reminders .main {
+    max-width: var(--container);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px var(--pad) 32px;
+}
+
+html body.page-reminders .apple-app.crm-app {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0;
+    grid-template-columns: none !important;
+}
+
+html body.page-reminders [hidden] {
+    display: none !important;
+}
+
+/* Chrome (JE-badge, bolagsväljare, flikar, temaknapp) stylas bara i app.css
+   så att alla undersidor får exakt samma toppmeny. */
+
+/* —— Page header —— */
+html body.page-reminders .crm-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+html body.page-reminders .apple-eyebrow {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .crm-title {
+    margin: 4px 0 0;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .crm-add,
+html body.page-reminders button.crm-add,
+html body.page-reminders .chip.chip-primary.crm-add {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex: 0 0 auto;
+    min-height: 44px !important;
+    height: 44px !important;
+    padding: 0 16px !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: var(--orchid-accent) !important;
+    color: var(--orchid-accent-fg) !important;
+    -webkit-text-fill-color: var(--orchid-accent-fg) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0;
+}
+
+html body.page-reminders .crm-add:hover {
+    opacity: 0.9;
+}
+
+html body.page-reminders .crm-add-ico {
+    display: none;
+    width: 16px;
+    height: 16px;
+}
+
+/* —— Counter strip (MUST be full width = same as search) ——
+   Earlier builds kept shrinking this to a tiny segment control.
+   These rules win over every app.css reminder override. */
+html body.page-reminders .crm-app > .crm-stats,
+html body.page-reminders .crm-stats.smart-grid,
+html body.page-reminders .smart-grid.crm-stats,
+html body.page-reminders .crm-stats {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-auto-flow: unset !important;
+    gap: 0 !important;
+    column-gap: 0 !important;
+    row-gap: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+    flex: none !important;
+    float: none !important;
+    margin: 0 0 16px !important;
+    padding: 4px !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 18px !important;
+    background: var(--orchid-surface) !important;
+    overflow: hidden !important;
+}
+
+html body.page-reminders .crm-stats .smart-tile,
+html body.page-reminders .crm-stats .smart-wide,
+html body.page-reminders .crm-stats .smart-tile.is-today,
+html body.page-reminders .crm-stats .smart-tile.is-on,
+html body.page-reminders .crm-stats a.smart-tile {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    min-height: 44px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 4px 8px !important;
+    border: 0 !important;
+    border-right: 0 !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-align: center !important;
+    color: var(--orchid-muted) !important;
+    text-decoration: none !important;
+}
+
+html body.page-reminders .crm-stats .smart-tile i,
+html body.page-reminders .crm-stats .smart-wide i {
+    display: none !important;
+}
+
+html body.page-reminders .crm-stats .smart-tile b,
+html body.page-reminders .crm-stats .smart-wide b {
+    display: block !important;
+    position: static !important;
+    margin: 0 !important;
+    font-family: inherit !important;
+    font-size: 1.75rem !important;
+    line-height: 1 !important;
+    font-weight: 600 !important;
+    font-variant-numeric: tabular-nums !important;
+    letter-spacing: -0.03em !important;
+    color: inherit !important;
+}
+
+html body.page-reminders .crm-stats .smart-tile span,
+html body.page-reminders .crm-stats .smart-wide span {
+    display: block !important;
+    margin-top: 6px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    color: inherit !important;
+}
+
+html body.page-reminders .crm-stats .smart-tile.is-on,
+html body.page-reminders .crm-stats .smart-wide.is-on,
+html body.page-reminders .crm-stats .smart-tile.is-today.is-on,
+html body.page-reminders .crm-stats a.smart-tile.is-on {
+    background: var(--orchid-raised) !important;
+    color: var(--orchid-fg) !important;
+    box-shadow: inset 0 0 0 1px color-mix(in oklab, #eef0f3 35%, transparent) !important;
+}
+
+/* —— Search —— */
+html body.page-reminders .crm-search,
+html body.page-reminders form.apple-search {
+    position: relative;
+    display: block;
+    width: 100% !important;
+    max-width: none !important;
+    margin-top: 16px;
+}
+
+html body.page-reminders .crm-search-ico {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    color: var(--orchid-subtle);
+    pointer-events: none;
+    z-index: 1;
+}
+
+html body.page-reminders .apple-search-field {
+    display: block;
+    width: 100%;
+}
+
+html body.page-reminders .crm-search input[type="search"],
+html body.page-reminders .apple-search input[type="search"],
+html body.page-reminders .apple-search input[name="q"] {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    padding: 0 40px 0 40px !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 999px !important;
+    background: var(--orchid-surface) !important;
+    background-image: none !important;
+    color: var(--orchid-fg);
+    font-size: 16px;
+    outline: none;
+}
+
+html body.page-reminders .crm-search input::placeholder,
+html body.page-reminders .apple-search input::placeholder {
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .crm-search input:focus {
+    border-color: var(--orchid-border-strong) !important;
+}
+
+html body.page-reminders .apple-search-clear {
+    right: 4px;
+    color: var(--orchid-subtle);
+}
+
+/* —— Filter chips —— */
+html body.page-reminders .crm-tags,
+html body.page-reminders .crm-who {
+    width: 100%;
+    margin-top: 16px;
+}
+
+html body.page-reminders .crm-who {
+    margin-top: 12px;
+}
+
+html body.page-reminders .crm-scroll,
+html body.page-reminders .tag-chips.crm-scroll,
+html body.page-reminders .crm-who .crm-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+}
+
+html body.page-reminders .crm-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+html body.page-reminders .crm-scroll .tag-chip,
+html body.page-reminders .crm-who .chip,
+html body.page-reminders .tag-block .tag-chip,
+html body.page-reminders .cal-filter .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    height: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 999px !important;
+    background: var(--orchid-surface) !important;
+    color: var(--orchid-muted) !important;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+html body.page-reminders .crm-scroll .tag-chip.is-on,
+html body.page-reminders .crm-who .chip.is-on,
+html body.page-reminders .tag-block .tag-chip.is-on,
+html body.page-reminders .cal-filter .chip.is-on {
+    border-color: rgba(245, 245, 247, 0.85) !important;
+    background: color-mix(in oklab, var(--orchid-fg) 12%, var(--orchid-raised)) !important;
+    color: var(--orchid-fg) !important;
+}
+
+html body.page-reminders .crm-who .chip-who {
+    padding-left: 10px;
+}
+
+html body.page-reminders .who-scope-note {
+    flex: 0 0 auto;
+    margin: 0;
+    color: var(--orchid-muted, var(--text-secondary));
+    font-size: 13px;
+    line-height: 36px;
+    white-space: nowrap;
+}
+
+html body.page-reminders .who-scope-note summary {
+    display: inline;
+    cursor: pointer;
+    min-height: 44px;
+}
+
+html body.page-reminders .crm-who .chip-avatar {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1;
+}
+
+/* —— Section —— */
+html body.page-reminders .crm-main {
+    margin-top: 20px;
+    min-width: 0;
+}
+
+html body.page-reminders .crm-section-head,
+html body.page-reminders .apple-head.crm-section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 12px;
+}
+
+html body.page-reminders .crm-section-title {
+    margin: 0;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .crm-section-tag {
+    margin-left: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders .crm-section-head strong {
+    font-size: 14px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .empty {
+    margin: 0;
+    padding: 40px 16px;
+    border: 1px solid var(--orchid-border);
+    border-radius: 18px;
+    background: var(--orchid-surface);
+    text-align: center;
+    font-size: 14px;
+    color: var(--orchid-muted);
+}
+
+/* —— Card list —— */
+html body.page-reminders .apple-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html body.page-reminders .apple-list .item,
+html body.page-reminders .apple-list .item.is-open,
+html body.page-reminders .apple-list .item:not(.is-open) {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    padding: 12px !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 18px !important;
+    background: var(--orchid-surface) !important;
+    overflow: visible;
+}
+
+html body.page-reminders .apple-list .item.is-open {
+    border-color: var(--orchid-border-strong) !important;
+}
+
+html body.page-reminders .apple-list .item.is-done {
+    opacity: 1;
+}
+
+html body.page-reminders .apple-list .item-stack {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow: visible;
+}
+
+html body.page-reminders .apple-list .item.is-open .item-head-open:not([hidden]) {
+    display: flex !important;
+    flex-direction: column;
+    pointer-events: auto !important;
+    width: 100%;
+}
+
+html body.page-reminders .apple-list .item.is-open .item-head-shut,
+html body.page-reminders .apple-list .item.is-open .item-head-shut[hidden] {
+    display: none !important;
+}
+
+html body.page-reminders .apple-list .item:not(.is-open) .item-head-open,
+html body.page-reminders .apple-list .item:not(.is-open) .item-extra,
+html body.page-reminders .apple-list .item:not(.is-open) .contact-line,
+html body.page-reminders .apple-list .item:not(.is-open) .item-inkorg-row {
+    display: none !important;
+}
+
+html body.page-reminders .apple-list .item.is-open .item-extra:not([hidden]) {
+    display: flex !important;
+    flex-direction: column;
+    gap: 0;
+    pointer-events: auto;
+}
+
+/* Checkbox: 44×44 träffyta, visuell cirkel 28 px. */
+html body.page-reminders .check-form {
+    margin: 0;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+html body.page-reminders .apple-list .check,
+html body.page-reminders .theme-reminders .check {
+    display: grid !important;
+    place-items: center;
+    position: relative;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px;
+    min-height: 28px;
+    margin: 0 !important;
+    padding: 0;
+    border: 1px solid var(--orchid-border-strong) !important;
+    border-radius: 999px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: transparent !important;
+}
+
+html body.page-reminders .apple-list .check::before,
+html body.page-reminders .theme-reminders .check::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+}
+
+html body.page-reminders .apple-list .check:hover {
+    border-color: var(--orchid-ok) !important;
+    color: var(--orchid-ok) !important;
+}
+
+html body.page-reminders .apple-list .item.is-done .check,
+html body.page-reminders .theme-reminders .item.is-done .check {
+    border-color: var(--orchid-ok) !important;
+    background: var(--orchid-ok) !important;
+    color: var(--orchid-ok-fg) !important;
+    box-shadow: none !important;
+}
+
+html body.page-reminders .check-mark {
+    display: block;
+    width: 14px;
+    height: 14px;
+}
+
+/* Closed summary */
+html body.page-reminders .apple-list a.item-main {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    color: inherit;
+    text-decoration: none;
+    text-align: left;
+}
+
+html body.page-reminders .item-head-shut {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+html body.page-reminders .item-head-shut > a.item-main {
+    flex: 1 1 auto;
+    width: auto;
+}
+
+html body.page-reminders .item-shut-copy {
+    min-width: 0;
+}
+
+html body.page-reminders .item-shut-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+html body.page-reminders .item-shut-meta {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+html body.page-reminders .item-shut-meta .item-tap-total,
+html body.page-reminders .apple-list .item:not(.is-open) .item-shut-meta .item-tap-total {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    clip: auto;
+    flex: 0 0 auto;
+    font-size: 22px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--orchid-fg);
+    background: none;
+    border: 0;
+}
+
+html body.page-reminders .item-shut-addr {
+    margin: 2px 0 0;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    color: var(--orchid-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html body.page-reminders .item-shut-city {
+    color: var(--orchid-muted);
+    font-weight: 400;
+}
+
+html body.page-reminders .item-shut-name {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--orchid-fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html body.page-reminders:not(.page-kontakter) .item-shut-copy {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    gap: 0.4em;
+    min-width: 0;
+}
+
+html body.page-reminders:not(.page-kontakter) .item-shut-addr {
+    margin: 0;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders:not(.page-kontakter) .item-shut-name {
+    margin: 0;
+    min-width: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders:not(.page-kontakter) .item-shut-name:only-child {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .item-head-shut .item-note,
+html body.page-reminders .item-stack > .item-note {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    margin: 8px 0 0;
+    overflow: hidden;
+    font-size: 14px;
+    color: var(--orchid-muted);
+}
+
+/* Öppet kort: samma text står redan i textrutan. */
+html body.page-reminders .apple-list .item.is-open .item-stack > .item-note {
+    display: none;
+}
+
+html body.page-reminders .item-stack > .item-note a {
+    color: var(--orchid-sms);
+    text-decoration: underline;
+    position: relative;
+    z-index: 1;
+}
+
+html body.page-reminders a.item-kontakt {
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+    font-size: 13px;
+    line-height: 1.2;
+    color: var(--orchid-sms);
+    text-decoration: underline;
+    white-space: nowrap;
+    position: relative;
+    z-index: 2;
+}
+
+html body.page-reminders .item-icon-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+}
+
+html body.page-reminders .item-icon-row .item-taps {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    margin-top: 0;
+}
+
+html body.page-reminders .item-snooze-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 6px 0 0;
+    font-size: 14px;
+    line-height: 1.2;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .item-snooze-status[hidden] {
+    display: none;
+}
+
+html body.page-reminders .item-snooze-undo {
+    flex: 0 0 auto;
+    min-height: 44px;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    color: var(--orchid-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+html body.page-reminders .item-link-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin: 2px 0 0;
+    min-height: 44px;
+}
+
+html body.page-reminders .apple-list .item:not(.is-open) .item-link-row:not(:has(.item-kontakt)) {
+    display: none !important;
+}
+
+html body.page-reminders .item-link-row .item-inkorg-row {
+    margin: 0;
+}
+
+html body.page-reminders .item-link-row a.item-kontakt,
+html body.page-reminders .item-link-row a.item-inkorg {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+
+html body.page-reminders .item-inkorg-row {
+    margin: 8px 0 0;
+}
+
+html body.page-reminders a.item-inkorg {
+    display: inline-block;
+    padding: 8px 0;
+    font-size: 14px;
+    line-height: 1.3;
+    color: var(--orchid-sms);
+    text-decoration: underline;
+    position: relative;
+    z-index: 1;
+}
+
+html body.page-reminders .contact-epost {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    min-width: 0;
+}
+
+html body.page-reminders .contact-epost-label {
+    color: var(--orchid-muted);
+    flex: 0 0 auto;
+}
+
+html body.page-reminders .item-foot .item-due-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+html body.page-reminders .item-due-short,
+html body.page-reminders .item-created-ymd {
+    font-size: 12px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .item-due-chip,
+html body.page-reminders button.item-due-chip {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    margin-top: 2px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--orchid-subtle);
+    font-size: 14px;
+    line-height: 1.2;
+    min-height: 44px;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+}
+
+html body.page-reminders .apple-list .item.is-done .item-shut-addr,
+html body.page-reminders .apple-list .item.is-done .item-shut-name,
+html body.page-reminders .apple-list .item.is-done .item-inline input[name="address"],
+html body.page-reminders .apple-list .item.is-done .item-inline textarea[name="address"],
+html body.page-reminders .apple-list .item.is-done .item-inline input[name="customer"] {
+    text-decoration: line-through;
+}
+
+/* Open fields = .box-field from orchid */
+html body.page-reminders .item-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+}
+
+html body.page-reminders .item-addr-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+html body.page-reminders .item-inline input.item-title,
+html body.page-reminders .item-inline textarea.item-note,
+html body.page-reminders .item-addr-row input.item-title,
+html body.page-reminders .item-addr-row textarea.item-title,
+html body.page-reminders .item-inline .item-title,
+html body.page-reminders .item-inline .item-note {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0.7rem 0.85rem !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 12px !important;
+    background: var(--orchid-raised) !important;
+    background-color: var(--orchid-raised) !important;
+    color: var(--orchid-fg) !important;
+    -webkit-text-fill-color: var(--orchid-fg) !important;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    outline: none;
+}
+
+html body.page-reminders .item-inline input.item-title,
+html body.page-reminders .item-addr-row input.item-title,
+html body.page-reminders .item-addr-row textarea.item-title {
+    font-weight: 500;
+}
+
+html body.page-reminders .item-addr-row input.item-title,
+html body.page-reminders .item-addr-row textarea.item-title {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-right: 0.85rem !important;
+}
+
+html body.page-reminders .item-addr-row textarea.item-title {
+    display: block;
+    resize: none;
+    overflow: hidden;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    field-sizing: content;
+    height: auto;
+}
+
+/* Skrivbordets öppna kort ligger i .pam-mid. Samma utseende som enradsinputen,
+   utan att röra min-width 900px-blocken. */
+html body.page-reminders:not(.page-kontakter) .pam-mid .item-addr-row textarea.item-title {
+    border: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    font-size: 18px !important;
+    font-weight: 650 !important;
+    line-height: 1.25 !important;
+    resize: none;
+    overflow: hidden;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    field-sizing: fixed;
+}
+
+html body.page-reminders .item-inline input.item-title:focus,
+html body.page-reminders .item-inline textarea.item-note:focus,
+html body.page-reminders .item-addr-row textarea.item-title:focus {
+    border-color: var(--orchid-border-strong) !important;
+}
+
+html body.page-reminders .item-name-row {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+}
+
+html body.page-reminders .item-inline textarea.item-note,
+html body.page-reminders .item-inline .item-note {
+    margin-top: 8px;
+    min-height: 44px !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    font-weight: 400;
+    resize: vertical;
+    field-sizing: content;
+    max-height: none;
+}
+
+html body.page-reminders .item-name-row .item-tap-total,
+html body.page-reminders .item-title-row .item-tap-total {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+html body.page-reminders .item-addr-row .item-due-label {
+    display: none;
+}
+
+html body.page-reminders .item-inline .box-field,
+html body.page-reminders .box-field {
+    border-radius: 12px;
+    border: 1px solid var(--orchid-border);
+    background: var(--orchid-raised);
+    width: 100%;
+    color: var(--orchid-fg);
+    outline: none;
+    padding: 0.7rem 0.85rem;
+}
+
+/* Contact */
+html body.page-reminders .apple-list .item.is-open .contact-line {
+    display: block !important;
+}
+
+html body.page-reminders .contact-line {
+    margin-top: 12px;
+    padding: 0;
+}
+
+html body.page-reminders .contact-show {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    font-size: 14px;
+}
+
+html body.page-reminders .contact-phone {
+    flex: 0 0 auto;
+}
+
+html body.page-reminders .contact-digits,
+html body.page-reminders .contact-mail,
+html body.page-reminders .apple-list a.contact-digits,
+html body.page-reminders .apple-list a.contact-mail {
+    color: var(--orchid-sms) !important;
+    -webkit-text-fill-color: var(--orchid-sms) !important;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+html body.page-reminders .apple-list .item.is-open a.contact-digits,
+html body.page-reminders .apple-list .item.is-open a.contact-mail {
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 12px 0;
+}
+
+html body.page-reminders .contact-digits:hover,
+html body.page-reminders .contact-mail:hover {
+    text-decoration: underline;
+}
+
+html body.page-reminders .contact-mail {
+    min-width: 0;
+    margin-left: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html body.page-reminders:not(.page-kontakter) .contact-pen,
+html body.page-reminders:not(.page-kontakter) .apple-list .contact-pen,
+html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open .contact-pen:not([hidden]) {
+    display: grid !important;
+    place-items: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders.page-kontakter .contact-pen,
+html body.page-reminders.page-kontakter .apple-list .contact-pen,
+html body.page-reminders.page-kontakter .apple-list .item.is-open .contact-pen:not([hidden]) {
+    display: grid !important;
+    place-items: center;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders .contact-pen:hover {
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .contact-pen svg {
+    width: 14px;
+    height: 14px;
+}
+
+html body.page-reminders .contact-pen[hidden] {
+    display: none !important;
+}
+
+html body.page-reminders .contact-edit-form:not([hidden]) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+html body.page-reminders .contact-edit-form input,
+html body.page-reminders .contact-edit-save {
+    min-height: 44px;
+    border-radius: 8px;
+    border: 1px solid var(--orchid-border);
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .contact-edit-save {
+    background: var(--orchid-accent);
+    border-color: var(--orchid-accent);
+    color: var(--orchid-accent-fg);
+    -webkit-text-fill-color: var(--orchid-accent-fg);
+}
+
+/* 2×4 action grid */
+html body.page-reminders .item-taps,
+html body.page-reminders .apple-list .snooze,
+html body.page-reminders .snooze,
+html body.page-reminders .theme-reminders .apple-list .snooze {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px !important;
+    width: 100%;
+    margin: 12px 0 0;
+    padding: 0;
+    overflow: visible !important;
+}
+
+/* Räknarna hänger utanför knapphörnet, så inget led mellan knappen och kortet
+   får klippa. app.css och flash.css sätter overflow-x: hidden på .item-extra
+   och .item.is-open — då försvann den fjärde räknaren i högerkanten. */
+html body.page-reminders .apple-list .item,
+html body.page-reminders .apple-list .item.is-open,
+html body.page-reminders .apple-list .item-stack,
+html body.page-reminders .apple-list .item-extra,
+html body.page-reminders .apple-list .item.is-open .item-extra,
+html body.page-reminders .apple-list .item.is-open .item-extra:not([hidden]) {
+    overflow: visible !important;
+}
+
+html body.page-reminders .snooze {
+    margin-top: 8px !important;
+}
+
+html body.page-reminders .item-tap-form,
+html body.page-reminders .apple-list .snooze form,
+html body.page-reminders .snooze .item-due,
+html body.page-reminders .apple-list .snooze .due-form {
+    width: auto;
+    min-width: 0;
+    margin: 0;
+    flex: none;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+}
+
+html body.page-reminders .item-tap,
+html body.page-reminders .apple-list .item-tap,
+html body.page-reminders .snooze button,
+html body.page-reminders .apple-list .snooze button,
+html body.page-reminders .theme-reminders .apple-list .snooze button,
+html body.page-reminders .snooze .item-due,
+html body.page-reminders .apple-list .snooze .item-due,
+html body.page-reminders .apple-list .item-due {
+    box-sizing: border-box;
+    display: grid !important;
+    place-items: center;
+    position: relative;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    padding: 0 !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 12px !important;
+    background: var(--orchid-raised) !important;
+    background-color: var(--orchid-raised) !important;
+    color: var(--orchid-muted) !important;
+    -webkit-text-fill-color: currentColor !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    overflow: visible !important;
+}
+
+/* Klockknappen är bara träffytan inuti .item-due — ingen egen ram. */
+html body.page-reminders .snooze button.due-clock,
+html body.page-reminders .apple-list .snooze button.due-clock,
+html body.page-reminders .theme-reminders .apple-list .snooze button.due-clock,
+html body.page-reminders .apple-list .item-due .due-clock,
+html body.page-reminders .due-clock {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+html body.page-reminders .item-tap:hover,
+html body.page-reminders .snooze button:not(.due-clock):hover {
+    border-color: var(--orchid-border-strong) !important;
+    color: var(--orchid-fg) !important;
+}
+
+html body.page-reminders .item-tap-form:nth-child(1) .item-tap {
+    color: var(--orchid-sms) !important;
+    background: color-mix(in oklab, var(--orchid-sms) 14%, var(--orchid-raised)) !important;
+}
+html body.page-reminders .item-tap-form:nth-child(2) .item-tap {
+    color: var(--orchid-sms) !important;
+    background: color-mix(in oklab, var(--orchid-sms) 10%, var(--orchid-raised)) !important;
+}
+html body.page-reminders .item-tap-form:nth-child(3) .item-tap {
+    color: var(--orchid-chat) !important;
+    background: color-mix(in oklab, var(--orchid-chat) 16%, var(--orchid-raised)) !important;
+}
+html body.page-reminders .item-tap-form:nth-child(4) .item-tap {
+    color: var(--orchid-call) !important;
+    background: color-mix(in oklab, var(--orchid-call) 16%, var(--orchid-raised)) !important;
+}
+
+html body.page-reminders .item-tap img.item-tap-ico,
+html body.page-reminders .item-tap-ico {
+    display: none !important;
+}
+
+html body.page-reminders .item-tap-svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+html body.page-reminders .item-tap-at {
+    width: 20px;
+    height: 20px;
+}
+
+html body.page-reminders .item-tap .item-tap-n,
+html body.page-reminders .apple-list .item-tap .item-tap-n,
+html body.page-reminders .theme-reminders .apple-list .item-tap .item-tap-n {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: auto !important;
+    bottom: auto !important;
+    display: grid !important;
+    place-items: center;
+    width: auto;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border: 0;
+    border-radius: 999px !important;
+    background: var(--orchid-fg) !important;
+    color: var(--orchid-bg) !important;
+    -webkit-text-fill-color: var(--orchid-bg) !important;
+    font-size: 10px !important;
+    font-weight: 500 !important;
+    font-variant-numeric: tabular-nums;
+    line-height: 1 !important;
+    z-index: 3;
+    pointer-events: none;
+    transform: translate(35%, -35%);
+}
+
+/* Väljarna måste vara minst lika tunga som display-regeln ovan, annars vinner
+   `display: grid !important` och en nolla blir en tom vit prick på knappen. */
+html body.page-reminders .item-tap-n[hidden],
+html body.page-reminders .item-tap-n:empty,
+html body.page-reminders .item-tap .item-tap-n[hidden],
+html body.page-reminders .item-tap .item-tap-n:empty,
+html body.page-reminders .apple-list .item-tap .item-tap-n[hidden],
+html body.page-reminders .apple-list .item-tap .item-tap-n:empty,
+html body.page-reminders .theme-reminders .apple-list .item-tap .item-tap-n[hidden],
+html body.page-reminders .theme-reminders .apple-list .item-tap .item-tap-n:empty {
+    display: none !important;
+}
+
+html body.page-reminders .apple-list .item-due .due,
+html body.page-reminders .theme-reminders .apple-list .item-due .due {
+    display: none !important;
+}
+
+html body.page-reminders .apple-list .item-due .due-clock,
+html body.page-reminders .due-clock {
+    display: grid;
+    place-items: center;
+    width: 100% !important;
+    max-width: none !important;
+    height: 44px !important;
+    min-width: 0 !important;
+    min-height: 44px !important;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+
+html body.page-reminders .due-clock svg {
+    width: 16px;
+    height: 16px;
+}
+
+html body.page-reminders .apple-list .item-due .due-input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Taggar + ansvarig */
+html body.page-reminders .item-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    margin-top: 16px;
+}
+
+html body.page-reminders .item-tags-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+}
+
+html body.page-reminders .tap44 {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+html body.page-reminders .item-tags-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 6px 8px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: var(--orchid-subtle);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: left;
+}
+
+html body.page-reminders .item-tags-toggle:hover,
+html body.page-reminders .item-tags-toggle[aria-expanded="true"] {
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .item-tags-caret {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 auto;
+    transition: transform 0.15s ease;
+}
+
+html body.page-reminders .item-tags-toggle[aria-expanded="true"] .item-tags-caret {
+    transform: rotate(180deg);
+}
+
+html body.page-reminders .tag-chips.tag-pick[hidden] {
+    display: none !important;
+}
+
+html body.page-reminders .item-cal-row {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+    justify-content: flex-start;
+}
+
+html body.page-reminders .item-cal-btn {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 100%;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--orchid-border);
+    border-radius: 10px;
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+html body.page-reminders .item-cal-btn:hover {
+    border-color: var(--orchid-border-strong);
+}
+
+html body.page-reminders .item-foot .item-created {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    width: auto;
+    margin: 0 0 0 auto;
+    padding: 0;
+    flex: 0 0 auto;
+}
+
+html body.page-reminders .item-foot .item-created:empty {
+    display: none !important;
+}
+
+html body.page-reminders .item-more-panel[hidden] {
+    display: none !important;
+}
+
+html body.page-reminders .item-more-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    margin-top: 8px;
+}
+
+html body.page-reminders .item-more-panel .item-cal-row {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+html body.page-reminders .item-more-panel .item-who-label {
+    margin-top: 12px;
+}
+
+html body.page-reminders .due-clock svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Liten väntindikator. Avbryt och 20 s sitter kvar. Sidan går att se bakom. */
+.jeab-nav-spinner {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    left: auto;
+    top: auto;
+    z-index: 9999;
+    display: block;
+    width: max-content;
+    max-width: min(360px, calc(100vw - 32px));
+    background: transparent;
+    pointer-events: none;
+}
+
+.jeab-nav-spinner[hidden] {
+    display: none !important;
+}
+
+.jeab-nav-spinner-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 100%;
+    pointer-events: auto;
+    padding: 14px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--orchid-border, rgba(255,255,255,0.14));
+    background: var(--orchid-raised, #1c1c1e);
+    color: var(--orchid-fg, #f5f5f7);
+    font-size: 14px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+
+.jeab-nav-spinner-cancel {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in oklab, currentColor 35%, transparent);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.jeab-nav-spinner-ring {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in oklab, currentColor 25%, transparent);
+    border-top-color: currentColor;
+    animation: jeab-nav-spin 0.7s linear infinite;
+    flex: 0 0 auto;
+}
+
+@keyframes jeab-nav-spin {
+    to { transform: rotate(360deg); }
+}
+
+.jeab-vunnen-ask {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+    background: color-mix(in oklab, #0b0c0e 35%, transparent);
+}
+
+.jeab-vunnen-ask-card {
+    width: min(420px, calc(100vw - 32px));
+    padding: 16px;
+    border: 1px solid var(--orchid-border, rgba(255,255,255,0.14));
+    border-radius: 14px;
+    background: var(--orchid-raised, #1c1c1e);
+    color: var(--orchid-fg, #f5f5f7);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.jeab-vunnen-ask-card p {
+    margin: 0 0 12px;
+    font-size: 16px;
+    line-height: 1.35;
+}
+
+.jeab-vunnen-ask-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.jeab-vunnen-ask-keep,
+.jeab-vunnen-ask-drop {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 10px;
+    border: 1px solid color-mix(in oklab, currentColor 35%, transparent);
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.jeab-vunnen-ask-keep {
+    font-weight: 600;
+}
+
+html.is-nav-loading,
+html.is-nav-loading body {
+    cursor: progress;
+}
+
+html body.page-reminders .item-tags-head p,
+html body.page-reminders .item-who-label,
+html body.page-reminders .item-more summary {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .item-created,
+html body.page-reminders .item-created span,
+html body.page-reminders .item-created-label,
+html body.page-reminders .item-due-label {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    color: var(--orchid-subtle);
+}
+
+html body.page-reminders .item-more {
+    margin: 0;
+}
+
+html body.page-reminders .item-more summary {
+    list-style: none;
+    cursor: pointer;
+}
+
+html body.page-reminders .item-more summary::-webkit-details-marker {
+    display: none;
+}
+
+html body.page-reminders .apple-list .item-extra .tag-chips,
+html body.page-reminders .apple-list .item-more-panel .tag-chips,
+html body.page-reminders .tag-chips.tag-pick,
+html body.page-reminders .item-who-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    width: auto;
+    overflow: visible;
+}
+
+html body.page-reminders .item-who-label {
+    margin-top: 16px;
+}
+
+html body.page-reminders .apple-list .item-extra .tag-toggle,
+html body.page-reminders .item-who-form {
+    margin: 0;
+    flex: 0 0 auto;
+    width: auto;
+}
+
+html body.page-reminders .tag-toggle:has(.vunnen-need) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 100%;
+    width: 100%;
+}
+
+html body.page-reminders .vunnen-need {
+    flex: 1 0 100%;
+    display: block;
+    box-sizing: border-box;
+    margin: 4px 0 0;
+    padding: 8px 10px;
+    border-radius: 10px;
+    background: var(--bg-subtle);
+    color: var(--late);
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+html body.page-reminders .apple-list .item-extra .tag-chip,
+html body.page-reminders .apple-list .item-more-panel .tag-chip,
+html body.page-reminders .item-who-chip {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    height: 44px !important;
+    min-height: 44px !important;
+    min-width: unset !important;
+    width: auto !important;
+    padding: 0 12px !important;
+    border: 1px solid var(--orchid-border) !important;
+    border-radius: 12px !important;
+    background: var(--orchid-bg) !important;
+    color: var(--orchid-muted) !important;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+}
+
+html body.page-reminders .tag-chip.is-test {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px dashed var(--text-secondary);
+    cursor: default;
+}
+
+html body.page-reminders .apple-list .item-extra .tag-chip.is-on,
+html body.page-reminders .item-who-chip.is-on {
+    border-color: var(--orchid-border-strong) !important;
+    background: var(--orchid-raised) !important;
+    color: var(--orchid-fg) !important;
+}
+
+html body.page-reminders .item-tags-head .tag-chip.is-primary,
+html body.page-reminders .item-tags-head button.tag-chip.is-primary,
+html body.page-reminders .apple-list .item-extra .tag-chip.is-primary,
+html body.page-reminders .apple-list .item-more-panel .tag-chip.is-primary,
+html body.page-reminders .item-tags-head .tag-chip.is-primary.is-on,
+html body.page-reminders .apple-list .item-extra .tag-chip.is-primary.is-on,
+html body.page-reminders .apple-list .item-more-panel .tag-chip.is-primary.is-on {
+    background: var(--orchid-accent) !important;
+    background-color: var(--orchid-accent) !important;
+    border-color: var(--orchid-accent) !important;
+    color: var(--orchid-accent-fg) !important;
+    -webkit-text-fill-color: var(--orchid-accent-fg) !important;
+    font-weight: 600 !important;
+}
+
+html body.page-reminders .crm-who .chip-count {
+    margin-left: 6px;
+    font-variant-numeric: tabular-nums;
+}
+
+html body.page-reminders .flag-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+html body.page-reminders .flag-btn {
+    box-sizing: border-box;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+}
+
+/* Create dialog — orchid sheet */
+html body.page-reminders dialog.reminder-create {
+    width: min(100%, 28rem);
+    max-height: 100dvh;
+    margin: auto 0 0;
+    padding: 20px;
+    border: 1px solid var(--orchid-border);
+    border-radius: 18px 18px 0 0;
+    background: var(--orchid-surface);
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders dialog.reminder-create::backdrop {
+    background: color-mix(in oklab, var(--orchid-bg) 70%, transparent);
+}
+
+@media (min-width: 640px) {
+    html body.page-reminders dialog.reminder-create {
+        margin: auto;
+        border-radius: 18px;
+    }
+}
+
+html body.page-reminders .reminder-create h2 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .reminder-create .field {
+    display: block;
+    min-height: 0;
+    margin-top: 12px;
+    padding: 0;
+    border: 0;
+}
+
+html body.page-reminders .reminder-create .field > span,
+html body.page-reminders .reminder-create-label {
+    display: block;
+    flex: none;
+    margin: 0 0 4px;
+    color: var(--orchid-muted);
+    font-size: 14px;
+}
+
+html body.page-reminders .reminder-create-label {
+    margin-top: 16px;
+}
+
+html body.page-reminders .reminder-create .field input,
+html body.page-reminders .reminder-create .field textarea {
+    display: block;
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    padding: 0 12px;
+    border: 1px solid var(--orchid-border);
+    border-radius: 8px;
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+    font-size: 16px;
+}
+
+html body.page-reminders .reminder-create .field textarea {
+    height: auto;
+    min-height: 44px;
+    padding: 10px 12px;
+}
+
+html body.page-reminders .reminder-create .field input:focus,
+html body.page-reminders .reminder-create .field textarea:focus {
+    border-color: var(--orchid-border-strong);
+}
+
+html body.page-reminders .reminder-create .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+html body.page-reminders .reminder-create .chip-opt span {
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 12px;
+    border: 1px solid var(--orchid-border);
+    background: var(--orchid-bg);
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders .reminder-create .chip-opt input:checked + span {
+    border-color: var(--orchid-border-strong);
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .reminder-create-foot {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+html body.page-reminders .reminder-create-cancel,
+html body.page-reminders .reminder-create-save {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+html body.page-reminders .reminder-create-cancel {
+    border: 1px solid var(--orchid-border);
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+}
+
+html body.page-reminders .reminder-create-save {
+    border: 0;
+    background: var(--orchid-accent);
+    color: var(--orchid-accent-fg);
+    -webkit-text-fill-color: var(--orchid-accent-fg);
+}
+
+html body.page-reminders .flash {
+    margin: 0 0 12px;
+}
+
+/* «Visa fler» under Klara: sekundär knapp (glas + ljus text + kant), 44 px. */
+html body.page-reminders .crm-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin: 16px 0 0;
+    padding: 12px 20px;
+    border: 1px solid var(--orchid-border);
+    border-radius: 6px;
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+html body.page-reminders .crm-more:hover {
+    border-color: var(--orchid-border-strong);
+}
+
+html body.page-reminders .crm-more:focus-visible {
+    outline: 2px solid var(--orchid-accent);
+    outline-offset: 2px;
+}
+
+html body.page-reminders .crm-more[aria-busy="true"] {
+    color: var(--orchid-muted);
+    pointer-events: none;
+}
+
+/* —— Polish 2026-10: grupper, chips, ring, Klar · Ångra, svep —— */
+
+/* «Försenat» överst i Idag, sedan «Idag». Rubriker som listrader, inga kort. */
+html body.page-reminders .apple-list .crm-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 16px 0 4px;
+    padding: 0;
+    border: 0;
+    background: none;
+    list-style: none;
+}
+
+html body.page-reminders .apple-list .crm-group:first-child {
+    margin-top: 0;
+}
+
+html body.page-reminders .apple-list .crm-group[hidden] {
+    display: none;
+}
+
+html body.page-reminders .apple-list .crm-group strong {
+    font-size: 14px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    color: var(--orchid-subtle);
+}
+
+/* Datumet har passerat: bara datumtexten i dämpad röd. Raden och rubriken «Försenat» ser
+   ut som vanligt (samma som «Idag»): ingen bakgrund, kant, märke eller röd rubrik. */
+html body.page-reminders {
+    --late-date: #c98a84;
+}
+
+html.theme-light body.page-reminders {
+    --late-date: #a2514a;
+}
+
+html body.page-reminders .apple-list .item.is-late:not(.is-done) .item-due-chip,
+html body.page-reminders .apple-list .item-due.is-late .due {
+    color: var(--late-date);
+}
+
+/* Ring direkt på raden. Mobilen har ett eget rutnät under 639px. */
+html body.page-reminders .apple-list .item-call {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-call {
+        display: inline-grid;
+        place-items: center;
+        position: relative;
+        z-index: 3;
+        flex: 0 0 auto;
+        box-sizing: border-box;
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        border: 1px solid var(--orchid-border);
+        border-radius: 6px;
+        background: var(--orchid-raised);
+        color: var(--orchid-call);
+    }
+}
+
+/* Klar · Ångra (och «Knuffad 2 dagar») */
+html body.page-reminders .crm-undo {
+    position: fixed;
+    left: 50%;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-height: 44px;
+    max-width: calc(100vw - 32px);
+    padding: 0 8px 0 16px;
+    transform: translateX(-50%);
+    border: 1px solid var(--orchid-border-strong);
+    border-radius: 12px;
+    background: var(--orchid-raised);
+    color: var(--orchid-fg);
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+html body.page-reminders .crm-undo[hidden] {
+    display: none;
+}
+
+html body.page-reminders .crm-undo-btn {
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--orchid-accent);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+html body.page-reminders .crm-undo-btn[hidden] {
+    display: none;
+}
+
+/* Knuffens Ångra sitter på sidan, inte i kortet. Omritning och att kortet lämnar listan tar den inte med sig. */
+html.is-snooze-toast-on body.page-reminders .apple-list {
+    padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px));
+}
+
+html.is-snooze-shift body.page-reminders .apple-list .item :is(a, button, input, textarea, select, label) {
+    pointer-events: none !important;
+}
+
+/* Under de 2 sekunderna ska kortet och 2h ligga kvar, även när listan hoppar ihop efter ett annat kort. */
+html body.page-reminders .apple-list .item.is-snooze-hold,
+html body.page-reminders .apple-list .item.is-snooze-hold[hidden] {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+html.is-snooze-shift body.page-reminders .apple-list .item.is-snooze-hold [data-js="snooze"] :is(button, input) {
+    pointer-events: auto !important;
+}
+
+html body.page-reminders .item-snooze-status.is-floating {
+    position: fixed;
+    left: 50%;
+    right: auto;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 80;
+    pointer-events: auto;
+    touch-action: manipulation;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-sizing: border-box;
+    width: min(360px, calc(100vw - 32px));
+    min-height: 44px;
+    margin: 0;
+    padding: 0 8px 0 16px;
+    transform: translateX(-50%);
+    border: 1px solid var(--orchid-border-strong);
+    border-radius: 12px;
+    background: var(--orchid-raised);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Klocktexten fyller den reserverade ytan. Ångra står kvar på högerkanten. */
+html body.page-reminders .item-snooze-status.is-floating .item-snooze-status-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 1.2em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+html body.page-reminders .item-snooze-status.is-floating .item-snooze-undo {
+    flex: 0 0 auto;
+}
+
+html body.page-reminders .item-snooze-status.is-floating[hidden] {
+    display: none;
+}
+
+html body.page-reminders .apple-list .item.is-done-pending {
+    opacity: 0.55;
+    transition: opacity 160ms ease;
+}
+
+/* Filtret byter listan mot staplar. Rubriken står kvar och sidan dimmas inte. */
+html body.page-reminders .crm-app[aria-busy="true"] .crm-main {
+    opacity: 1;
+}
+
+/* Anteckningen växer med texten, ingen inre scroll. */
+html body.page-reminders .item-inline textarea.item-note,
+html body.page-reminders .reminder-create textarea {
+    overflow-y: hidden;
+}
+
+@media (max-width: 639px) {
+    /* Påminnelser, stängt kort: smal högerkolumn. Datum över telefonen,
+       siffran till vänster om telefonen. Adressen tar resten. */
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-shut {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-copy {
+        min-width: 0;
+        line-height: 1.15;
+        white-space: normal;
+        overflow: hidden;
+    }
+
+    /* Datum ovanför telefonen, högerställt. Siffran till vänster om telefonen.
+       Klockslaget tar ingen bredd. Telefonen är 44px. Kontakt ligger inte här. */
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) {
+        position: static;
+        flex: 0 0 auto;
+        display: grid;
+        grid-template-columns: max-content 44px;
+        grid-template-rows: auto 44px;
+        column-gap: 8px;
+        row-gap: 0;
+        align-items: center;
+        justify-items: end;
+        justify-content: end;
+        width: max-content;
+        min-width: 0;
+        padding-top: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call):not(:has(.item-tap-total)) {
+        grid-template-columns: 44px;
+        column-gap: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta .item-due-clock {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta .item-due-chip {
+        position: static;
+        grid-column: 2;
+        grid-row: 1;
+        align-self: end;
+        top: auto;
+        right: auto;
+        width: auto;
+        min-width: 0;
+        margin-top: 0;
+        text-align: right;
+        font-size: 14px;
+        line-height: 1.2;
+        min-height: 44px;
+        pointer-events: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call):not(:has(.item-tap-total)) .item-due-chip,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call):not(:has(.item-tap-total)) .item-call {
+        grid-column: 1;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta .item-tap-total {
+        grid-column: 1;
+        grid-row: 2;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 1.2;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-call {
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: end;
+        position: relative;
+        z-index: 3;
+        display: inline-grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 44px;
+        height: 44px;
+        border: 1px solid var(--orchid-border);
+        border-radius: 6px;
+        background: var(--orchid-raised);
+        color: var(--orchid-call);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-call svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Stängt kort: adress och namn på samma rad. Anteckning tre rader.
+       Kontakt syns först när kortet är öppet. Telefonen är fortfarande 44px. */
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) {
+        padding: 4px 8px !important;
+        gap: 8px;
+        line-height: 1.15;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-addr,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-name {
+        display: block;
+        margin: 0;
+        line-height: 1.15;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Adressraden är ett steg mindre så gata och ort får plats. Ingen avklippning. */
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-addr {
+        font-size: 15px;
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-copy {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: baseline;
+        gap: 0.4em;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-addr + .item-shut-name {
+        margin-top: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-stack > .item-note,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-shut .item-note {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        margin: 1px 0 0;
+        line-height: 1.2;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-link-row {
+        display: none !important;
+    }
+
+    html body.page-reminders .apple-list .item:not(.is-open) {
+        position: relative;
+        touch-action: pan-y;
+    }
+
+    /* Hela stängda kortet är träffytan. Telefon och bock ligger ovanpå. */
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) a.item-main {
+        min-height: 44px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) a.item-main::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) > .check-form,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-note a {
+        position: relative;
+        z-index: 3;
+    }
+
+    html body.page-reminders .apple-list .item.is-swiping::after {
+        content: "2 dagar";
+        position: absolute;
+        top: 50%;
+        left: calc(100% + 16px);
+        transform: translateY(-50%);
+        color: var(--orchid-subtle);
+        font-size: 14px;
+        font-weight: 600;
+        white-space: nowrap;
+        pointer-events: none;
+    }
+
+    html body.page-reminders .apple-list .item.is-swiping.is-swipe-close::after {
+        content: "Klar";
+        left: auto;
+        right: calc(100% + 16px);
+    }
+
+    html body.page-reminders .apple-list .item.is-swipe-armed::after {
+        color: var(--orchid-accent);
+    }
+}
+
+html body.page-reminders.page-kontakter .kt-save {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 12px;
+}
+
+/* .btn är width:100%. Då hamnar Sparad. på raden under, under detaljens scrollkant. */
+html body.page-reminders.page-kontakter .kt-save .btn {
+    width: auto;
+    flex: 0 0 auto;
+}
+
+html body.page-reminders.page-kontakter .kt-save-status {
+    margin: 0;
+    flex: 1 1 auto;
+    min-width: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+html body.page-reminders.page-kontakter .kt-save-status.is-err {
+    color: var(--late-date, #c98a84);
+}
+
+/* Kontakter återanvänder Påminnelser-ytan. Bara layout som inte finns där. */
+html body.page-reminders.page-kontakter .apple-search input::placeholder {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+html body.page-reminders.page-kontakter .crm-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+
+html body.page-reminders.page-kontakter .kt-split {
+    display: grid;
+    grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+    margin-top: 16px;
+}
+
+html body.page-reminders.page-kontakter .kt-detail {
+    position: sticky;
+    top: 12px;
+    max-height: calc(100dvh - 24px);
+    overflow: auto;
+    min-width: 0;
+}
+
+html body.page-reminders.page-kontakter .kt-list {
+    min-width: 0;
+}
+
+html body.page-reminders.page-kontakter .apple-list .item.is-on {
+    border-color: var(--orchid-border-strong) !important;
+}
+
+html body.page-reminders.page-kontakter .item-shut-addr strong {
+    font-weight: 600;
+}
+
+html body.page-reminders.page-kontakter .item-shut-addr em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--orchid-muted);
+}
+
+html body.page-reminders.page-kontakter .kt-detail .card {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+}
+
+html body.page-reminders.page-kontakter .kt-detail .card h3 {
+    margin: 0;
+}
+
+html body.page-reminders.page-kontakter .pnr {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+html body.page-reminders.page-kontakter .pnr input {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+html body.page-reminders.page-kontakter .pnr .btn {
+    width: auto;
+}
+
+html body.page-reminders.page-kontakter .contact-mail,
+html body.page-reminders.page-kontakter .contact-digits {
+    display: inline-block;
+    margin: 0 0 6px;
+}
+
+html body.page-reminders.page-kontakter .kt-detail .field.kt-channel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+}
+
+html body.page-reminders.page-kontakter .kt-detail .field.kt-channel > span {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+html body.page-reminders.page-kontakter .kt-detail .field.kt-channel .contact-digits,
+html body.page-reminders.page-kontakter .kt-detail .field.kt-channel .contact-mail {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin: 0;
+}
+
+html body.page-reminders.page-kontakter .kt-detail .field.kt-channel input {
+    width: 100%;
+    min-height: 44px;
+    height: 44px;
+}
+
+html body.page-reminders.page-kontakter .kt-rel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0 0 8px;
+    padding: 12px 14px;
+    text-decoration: none;
+    color: inherit;
+}
+
+html body.page-reminders.page-kontakter .kt-rel b {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+html body.page-reminders.page-kontakter .kt-rel-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+html body.page-reminders.page-kontakter .kt-rel-text .muted,
+html body.page-reminders.page-kontakter .crm-section-title .muted {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 400;
+}
+
+html body.page-reminders.page-kontakter .kt-rel-list {
+    margin-top: 16px;
+}
+
+html body.page-reminders.page-kontakter .kt-modules {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 16px;
+    min-width: 0;
+}
+
+html body.page-reminders.page-kontakter .kt-module-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+html body.page-reminders.page-kontakter .kt-module-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: inherit;
+    font-size: 16px;
+    line-height: 1.3;
+    text-decoration: none;
+}
+
+html body.page-reminders.page-kontakter .kt-module-empty {
+    margin: 0;
+    font-size: 16px;
+}
+
+@media (min-width: 769px) {
+    html body.page-reminders.page-kontakter .kt-module-row {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+}
+
+html body.page-reminders.page-kontakter .kt-delete {
+    margin-top: 28px;
+}
+
+html body.page-reminders.page-kontakter .ix-btn.is-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--danger);
+    -webkit-text-fill-color: var(--danger);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+html body.page-reminders.page-kontakter .kt-back {
+    display: none;
+}
+
+html body.page-reminders.page-kontakter .chip-opt input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    html body.page-reminders.page-kontakter .kt-split {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    html body.page-reminders.page-kontakter .kt-detail {
+        position: static;
+        top: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    html body.page-reminders.page-kontakter.is-detail .apple-search,
+    html body.page-reminders.page-kontakter.is-detail .crm-stats,
+    html body.page-reminders.page-kontakter.is-detail .kt-list {
+        display: none !important;
+    }
+
+    html body.page-kontakter:not(.is-detail) .kt-detail {
+        display: none;
+    }
+
+    html body.page-kontakter.is-detail .kt-back {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin: 0 0 12px;
+        color: var(--text-primary);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    html body.page-kontakter.is-detail .kt-save {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 30;
+        padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+        background: var(--bg-page);
+        border-top: 1px solid var(--border);
+    }
+
+    html body.page-kontakter.is-detail .kt-detail {
+        padding-bottom: 88px;
+    }
+}
+
+/* Sök: träffar bland alla när de egna saknar träff */
+.crm-search-fallback {
+    margin: 4px 0 10px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: var(--orchid-surface-2, rgba(127,127,127,.12));
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+@media (min-width: 920px) {
+    html body.page-reminders .main {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
+
+/* 375px: foten och taggarna håller sig inne i kortet. */
+@media (max-width: 375px) {
+    html body.page-reminders .item-foot,
+    html body.page-reminders .item-tags-head,
+    html body.page-reminders .item-more-panel,
+    html body.page-reminders .tag-chips.tag-pick,
+    html body.page-reminders .item-who-row,
+    html body.page-reminders .item-cal-row {
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    html body.page-reminders .item-tags-head,
+    html body.page-reminders .tag-chips.tag-pick,
+    html body.page-reminders .item-who-row {
+        flex-wrap: wrap;
+    }
+
+    html body.page-reminders .item-cal-btn,
+    html body.page-reminders .apple-list .item-more-panel .tag-chip,
+    html body.page-reminders .item-who-chip {
+        max-width: 100%;
+        white-space: normal;
+    }
+}
+
+/* Mobil: stängt kort är adress, namn och anteckning, inte formulärets höjd. */
+@media (max-width: 480px) {
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-open,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-open[hidden] {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-shut {
+        display: flex !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-name {
+        margin-top: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-stack > .item-note {
+        margin-top: 2px;
+    }
+}
+
+/* Mobil under 900px: adress på första raden, namn under, ellips vid spill.
+   Ringen (bockcirkeln) syns inte på stängt kort. Siffran sitter som märke
+   i telefonknappens hörn. Datumraden tar ingen tom 44px-höjd. */
+@media (max-width: 899px) {
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) > .check-form {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-shut {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-head-shut > a.item-main {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-top {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-copy {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        gap: 1px;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-addr,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-name {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) {
+        position: relative;
+        display: grid;
+        grid-template-columns: 44px;
+        grid-template-rows: auto 44px;
+        column-gap: 0;
+        row-gap: 2px;
+        align-items: end;
+        justify-items: end;
+        width: 44px;
+        min-width: 44px;
+        padding-top: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-due-chip {
+        position: static;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: end;
+        width: auto;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        line-height: 1.15;
+        text-align: right;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-call {
+        grid-column: 1;
+        grid-row: 2;
+        position: relative;
+        z-index: 3;
+        width: 44px;
+        height: 44px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-tap-total {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: end;
+        align-self: start;
+        position: relative;
+        z-index: 4;
+        transform: translate(4px, -4px);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: auto;
+        min-width: 16px;
+        height: 16px;
+        margin: 0;
+        padding: 0 4px;
+        overflow: visible;
+        border: 2px solid var(--orchid-surface);
+        border-radius: 999px;
+        background: var(--orchid-accent);
+        color: var(--orchid-accent-fg);
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0;
+        pointer-events: none;
+    }
+}
+
+/* Skrivbord: tre rutor. Mobil döljer pinne, mitt-tom och höger. Kortets HTML är oförändrad. */
+html body.page-reminders .pam-desk-pin,
+html body.page-reminders .pam-mid-empty,
+html body.page-reminders .pam-side {
+    display: none;
+}
+
+html body.page-reminders .pam-mid {
+    display: none;
+}
+
+/* Skrivbord från 900px, samma tre kort som Inkorg: lista, öppet kort, Kund.
+   Sidan låses. Varje ruta rullar själv. Höger försvinner först, sedan vänster. */
+/* Skrivbordets listrad. Syns först i 900px-regeln. Mobilens regler rörs inte. */
+html body.page-reminders:not(.page-kontakter) .pam-ix {
+    display: none;
+}
+
+@media (min-width: 900px) {
+    html:has(body.page-reminders:not(.page-kontakter)),
+    html:has(body.page-reminders:not(.page-kontakter)) body.page-reminders:not(.page-kontakter) {
+        height: 100%;
+        min-height: 0 !important;
+        max-height: 100%;
+        overflow: hidden !important;
+        scrollbar-gutter: auto;
+    }
+
+    html:has(body.page-reminders:not(.page-kontakter)) body.page-reminders:not(.page-kontakter) {
+        height: 100vh;
+        height: 100dvh;
+        max-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) > .main {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        max-width: min(1920px, 100%);
+        width: 100%;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-app.crm-app {
+        display: grid !important;
+        grid-template-columns: auto auto minmax(0, 1fr) minmax(200px, 360px);
+        grid-template-areas:
+            "title title title title"
+            "stats who tags search"
+            "main main main main";
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+        max-width: none;
+        width: 100%;
+        gap: 8px 10px;
+        grid-template-rows: auto auto minmax(0, 1fr);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-top,
+    html body.page-reminders:not(.page-kontakter) .flash {
+        grid-area: title;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-stats.smart-grid {
+        grid-area: stats;
+        align-self: center;
+        flex-wrap: nowrap;
+        width: auto;
+        margin: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) form.apple-search {
+        grid-area: search;
+        align-self: center;
+        justify-self: end;
+        position: relative;
+        width: 100%;
+        max-width: 360px;
+        height: 44px;
+        min-width: 180px;
+        margin: 0;
+    }
+
+    /* Ikonen mäts mot sökrutan, inte mot en utsträckt rutnätsrad. */
+    html body.page-reminders:not(.page-kontakter) form.apple-search .crm-search-ico {
+        top: 50%;
+        left: 12px;
+        width: 16px;
+        height: 16px;
+        transform: translateY(-50%);
+    }
+
+    html body.page-reminders:not(.page-kontakter) form.apple-search .apple-search-field,
+    html body.page-reminders:not(.page-kontakter) form.apple-search input[type="search"] {
+        height: 44px;
+        min-height: 44px;
+        max-height: 44px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .tag-block.crm-tags {
+        grid-area: tags;
+        align-self: center;
+        min-width: 0;
+        margin: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .tag-block .tag-chips-mode {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        margin: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .cal-filter.crm-who {
+        grid-area: who;
+        align-self: center;
+        width: auto;
+        margin: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-who .who-scope-note {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-main.crm-main {
+        grid-area: main;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-app.crm-app > :not(.apple-main) {
+        flex: 0 0 auto;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-main.crm-main {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-main > .empty {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board {
+        display: grid;
+        grid-template-columns: clamp(260px, 22vw, 360px) minmax(0, 1fr);
+        gap: 12px;
+        flex: 1 1 auto;
+        min-height: 0;
+        min-width: 0;
+        align-items: stretch;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list,
+    html body.page-reminders:not(.page-kontakter) .pam-mid,
+    html body.page-reminders:not(.page-kontakter) .pam-side {
+        min-width: 0;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg-subtle);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list {
+        padding: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid {
+        display: block;
+        padding: 14px 16px 16px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid-list {
+        display: block;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid-empty {
+        display: block;
+        margin: 48px 0;
+        padding: 28px 16px;
+        border: 0;
+        background: transparent;
+        color: var(--text-secondary);
+        text-align: center;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board[data-open="1"] .pam-mid-empty,
+    html body.page-reminders:not(.page-kontakter) .pam-mid:has(.item.is-open) .pam-mid-empty {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item.is-open {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open {
+        display: flex !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        padding: 0 !important;
+        max-height: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-stats.smart-grid {
+        gap: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-stats .smart-tile {
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        min-height: 36px;
+        padding: 4px 12px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg-subtle);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-stats .smart-tile.is-on {
+        border-color: var(--border-strong);
+        background: color-mix(in srgb, var(--brand) 18%, var(--bg-subtle));
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-who .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        height: 44px;
+        min-height: 44px;
+        padding: 0 12px;
+        border: 1px solid var(--orchid-border) !important;
+        border-radius: 999px !important;
+        background: var(--orchid-surface) !important;
+        color: var(--orchid-muted) !important;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .crm-who .chip.is-on {
+        border-color: rgba(245, 245, 247, 0.85) !important;
+        background: color-mix(in oklab, var(--orchid-fg) 12%, var(--orchid-raised)) !important;
+        color: var(--orchid-fg) !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .apple-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .apple-list > .item:not(.is-open) {
+        display: grid !important;
+        grid-template-columns: 22px minmax(0, 1fr) auto;
+        grid-template-areas:
+            "check main meta"
+            "check note meta";
+        align-items: center;
+        column-gap: 8px;
+        row-gap: 0;
+        box-sizing: border-box;
+        min-height: 52px;
+        max-height: none;
+        margin: 0 !important;
+        padding: 6px 8px !important;
+        border: 0 !important;
+        border-radius: 10px !important;
+        background: transparent !important;
+        overflow: hidden !important;
+        cursor: pointer;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin {
+        display: grid !important;
+        grid-template-columns: 22px minmax(0, 1fr) auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        box-sizing: border-box;
+        min-height: 52px;
+        max-height: none;
+        margin: 0 !important;
+        padding: 6px 8px !important;
+        border: 0 !important;
+        border-radius: 10px !important;
+        background: transparent !important;
+        overflow: hidden !important;
+        cursor: pointer;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin.is-selected,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item.is-selected {
+        background: color-mix(in srgb, var(--brand) 16%, var(--bg-subtle)) !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) > .check-form {
+        grid-area: check;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        min-height: 22px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .apple-list .check {
+        width: 16px !important;
+        height: 16px !important;
+        min-width: 16px;
+        min-height: 16px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .apple-list .check::before {
+        inset: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-stack,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-head-shut {
+        display: contents !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-main,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-head-shut > a.item-main {
+        display: block;
+        grid-area: main;
+        min-width: 0;
+        color: inherit;
+        text-decoration: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-shut-copy {
+        display: block;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-shut-addr,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-addr {
+        margin: 0;
+        min-width: 0;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.01em;
+        color: var(--text-primary);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-stack:has(.item-note) .item-shut-name,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-shut-name:not(:only-child) {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-stack > .item-note,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-preview {
+        display: block;
+        grid-area: note;
+        margin: 0;
+        min-width: 0;
+        max-height: 1.3em;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-size: 13px;
+        line-height: 1.3;
+        color: var(--text-secondary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-link-row,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-inkorg-row,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-tap-total,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .crm-group {
+        max-height: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-link-row,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-inkorg-row {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-shut-meta {
+        display: flex;
+        grid-area: meta;
+        flex: 0 0 auto;
+        flex-direction: row;
+        align-items: center;
+        align-self: center;
+        gap: 6px;
+        margin: 0;
+        min-height: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-mark {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        justify-self: center;
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-main {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-due {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin .item-call {
+        grid-column: 3;
+        grid-row: 2;
+        justify-self: end;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin-due,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-due-chip {
+        margin: 0;
+        min-height: 0 !important;
+        height: auto !important;
+        color: var(--text-secondary);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.2;
+        white-space: nowrap;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-shut-meta .item-tap-total {
+        position: static !important;
+        width: auto !important;
+        height: auto !important;
+        margin: 0;
+        font-size: 12px !important;
+        font-weight: 600;
+        line-height: 1.1 !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-call,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-desk-pin .item-call {
+        display: inline-grid !important;
+        place-items: center;
+        width: 18px !important;
+        height: 18px !important;
+        min-width: 18px !important;
+        min-height: 18px !important;
+        padding: 0;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        color: var(--text-secondary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-call svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .crm-group {
+        min-height: 0;
+        max-height: none;
+        margin: 8px 4px 2px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .pam-ix,
+    html body.page-reminders:not(.page-kontakter) .pam-desk-pin .pam-ix {
+        display: flex !important;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) {
+        align-items: start;
+        min-height: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-shut-top,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-stack > .item-note,
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item:not(.is-open) .item-due-chip {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-l1 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-nm {
+        flex: 1 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-dt {
+        flex: 0 0 auto;
+        margin-left: auto;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-secondary);
+        white-space: nowrap;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-prod {
+        flex: 0 1 auto;
+        max-width: 9rem;
+        padding: 0 6px;
+        border-radius: 9px;
+        background: color-mix(in srgb, var(--brand) 14%, var(--bg-subtle));
+        color: var(--text-primary);
+        font-size: 10.5px;
+        font-weight: 600;
+        line-height: 1.6;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-addr,
+    html body.page-reminders:not(.page-kontakter) .pam-ix-sub {
+        display: block;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.35;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-l2 {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-l2 .pam-ix-sub {
+        flex: 1 1 auto;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-ix-pre {
+        display: -webkit-box;
+        min-width: 0;
+        overflow: hidden;
+        color: var(--text-secondary);
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.35;
+        white-space: normal;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-desk-pin:has(.pam-ix) {
+        align-items: start;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-desk-pin:has(.pam-ix) .pam-desk-pin-main,
+    html body.page-reminders:not(.page-kontakter) .pam-desk-pin:has(.pam-ix) .item-call {
+        grid-row: 1;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid {
+        display: flex;
+        flex-direction: column;
+        padding-top: 8px;
+        padding-bottom: 12px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid-list {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open {
+        position: relative;
+        flex: 1 1 auto;
+        flex-direction: column;
+        min-height: 0;
+        height: 100%;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open > .check-form {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-stack,
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-head-open,
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-inline {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        width: 100%;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item-addr-row {
+        flex: 0 0 auto;
+        align-items: center;
+        min-height: 44px;
+        margin-left: 48px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item-addr-row input.item-title {
+        border: 0 !important;
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        min-height: 0 !important;
+        height: auto !important;
+        border-radius: 0 !important;
+        font-size: 18px !important;
+        font-weight: 650 !important;
+        line-height: 1.25 !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item-name-row {
+        flex: 0 0 auto;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid textarea.item-note {
+        flex: 1 1 auto;
+        min-height: 180px !important;
+        height: auto !important;
+        field-sizing: fixed;
+        resize: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .contact-line,
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-extra {
+        flex: 0 0 auto;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-extra {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .snooze {
+        order: 5;
+        margin-top: 8px !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-mid .item.is-open .item-foot {
+        order: 4;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1099px) {
+    html body.page-reminders:not(.page-kontakter) .pam-board {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board-list,
+    html body.page-reminders:not(.page-kontakter) .pam-side {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1100px) and (max-width: 1279px) {
+    html body.page-reminders:not(.page-kontakter) .pam-board {
+        grid-template-columns: clamp(240px, 28vw, 320px) minmax(0, 1fr);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    html body.page-reminders:not(.page-kontakter) .pam-board:not(.is-side-collapsed) {
+        grid-template-columns: clamp(260px, 22vw, 360px) minmax(0, 1fr) clamp(260px, 20vw, 340px);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed {
+        grid-template-columns: clamp(260px, 22vw, 360px) minmax(0, 1fr) 46px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side {
+        display: block;
+        position: relative;
+        padding: 12px 16px 16px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed .pam-side-body,
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed .pam-side-kicker {
+        display: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed .pam-side {
+        padding: 8px 6px;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-toggle {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg-raised);
+        color: var(--text-secondary);
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed .pam-side-toggle {
+        position: static;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-arrow {
+        display: inline-block;
+        transition: transform 0.15s ease;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board.is-side-collapsed .pam-side-arrow {
+        transform: rotate(180deg);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-kicker {
+        margin: 0 36px 8px 0;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-body {
+        min-height: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-block {
+        margin-top: 14px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-block h2 {
+        margin: 0 0 6px;
+        font-size: 13px;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--text-secondary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-name {
+        margin: 0 0 4px;
+        font-weight: 650;
+        color: var(--text-primary);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-line,
+    html body.page-reminders:not(.page-kontakter) .pam-side-preview,
+    html body.page-reminders:not(.page-kontakter) .pam-side-muted,
+    html body.page-reminders:not(.page-kontakter) .pam-side-empty {
+        margin: 0 0 6px;
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin: 6px 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-meets {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        gap: 8px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-meets li {
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: var(--bg-page);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-board:not(.is-side-collapsed) .pam-mid .item-foot {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-tools {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin: 0 0 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-tools .item-who-label {
+        margin: 8px 0 4px;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .pam-side-tools .tag-chips,
+    html body.page-reminders:not(.page-kontakter) .pam-side-tools .item-who-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+}
+
+/* Inkomstdatum, nere till höger. Liten dämpad text, d/m. */
+html body.page-reminders:not(.page-kontakter) .item-arrived {
+    display: flex;
+    justify-content: flex-end;
+    align-self: flex-end;
+    width: max-content;
+    max-width: 100%;
+    margin: 4px 0 0 auto;
+    padding: 0;
+    pointer-events: none;
+}
+
+html body.page-reminders:not(.page-kontakter) .item-arrived-label {
+    color: var(--orchid-subtle);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+/* Skrivbordets listrad är ett tätt rutnät. Datumet visas på det öppna mittenkortet. */
+@media (min-width: 900px) {
+    html body.page-reminders:not(.page-kontakter) .pam-board-list .item-arrived {
+        display: none !important;
+    }
+}
+
+/* Under skrivbordets 900 px, samma mobilbrytpunkt som resten av sidan.
+   Stängt kort: telefonen och båda datumen (rött förfallo och grått
+   inkomstdatum) tar ingen plats. Siffran är märket som är kvar, och det är
+   stort. Öppet kort: det röda datumet ligger på en egen rad ovanför adressen.
+   Adressfältet tar hela kortbredden och radbryts så hela adressen syns.
+   Från 900 px är reglerna som förut. */
+@media (max-width: 899px) {
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) {
+        display: flex;
+        grid-template-columns: none;
+        grid-template-rows: none;
+        width: auto;
+        min-width: 0;
+        column-gap: 0;
+        row-gap: 0;
+        padding: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:not(:has(.item-tap-total)) {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta .item-due-chip,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-due-chip,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-arrived {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-call,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-call {
+        display: none !important;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta .item-tap-total,
+    html body.page-reminders:not(.page-kontakter) .apple-list .item:not(.is-open) .item-shut-meta:has(.item-call) .item-tap-total {
+        position: static;
+        transform: none;
+        grid-column: auto;
+        grid-row: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        width: auto;
+        min-width: 44px;
+        height: 44px;
+        margin: 0;
+        padding: 0 10px;
+        overflow: visible;
+        border: 0;
+        border-radius: 999px;
+        background: var(--orchid-accent);
+        color: var(--orchid-accent-fg);
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: 0;
+        pointer-events: none;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open {
+        flex-wrap: wrap;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open > .item-stack {
+        flex: 1 1 100%;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open .item-addr-row {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        justify-content: flex-start;
+        gap: 4px;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open .item-addr-row button.item-due-chip {
+        order: -1;
+        display: block;
+        flex: 0 0 auto;
+        align-self: stretch;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    html body.page-reminders:not(.page-kontakter) .apple-list .item.is-open .item-addr-row textarea.item-title {
+        display: block;
+        flex: 1 1 auto;
+        align-self: stretch;
+        box-sizing: border-box;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        height: auto;
+        min-height: 44px;
+        margin: 0;
+        resize: none;
+        overflow: hidden;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        field-sizing: content;
+    }
+}

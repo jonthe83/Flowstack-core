@@ -1,0 +1,431 @@
+/* Notiser till slutkund. Mint, Inter och 18-radie kommer från temats tokens. */
+
+body.page-notiser {
+    font-family: var(--font);
+}
+
+body.page-notiser .main {
+    max-width: 72rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px 16px 48px;
+}
+
+body.page-notiser .notis-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+body.page-notiser .crm-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+body.page-notiser .apple-eyebrow {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+}
+
+body.page-notiser h1.crm-title {
+    margin: 4px 0 0;
+    font-family: var(--font);
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+body.page-notiser .notis-lead {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 15px;
+}
+
+body.page-notiser .crm-stats.smart-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+}
+
+body.page-notiser .smart-tile {
+    border-radius: 18px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    min-height: 72px;
+}
+
+body.page-notiser .smart-tile b {
+    color: var(--text-primary);
+}
+
+body.page-notiser .smart-tile span {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+body.page-notiser .smart-tile.is-on {
+    box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+body.page-notiser .notis-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.page-notiser .notis-section {
+    margin: 0;
+    font-family: var(--font);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-notiser .notis-offer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+body.page-notiser .notis-offer form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+body.page-notiser button.chip {
+    font-family: var(--font);
+    cursor: pointer;
+}
+
+body.page-notiser .notis-table-wrap {
+    overflow-x: auto;
+}
+
+body.page-notiser .notis-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+}
+
+body.page-notiser .notis-table th,
+body.page-notiser .notis-table td {
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+body.page-notiser .chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+body.page-notiser .chip.chip-primary,
+body.page-notiser .chip.is-on {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--text-inverse);
+}
+
+body.page-notiser .notis-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body.page-notiser .notis-card {
+    position: relative;
+    display: block;
+    border-radius: 18px;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    padding: 12px 16px;
+    color: var(--text-primary);
+}
+
+body.page-notiser .notis-switch {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    z-index: 1;
+    margin: 0;
+}
+
+body.page-notiser .notis-toggle {
+    min-width: 64px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    font-family: var(--font);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+body.page-notiser .notis-toggle.is-on {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: var(--text-inverse);
+}
+
+body.page-notiser .notis-fold summary {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-right: 84px;
+    cursor: pointer;
+    list-style: none;
+}
+
+body.page-notiser .notis-fold summary::-webkit-details-marker {
+    display: none;
+}
+
+body.page-notiser .notis-name {
+    font-family: var(--font);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+body.page-notiser .notis-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+body.page-notiser .notis-line .chip {
+    min-height: 28px;
+    padding: 0 10px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+body.page-notiser .notis-used,
+body.page-notiser .notis-why {
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+body.page-notiser .notis-why {
+    color: var(--danger);
+}
+
+body.page-notiser .notis-more {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+}
+
+body.page-notiser .notis-sender {
+    margin: 0;
+    font-size: 15px;
+}
+
+body.page-notiser .notis-sender span,
+body.page-notiser .notis-body-label {
+    display: block;
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: var(--text-subtle);
+}
+
+body.page-notiser .notis-status {
+    flex: 0 0 auto;
+    min-height: 28px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+body.page-notiser .notis-status.is-aktiv {
+    background: color-mix(in srgb, var(--success) 22%, transparent);
+    color: var(--success);
+}
+
+body.page-notiser .notis-status.is-av {
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+}
+
+body.page-notiser .notis-status.is-problem {
+    background: color-mix(in srgb, var(--danger) 18%, transparent);
+    color: var(--danger);
+}
+
+body.page-notiser .notis-problem {
+    margin: 0;
+    color: var(--danger);
+    font-weight: 500;
+}
+
+body.page-notiser .notis-trigger,
+body.page-notiser .notis-source {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+body.page-notiser .notis-files {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body.page-notiser .notis-files li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    border-radius: 18px;
+    background: var(--bg-subtle);
+}
+
+body.page-notiser .notis-files a {
+    color: var(--brand);
+    font-weight: 500;
+}
+
+body.page-notiser .notis-files small {
+    color: var(--text-subtle);
+}
+
+body.page-notiser .notis-body pre {
+    margin: 8px 0 0;
+    padding: 12px;
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+body.page-notiser .notis-audit {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+body.page-notiser .notis-edit,
+body.page-notiser .notis-restore {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+}
+
+body.page-notiser .notis-edit label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+body.page-notiser .notis-edit textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+body.page-notiser .notis-empty {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 720px) {
+    body.page-notiser .main {
+        padding: 16px 12px 32px;
+    }
+
+    body.page-notiser .crm-stats.smart-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    body.page-notiser .crm-top {
+        align-items: flex-start;
+    }
+
+    body.page-notiser h1.crm-title {
+        font-size: 24px;
+    }
+
+    body.page-notiser .notis-card {
+        padding: 12px;
+    }
+
+    body.page-notiser .notis-switch {
+        top: 8px;
+        right: 8px;
+    }
+
+    body.page-notiser .notis-fold summary {
+        padding-right: 76px;
+    }
+
+    body.page-notiser .notis-name {
+        font-size: 16px;
+    }
+
+    body.page-notiser .notis-line {
+        gap: 6px;
+    }
+
+    body.page-notiser .chip {
+        min-height: 44px;
+    }
+
+    body.page-notiser .notis-line .chip {
+        min-height: 32px;
+    }
+}

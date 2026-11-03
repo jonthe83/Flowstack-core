@@ -1,0 +1,18 @@
+---
+description: Agenter deployar aldrig till flowstack.example.test — varken TinyFM, FTP eller Deploy till Loopia
+alwaysApply: true
+---
+
+# Deploy: agenter gör det inte
+
+**Agenter deployar ALDRIG till flowstack.example.test.** Cody mergar och deployar.
+
+Förbjudet:
+
+- TinyFM (`https://flowstack.example.test/filer.php`, `tools/tinyfm_ship.py`, användare `einstein`, `TINYFM_PASSWORD`, `JEAB_CAMPAIGN_CODE` / `JEAB_PASSWORD` som uppladdning)
+- FTP (`lftp`, `curl ftp://`, `ftplib`, `LOOPIA_FTP_*`, `LFTP_PASS`)
+- Workflowen `.github/workflows/deploy-loopia.yml` och skriptet `.github/scripts/loopia_deploy.py` — kör den inte, lägg inte till en `push`-trigger, och starta inte `workflow_dispatch`
+
+Rör aldrig remote `data/`. Byt inte ut `filer.php`.
+
+Saknas en secret är det inte en anledning att välja en annan väg. Stoppa och lämna deploy till Cody.

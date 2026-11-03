@@ -1,0 +1,678 @@
+/* Kalender: kort med tid överst, interna poster tunna och grå, röda dagar,
+   dagens markering, rader utanför 07–17, läsvy/bottenark och veckan som lista på mobil. */
+body.page-bookings {
+    --cal-red: #c98a84;
+    --cal-internal: color-mix(in srgb, var(--text-primary) 7%, transparent);
+}
+html.theme-light body.page-bookings {
+    --cal-red: #a2514a;
+}
+
+/* —— Kort —— */
+.week-grid .wg-day-col .wg-item:not(.wg-ghost) {
+    align-content: start;
+}
+.week-grid .wg-item .wg-time {
+    font-size: 11px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.75;
+    margin-bottom: 1px;
+}
+.week-grid .wg-item .wg-lead,
+.week-grid .wg-item strong.wg-lead {
+    font-weight: 650;
+}
+.week-grid .wg-item:not(.wg-allday-item) .wg-meta {
+    opacity: 0.68;
+}
+
+/* —— Interna poster (ADMIN, Kickoff, PS …) —— */
+.wg-item.is-outlook.is-internal,
+.wg-item.wg-allday-item.is-outlook.is-internal {
+    background: var(--cal-internal);
+    color: var(--muted);
+    box-shadow: inset 2px 0 0 color-mix(in srgb, var(--muted) 45%, transparent);
+    font-size: 11px;
+}
+.week-grid .wg-day-col .wg-item.is-internal {
+    padding: 2px 6px;
+}
+.wg-item.is-outlook.is-internal strong,
+.wg-item.is-outlook.is-internal span,
+.wg-item.is-outlook.is-internal .wg-lead,
+.wg-item.is-outlook.is-internal .wg-meta {
+    color: var(--muted);
+    font-weight: 500;
+}
+.wg-item.is-outlook.is-internal .wg-meta {
+    opacity: 0.85;
+}
+.mv-item.is-outlook {
+    background: var(--cal-internal);
+    color: var(--muted);
+}
+
+/* —— Idag och röda dagar —— */
+.wg-day.is-today {
+    box-shadow: inset 0 -2px 0 var(--accent);
+}
+.wg-day.is-red,
+.mv-day.is-red .mv-date {
+    color: var(--cal-red);
+}
+.wg-red,
+.mv-red {
+    font-size: 11px;
+    font-weight: 500;
+}
+.wg-day-col.is-red::after,
+.mv-day.is-red::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--cal-red) 9%, transparent);
+    pointer-events: none;
+}
+.mv-day { position: relative; }
+.cal-page.is-loading .week-grid,
+.cal-page.is-loading .month-cal {
+    opacity: 0.55;
+    transition: opacity 0.15s ease;
+}
+
+/* —— Utanför 07–17 —— */
+.wg-out {
+    display: grid;
+    grid-template-columns: 40px repeat(5, minmax(0, 1fr));
+    gap: 0 8px;
+    background: var(--bg);
+    padding: 3px 0;
+}
+.wg-out[hidden] { display: none; }
+.wg-out-label {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 600;
+    padding-top: 3px;
+    white-space: nowrap;
+}
+.wg-out-cell {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 6px;
+    min-width: 0;
+}
+.wg-out-item {
+    display: inline-flex;
+    gap: 4px;
+    align-items: baseline;
+    min-width: 0;
+    max-width: 100%;
+    padding: 1px 4px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 11px;
+    line-height: 1.3;
+    text-align: left;
+    overflow-wrap: anywhere;
+}
+button.wg-out-item { cursor: pointer; color: var(--text); }
+.wg-out-time { font-variant-numeric: tabular-nums; font-weight: 600; }
+.wg-day-col .wg-out-inline { display: none; }
+
+/* —— Datumfältet i bokningsarket: svensk text, ISO-värde —— */
+.outlook .when-day-sv {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 16px;
+    font-weight: 650;
+    line-height: 1.2;
+    pointer-events: none;
+}
+.outlook .when-edit .when-day #booking-start-day {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+
+/* —— «…»-meny (Avboka ligger inte bredvid Spara) —— */
+.sheet-more {
+    position: relative;
+    flex: 0 0 auto;
+    margin-right: auto;
+}
+.sheet-more[hidden] { display: none; }
+.sheet-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--tap, 44px);
+    min-height: var(--tap, 44px);
+    border-radius: var(--radius-btn, 10px);
+    color: var(--muted);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+.sheet-more-btn::-webkit-details-marker { display: none; }
+.sheet-more-btn:hover,
+.sheet-more[open] .sheet-more-btn { background: var(--bg-control-hover, var(--bg-subtle)); }
+.sheet-more-menu {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    left: 0;
+    z-index: 6;
+    min-width: 140px;
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--card);
+    box-shadow: 0 8px 24px color-mix(in srgb, #000 22%, transparent);
+}
+.outlook .outlook-foot .sheet-more-menu .btn-danger,
+.sheet-more-menu .btn-danger {
+    width: 100%;
+    margin: 0;
+}
+
+/* —— Läsvy —— */
+.cal-read {
+    width: min(380px, calc(100% - 24px));
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--card);
+    color: var(--text);
+    overflow: visible;
+}
+.cal-read::backdrop { background: color-mix(in srgb, var(--bg-page, #000) 70%, transparent); }
+.cal-read-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px 14px 14px;
+    max-height: calc(100dvh - 24px);
+    overflow-y: auto;
+}
+.cal-read-top {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.cal-read-when {
+    flex: 1 1 auto;
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 600;
+}
+.cal-read-top .sheet-more { margin-right: 0; }
+.cal-read-top .sheet-more-menu { bottom: auto; top: calc(100% + 4px); left: auto; right: 0; }
+.cal-read-close {
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+}
+.cal-read-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+.cal-read-customer {
+    margin: 0 0 4px;
+    color: var(--muted);
+    font-size: 15px;
+}
+.cal-read-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    margin: 0;
+    font-size: 15px;
+    overflow-wrap: anywhere;
+}
+.cal-read-line .ico { flex: 0 0 16px; width: 16px; height: 16px; color: var(--muted); }
+.cal-read-line a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--accent);
+    text-decoration: none;
+}
+.cal-read-notes {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    white-space: pre-line;
+}
+.cal-read [hidden] { display: none !important; }
+.cal-read-big { display: none; }
+.cal-read-foot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+.cal-read-link {
+    flex: 1 1 auto;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+}
+.cal-read-foot .btn-save { flex: 0 0 auto; margin-left: auto; }
+
+/* Bottenark på mobil med stora Ring/Navigera */
+@media (max-width: 719px) {
+    .cal-read.is-sheet {
+        width: 100vw;
+        max-width: 100vw;
+        margin: auto 0 0;
+        border-radius: 16px 16px 0 0;
+        border-bottom: 0;
+    }
+    .cal-read.is-sheet .cal-read-card { padding-bottom: calc(16px + env(safe-area-inset-bottom, 0px)); }
+    .cal-read.is-sheet .cal-read-big:not([hidden]) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 8px;
+    }
+    .cal-read-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 56px;
+        border-radius: 12px;
+        background: var(--brand);
+        color: var(--text-inverse);
+        font-size: 17px;
+        font-weight: 700;
+        text-decoration: none;
+    }
+    .cal-read-btn[hidden] { display: none; }
+    .cal-read-btn + .cal-read-btn { background: var(--bg-control, var(--bg-subtle)); color: var(--text-primary); border: 1px solid var(--line); }
+    .cal-read-big .cal-read-btn:only-child { grid-column: 1 / -1; }
+}
+
+/* —— Mobil: veckan som lista (mån–fre), läsbar vid 390 px —— */
+@media (max-width: 719px) {
+    .week-grid {
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        overflow: visible;
+    }
+    .week-grid .wg-head,
+    .week-grid .wg-hours,
+    .week-grid .wg-out,
+    .week-grid .wg-allday-label,
+    .week-grid .wg-allday-cell,
+    .week-grid .wg-day-col .wg-cell {
+        display: none !important;
+    }
+    .week-grid .wg-allday,
+    .week-grid .wg-allday.is-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        height: auto;
+        min-height: 0;
+        padding: 0 0 4px;
+        background: transparent;
+        overflow: visible;
+    }
+    .week-grid .wg-allday .wg-item.wg-allday-item {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        min-height: 44px;
+        margin: 0;
+        padding: 8px 10px;
+        white-space: normal;
+    }
+    .week-grid .wg-allday .wg-item.wg-allday-item.is-internal { min-height: 0; padding: 4px 8px; }
+    .week-grid .wg-allday .wg-item.wg-allday-item .wg-lead,
+    .week-grid .wg-allday .wg-item.wg-allday-item .wg-meta {
+        display: block;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+    }
+    .week-grid .wg-allday .wg-item.wg-allday-item .wg-meta::before { content: none; }
+    .week-grid .wg-body {
+        display: block;
+        background: transparent;
+    }
+    .week-grid .wg-day-col {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-height: 44px;
+        padding: 0 0 10px;
+        background: none;
+        overflow: visible;
+        cursor: pointer;
+        border-top: 1px solid var(--line);
+    }
+    .week-grid .wg-day-col::before {
+        content: attr(data-label);
+        order: -100000;
+        padding: 10px 2px 2px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 650;
+    }
+    .week-grid .wg-day-col.is-today::before {
+        color: var(--accent);
+        box-shadow: inset 2px 0 0 var(--accent);
+        padding-left: 8px;
+    }
+    .week-grid .wg-day-col.is-red::before { color: var(--cal-red); }
+    .week-grid .wg-day-col.is-red::after { content: none; }
+    .week-grid .wg-day-col .wg-item:not(.wg-ghost) {
+        order: var(--ord, 0);
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        min-height: 44px;
+        margin: 0;
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+    .week-grid .wg-day-col .wg-item.is-internal {
+        min-height: 0;
+        padding: 4px 8px;
+        font-size: 12px;
+    }
+    .week-grid .wg-day-col .wg-item strong,
+    .week-grid .wg-day-col .wg-item span {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        overflow-wrap: anywhere;
+    }
+    .week-grid .wg-day-col .wg-item.is-internal .wg-time,
+    .week-grid .wg-day-col .wg-item.is-internal .wg-lead,
+    .week-grid .wg-day-col .wg-item.is-internal .wg-meta {
+        display: inline;
+        margin: 0 6px 0 0;
+    }
+    .week-grid .wg-day-col .wg-out-inline {
+        display: flex;
+        min-height: 0;
+        padding: 2px 4px;
+    }
+    .week-grid .wg-ghost { display: none !important; }
+}
+
+/* Heldagens dagar syns bara i mobillistan */
+.wg-item .wg-days { display: none !important; }
+
+/* Interna poster: en rad, ingen fyllning — kundjobben syns först */
+.week-grid .wg-item.is-internal {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: baseline;
+    column-gap: 6px;
+    background: transparent;
+    border: 1px dashed color-mix(in srgb, var(--muted) 45%, transparent);
+    box-shadow: none;
+}
+.week-grid .wg-day-col .wg-item.is-internal {
+    overflow: hidden;
+}
+.week-grid .wg-item.is-internal .wg-time,
+.week-grid .wg-item.is-internal .wg-lead,
+.week-grid .wg-item.is-internal .wg-meta {
+    flex: 0 1 auto;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 719px) {
+    .week-nav-row {
+        flex-wrap: wrap;
+        row-gap: 4px;
+    }
+    .week-nav-shift {
+        width: 100%;
+        grid-template-columns: var(--tap) minmax(min-content, 1fr) var(--tap);
+    }
+    .week-label { font-size: 17px; }
+    .week-nav-row .week-view-toggle { gap: 8px; }
+    .week-nav-row .week-view-toggle .chip { min-height: 44px; padding: 0 16px; font-size: 14px; }
+    .week-grid .wg-allday .wg-item.wg-allday-item .wg-days { display: block !important; order: -1; margin: 0 0 2px; font-weight: 500; opacity: 0.75; }
+    .week-grid .wg-allday .wg-item.wg-allday-item.is-internal .wg-lead,
+    .week-grid .wg-allday .wg-item.wg-allday-item.is-internal .wg-meta,
+    .week-grid .wg-day-col .wg-item.is-internal .wg-time,
+    .week-grid .wg-day-col .wg-item.is-internal .wg-lead,
+    .week-grid .wg-day-col .wg-item.is-internal .wg-meta {
+        display: inline;
+        white-space: normal;
+    }
+    .week-grid .cal-filter-main .chip,
+    .cal-page .cal-filter .chip { min-height: 44px; }
+}
+
+/* —— Vyväljare Månad · Vecka · Idag (segment, samma form som kontorsväljaren) —— */
+.week-nav-row .week-view-toggle.cal-views {
+    display: inline-flex;
+    gap: 0;
+    padding: 2px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-subtle);
+}
+.week-nav-row .week-view-toggle.cal-views .chip {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+.week-nav-row .week-view-toggle.cal-views .chip.is-on {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    font-weight: 650;
+    box-shadow: 0 1px 2px color-mix(in srgb, #000 18%, transparent);
+}
+.week-today.is-today-ping,
+.wg-day-col.is-today-ping,
+.wg-item.is-today-ping,
+.when-day-sv.is-today-ping {
+    animation: jeab-today-ping 0.9s ease;
+}
+@keyframes jeab-today-ping {
+    0% { box-shadow: inset 0 0 0 2px #3d7eff; }
+    100% { box-shadow: inset 0 0 0 2px transparent; }
+}
+
+/* —— Dagvyn: en kolumn 07–17 —— */
+.week-grid.is-day .wg-head,
+.week-grid.is-day .wg-body,
+.week-grid.is-day .wg-allday,
+.week-grid.is-day .wg-out {
+    grid-template-columns: 40px minmax(0, 1fr);
+}
+.week-grid.is-day .wg-day-col .wg-item:not(.wg-ghost) .wg-lead { font-size: 14px; }
+
+@media (max-width: 719px) {
+    .week-nav-row .week-view-toggle.cal-views { width: 100%; gap: 0; }
+    .week-nav-row .week-view-toggle.cal-views .chip {
+        flex: 1 1 0;
+        justify-content: center;
+        min-height: 44px;
+        padding: 0 8px;
+        font-size: 15px;
+    }
+    .week-grid.is-day .wg-day-col::before { display: none; }
+    .cal-page,
+    .month-cal,
+    .week-grid {
+        max-width: 100%;
+    }
+    #booking-sheet.outlook {
+        left: 0;
+        right: 0;
+        top: auto;
+        bottom: 0;
+        width: auto;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 16px 16px 0 0;
+        max-height: 100dvh;
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+    .outlook .field input,
+    .outlook .field textarea,
+    .outlook select.when-clock {
+        font-size: 16px;
+    }
+}
+
+body.page-bookings .cal-filter .chip {
+    min-height: 44px;
+}
+.cal-stale {
+    margin: 4px 0 0;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+.cal-stale[hidden] {
+    display: none;
+}
+.cal-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 16px;
+    z-index: 80;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-sizing: border-box;
+    min-height: 44px;
+    max-width: calc(100% - 24px);
+    margin: 0;
+    padding: 8px 8px 8px 14px;
+    border-radius: 12px;
+    background: var(--text-primary);
+    color: var(--bg);
+    font-size: 15px;
+    font-weight: 650;
+    box-shadow: var(--shadow);
+}
+.cal-toast[hidden] {
+    display: none;
+}
+.cal-toast button {
+    min-height: 44px;
+    margin: 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 750;
+    cursor: pointer;
+}
+.sheet-more-menu button[data-busy="1"] {
+    cursor: progress;
+    opacity: 0.6;
+}
+
+.sheet-more-menu button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 44px;
+    margin: 0;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+.sheet-more-menu .btn-danger {
+    background: var(--danger);
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+}
+
+.cal-read-move {
+    display: none;
+    gap: 8px;
+}
+.cal-read.is-sheet .cal-read-move {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+}
+.cal-read-move button {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.cal-move-undo {
+    position: fixed;
+    z-index: 80;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: var(--card);
+    color: var(--text-primary);
+    box-shadow: 0 8px 28px color-mix(in srgb, #000 28%, transparent);
+}
+.cal-move-undo[hidden] { display: none !important; }
+.cal-move-undo p { margin: 0; flex: 1 1 160px; font-size: 14px; }
+.cal-move-undo button { min-height: 44px; padding: 0 14px; }

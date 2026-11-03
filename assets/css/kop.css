@@ -1,0 +1,146 @@
+.page-purchase,
+.page-purchase .main {
+    background: var(--bg-page);
+    color: var(--text-primary);
+}
+.page-purchase .buy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 720px;
+}
+.page-purchase .buy-head {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+}
+.page-purchase .buy-head h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    text-align: left;
+    color: var(--text-primary);
+}
+.page-purchase .buy-back {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    min-height: var(--tap);
+    display: inline-flex;
+    align-items: center;
+}
+.page-purchase .buy-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background: var(--bg-glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+}
+.page-purchase .buy-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    margin: 0;
+}
+.page-purchase .buy-field span,
+.page-purchase .buy-read span {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+}
+.page-purchase .buy-field input {
+    min-height: var(--tap);
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+}
+.page-purchase .buy-lines {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+.page-purchase .buy-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    gap: var(--space-2);
+}
+.page-purchase .buy-primary {
+    min-height: var(--tap);
+    margin-top: var(--space-2);
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--radius-btn);
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font-size: 16px;
+    font-weight: 700;
+}
+.page-purchase .buy-person {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn);
+}
+.page-purchase .buy-person.is-on {
+    border-color: var(--border-strong);
+    box-shadow: 0 0 0 1px var(--brand);
+}
+.page-purchase .buy-role {
+    margin: 0;
+    display: inline-flex;
+    align-self: flex-start;
+    min-height: 0;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+.page-purchase .buy-role.is-on {
+    border-color: var(--brand);
+    background: var(--bg-card-tint);
+    color: var(--text-secondary);
+}
+.page-purchase .buy-read {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 16px;
+}
+.buy-pick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+.buy-chip {
+    margin-top: var(--space-2);
+}
+.buy-kop {
+    min-height: 44px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}

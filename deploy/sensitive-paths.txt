@@ -1,0 +1,23 @@
+# Paths the PHP shield refuses when nginx falls through to the app.
+# A missing file here is 403 Forbidden, not the campaign page.
+# Deploy denies the same prefixes, except src/, fullmakt/lib/ and fullmakt/vendor/
+# which must still upload. The shield still refuses those URLs.
+# fullmakt/data stays denied for both deploy and the shield.
+# The host snippet is .github/loopia-nginx.conf. This repo cannot install it.
+# exact names with no slash match that filename in any directory.
+# README.md denies /README.md and /fullmakt/README.md.
+# private/ is the web tree for the deploy flag and backups. The two deny
+# .htaccess files under it are still uploaded (see PRIVATE_HTACCESS_ALLOW).
+prefix private
+prefix data
+prefix schema
+prefix src
+prefix tests
+prefix fullmakt/data
+prefix fullmakt/lib
+prefix fullmakt/vendor
+prefix gi/data
+prefix privat/fullmakt/signed
+prefix data/.private/fullmakt/signed
+exact README.md
+exact AGENTS.md

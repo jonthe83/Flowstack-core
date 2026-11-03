@@ -1,0 +1,30 @@
+---
+description: Efter kodändringar — commit, push och PR. Aldrig merge till main och aldrig deploy.
+alwaysApply: true
+---
+
+# Aldrig deploy, aldrig merge
+
+Agenter tar **inte** kod till publika flowstack.example.test och mergar **inte** till `main`. Cody mergar och deployar.
+
+## Pipeline (gör i ordning, samma session)
+
+1. **Commit + push till GitHub** på arbetsgrenen (`cursor/…`).
+2. **Öppna eller uppdatera en PR** mot `main`. Lämna den öppen. Merga den inte.
+
+## Förbjudet
+
+- TinyFM (`https://flowstack.example.test/filer.php`, `tools/tinyfm_ship.py`, `TINYFM_PASSWORD`)
+- FTP (`lftp`, `curl ftp://`, `ftplib`, Loopia-FTP-secrets)
+- Workflowen Deploy till Loopia (`.github/workflows/deploy-loopia.yml`)
+- Att själv merga till `main`
+
+## Hårda gränser
+
+- Rör aldrig remote `data/`.
+- Byt inte ut TinyFM-kroppen i `filer.php`.
+- Återställ inte livefiler och starta ingen uppladdning, även om kärnfiler saknas på servern.
+
+## Kort sagt
+
+Kodändring → GitHub → PR. Cody tar den till `main` och flowstack.example.test.

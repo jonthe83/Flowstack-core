@@ -1,0 +1,7 @@
+oauth_setup.php
+fortnox_config.php
+fortnox_tokens.json
+tokens.json
+logs/
+.env
+*.pem

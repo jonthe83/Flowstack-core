@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ägare</title>
+<link rel="stylesheet" href="/assets/css/ordrar-v3.css">
+</head>
+<body class="page-ordrar">
+<div class="ov3">
+  <div class="v3-hright">
+    <form class="ordrar-staff-owner v3-owner" method="post" action="#tillhor">
+      <label>Tillhör
+        <select name="staff" aria-label="Tillhör"><option>Ada</option></select>
+      </label>
+    </form>
+  </div>
+  <section class="v3-card" id="steg-bekrafta">
+    <h1>Bekräfta</h1>
+    <details class="v3-sub-d" open>
+      <summary><span class="v3-t">Fastighet &amp; ägare</span></summary>
+      <div class="v3-subbody">
+        <div class="v3-owners">
+          <article class="v3-owner">
+            <header>
+              <strong>Ägare 1</strong>
+              <span class="v3-pillsw" role="group">
+                <button type="button" class="is-on">Huvudsökande</button>
+                <button type="button">Medsökande</button>
+              </span>
+            </header>
+            <div class="v3-kv"><span>Namn:</span><b data-field="name">Leif Ove Göran Karlsson</b><button type="button" class="v3-cp" aria-label="Kopiera">c</button></div>
+            <div class="v3-kv"><span>Personnummer:</span><span class="v3-reveal"><span class="v3-mask">19550826-••••</span> <button type="button" class="v3-eye">Visa</button></span><button type="button" class="v3-cp" aria-label="Kopiera">c</button></div>
+            <div class="v3-kv"><span>Adress:</span><span data-field="address">KROKUSVÄGEN 10, 17674 JÄRFÄLLA</span><button type="button" class="v3-cp" aria-label="Kopiera">c</button></div>
+          </article>
+          <article class="v3-owner">
+            <header>
+              <strong>Ägare 2</strong>
+              <span class="v3-pillsw" role="group">
+                <button type="button">Huvudsökande</button>
+                <button type="button" class="is-on">Medsökande</button>
+              </span>
+            </header>
+            <div class="v3-kv"><span>Namn:</span><input class="v3-owner-in" data-field="name" value="Elisabeth Eriksson"></div>
+            <div class="v3-kv"><span>Personnummer:</span><input class="v3-owner-in" data-field="pnr" value="19550826-1234"><button type="button" class="v3-cp" aria-label="Kopiera">c</button></div>
+            <div class="v3-kv"><span>Adress:</span><input class="v3-owner-in" data-field="address" value="KROKUSVÄGEN 10, 17674 JÄRFÄLLA"><button type="button" class="v3-cp" aria-label="Kopiera">c</button></div>
+          </article>
+        </div>
+      </div>
+    </details>
+  </section>
+</div>
+</body>
+</html>

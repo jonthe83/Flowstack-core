@@ -1,0 +1,3943 @@
+/* Inkorg — samma kort, chips och knappar som Påminnelser och Ordrar.
+   Färgerna kommer från tokens. Inga nya komponenter. */
+
+body.page-inkorg .main {
+    padding-top: 16px;
+}
+
+body.page-inkorg .apple-app.ix,
+body.page-inkorg .regler-page {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    width: 100%;
+    min-width: 0;
+}
+
+body.page-inkorg .crm-top {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
+}
+
+body.page-inkorg .apple-eyebrow {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-subtle, var(--text-secondary));
+}
+
+body.page-inkorg .ix-storage {
+    margin-left: 8px;
+    color: var(--text-subtle, var(--text-secondary));
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.2;
+    text-transform: none;
+}
+
+body.page-inkorg .crm-title-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+body.page-inkorg .crm-gear {
+    position: relative;
+    flex: 0 0 auto;
+}
+
+body.page-inkorg .crm-gear > summary {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    list-style: none;
+    cursor: pointer;
+}
+
+body.page-inkorg .crm-gear > summary::-webkit-details-marker { display: none; }
+
+body.page-inkorg .crm-gear > summary svg {
+    width: 18px;
+    height: 18px;
+}
+
+body.page-inkorg .crm-gear-menu {
+    position: absolute;
+    z-index: 30;
+    left: 0;
+    top: calc(100% + 6px);
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    padding: 6px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-panel);
+}
+
+body.page-inkorg .crm-gear-menu a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg .crm-gear-menu a:hover {
+    background: var(--bg-raised);
+}
+
+body.page-inkorg .ix-type-more {
+    position: relative;
+}
+
+body.page-inkorg .ix-type-more > summary {
+    list-style: none;
+}
+
+body.page-inkorg .ix-type-more > summary::-webkit-details-marker { display: none; }
+
+body.page-inkorg .ix-type-menu {
+    position: absolute;
+    z-index: 25;
+    left: 0;
+    top: calc(100% + 6px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: min(280px, calc(100vw - 32px));
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-panel);
+}
+
+body.page-inkorg .chip.chip-primary.crm-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    cursor: pointer;
+}
+
+body.page-inkorg .chip.chip-primary.crm-add:hover {
+    background: var(--brand-hover);
+}
+
+/* Sidomenyn finns kvar i DOM (nytt-mejl-dialogen). Länkarna ersätts av chips. */
+body.page-inkorg .ix-views {
+    display: contents;
+}
+
+body.page-inkorg .ix-views > .ix-v,
+body.page-inkorg .ix-views > .ix-vh,
+body.page-inkorg .ix-views > .ix-new,
+body.page-inkorg .rg-wrap > .ix-views {
+    display: none;
+}
+
+body.page-inkorg .ix-banner {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--warning) 12%, var(--bg-subtle));
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Vyer som en jämn rad. Historik sist, till höger. Samma rad öppet och stängt.
+   overflow-x gör annars min-höjden 0, så raden krymper och får en egen lodrät scroll. */
+body.page-inkorg .crm-stats.smart-grid {
+    display: flex;
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 8px;
+    width: 100%;
+    height: auto;
+    min-height: min-content;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+}
+
+body.page-inkorg .crm-stats .smart-tile {
+    display: flex;
+    flex: 1 1 0;
+    flex-shrink: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    order: 0;
+    position: static;
+    height: auto;
+    max-height: none;
+    min-width: max-content;
+    min-height: 72px;
+    margin: 0;
+    padding: 12px 8px;
+    overflow: visible;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-subtle);
+    box-shadow: none;
+    color: var(--text-secondary);
+    text-align: center;
+    text-decoration: none;
+}
+
+body.page-inkorg .crm-stats .smart-tile[data-ix-view="v-historik"] {
+    order: 1;
+    margin-left: 0;
+}
+
+body.page-inkorg .crm-stats .smart-tile b {
+    position: static;
+    display: block;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+    color: inherit;
+}
+
+body.page-inkorg .crm-stats .smart-tile span {
+    display: block;
+    max-width: none;
+    margin: 6px 0 0;
+    overflow: visible;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    text-overflow: clip;
+    color: inherit;
+}
+
+body.page-inkorg .crm-stats .smart-tile.is-on {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    box-shadow: inset 0 0 0 1px var(--border-strong);
+}
+
+body.page-inkorg .chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+body.page-inkorg .main .chip,
+body.page-inkorg .main .chip-opt span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.page-inkorg .main .chip.is-on,
+body.page-inkorg .main .chip-opt input:checked + span {
+    background: var(--bg-raised);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-split {
+    display: grid;
+    grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+    gap: 16px;
+    align-items: start;
+}
+
+body.page-inkorg .ix:not(.is-open) > .ix-split {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+body.page-inkorg .ix:not(.is-open) #ix-conv {
+    display: none;
+}
+
+body.page-inkorg .ix.is-open > .ix-split {
+    grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+}
+
+body.page-inkorg .ix.is-open #ix-list {
+    min-width: 240px;
+}
+
+body.page-inkorg .ix-list,
+body.page-inkorg .ix-cmain {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+body.page-inkorg .apple-search {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin: 0;
+}
+
+body.page-inkorg .apple-search-field {
+    position: relative;
+}
+
+body.page-inkorg .apple-search input[type="search"] {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background-color: var(--bg-subtle);
+    color: var(--text-primary);
+    font-size: 16px;
+    padding: 8px 48px 8px 40px;
+}
+
+body.page-inkorg .apple-search-clear {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    min-width: 44px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 22px;
+    line-height: 1;
+    text-decoration: none;
+}
+
+body.page-inkorg input,
+body.page-inkorg textarea,
+body.page-inkorg select {
+    font-size: 16px;
+}
+
+body.page-inkorg .crm-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 0;
+}
+
+body.page-inkorg .crm-section-title {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .crm-section-head strong {
+    font-size: 20px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .crm-section-head a {
+    color: var(--brand);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: transparent;
+    border-radius: 0;
+    overflow: visible;
+}
+
+body.page-inkorg .ix-items .item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-items .item.is-on {
+    border-color: var(--border-strong);
+    background: var(--bg-raised);
+}
+
+body.page-inkorg .ix-items a.item-main {
+    display: block;
+    flex: 1;
+    min-width: 0;
+    padding: 0;
+    color: inherit;
+    text-decoration: none;
+    text-align: left;
+}
+
+body.page-inkorg .ix-items a.ix-face.item-main {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    touch-action: manipulation;
+}
+
+body.page-inkorg .ix-card-copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+body.page-inkorg .item-shut-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+body.page-inkorg .item-shut-copy {
+    min-width: 0;
+}
+
+body.page-inkorg .ix-nm,
+body.page-inkorg .ix-sub,
+body.page-inkorg .ix-pre {
+    display: block;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-nm {
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-sub {
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-pre {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--text-secondary);
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+body.page-inkorg .ix-dt {
+    flex: 0 0 auto;
+    font-size: 12px;
+    font-weight: 400;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-subtle, var(--text-secondary));
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-dot {
+    width: 8px;
+    height: 8px;
+    margin-top: 8px;
+    border-radius: 50%;
+    background: transparent;
+    flex: 0 0 auto;
+}
+
+body.page-inkorg .is-unread .ix-dot {
+    background: var(--brand);
+}
+
+body.page-inkorg .ix-wait {
+    color: var(--warning);
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-cat {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 22px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--bg-control);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+body.page-inkorg .ix-cat.is-lead {
+    background: var(--brand);
+    color: var(--text-inverse);
+}
+
+body.page-inkorg .ix-cat.is-skrap {
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+}
+
+body.page-inkorg .ix-cat.is-test,
+body.page-inkorg .ix-v2 .ix-chip.is-test {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px dashed var(--text-secondary);
+    cursor: default;
+}
+
+body.page-inkorg .ix-cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 6px 0 0;
+}
+
+body.page-inkorg .ix-cat.is-support,
+body.page-inkorg .ix-cat.is-reminder {
+    background: color-mix(in srgb, var(--warning) 28%, var(--bg-subtle));
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-av {
+    display: inline-grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-control);
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-av.is-none {
+    background: transparent;
+    border: 1px dashed var(--border);
+}
+
+body.page-inkorg .item-shut-meta {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: 8px;
+}
+
+body.page-inkorg .empty,
+body.page-inkorg .ix-empty {
+    margin: 0;
+    padding: 48px 24px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.45;
+    text-align: left;
+}
+
+body.page-inkorg .ix-empty p {
+    margin: 0;
+}
+
+body.page-inkorg .ix-empty .ix-empty-hint {
+    margin-top: 8px;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-contacts {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-contacts a {
+    color: var(--brand);
+}
+
+body.page-inkorg .ix-muted {
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-conv {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+    gap: 16px;
+    align-items: start;
+    min-width: 0;
+}
+
+body.page-inkorg .ix-conv:not(:has(.ix-cust)),
+body.page-inkorg .ix-conv.is-nocust {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+body.page-inkorg .ix-conv.is-nocust .ix-cust {
+    display: none;
+}
+
+body.page-inkorg .ix-back {
+    display: none;
+    align-items: center;
+    min-height: 44px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg .ix-ctitle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body.page-inkorg .ix-ctitle h2 {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.25;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-bar,
+body.page-inkorg .ix-field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+body.page-inkorg .ix-bar {
+    gap: 16px;
+}
+
+body.page-inkorg .ix-field > span,
+body.page-inkorg .ix-k {
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+body.page-inkorg .ix-k {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 16px 0 8px;
+}
+
+body.page-inkorg .ix-parkdate,
+body.page-inkorg .ix-sendpark {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+body.page-inkorg .ix-field:has(input[name="status"][value="parked"]:checked) .ix-parkdate,
+body.page-inkorg .ix-composer:has(input[name="status_after"][value="parked"]:checked) .ix-sendpark {
+    display: flex;
+}
+
+body.page-inkorg .ix-parkdate input,
+body.page-inkorg .ix-sendpark input {
+    min-height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    font: inherit;
+    padding: 0 12px;
+}
+
+body.page-inkorg .ix-saved {
+    color: var(--success);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    min-height: 1.2em;
+}
+
+body.page-inkorg .ix-reason {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-thread {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+body.page-inkorg .ix-msg,
+body.page-inkorg .ix-cust {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-msg.is-us {
+    background: color-mix(in srgb, var(--brand) 14%, var(--bg-subtle));
+    border-color: color-mix(in srgb, var(--brand) 35%, var(--border));
+}
+
+body.page-inkorg .ix-msg.is-note {
+    background: color-mix(in srgb, var(--warning) 12%, var(--bg-subtle));
+    border-color: color-mix(in srgb, var(--warning) 35%, var(--border));
+}
+
+body.page-inkorg .ix-msg.is-draft {
+    border-style: dashed;
+}
+
+body.page-inkorg .ix-mh {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 16px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-mh b {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+body.page-inkorg .ix-body {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-msg .ix-orig {
+    display: none;
+}
+
+body.page-inkorg .ix-msg.is-original .ix-clean {
+    display: none;
+}
+
+body.page-inkorg .ix-msg.is-original .ix-orig {
+    display: block;
+}
+
+body.page-inkorg .ix-att {
+    margin: 8px 0 0;
+}
+
+body.page-inkorg .ix-att a {
+    color: var(--brand);
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-origbtn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--brand);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+body.page-inkorg .ix-dl {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+body.page-inkorg .ix-cust h3 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+}
+
+body.page-inkorg .ix-cust a {
+    color: var(--brand);
+    text-decoration: none;
+}
+
+body.page-inkorg .ix-prev {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-prev small {
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-ai {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-composer {
+    position: sticky;
+    bottom: 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+}
+
+body.page-inkorg .ix-ctabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    overflow: visible;
+    order: 0;
+}
+
+body.page-inkorg .ix-ctabs .ix-tab {
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-ctabs label:has(input:checked) {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-ctabs input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.page-inkorg .ix-to {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-composer [data-savebtn]:disabled,
+body.page-inkorg .ix-composer .ix-car:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+body.page-inkorg .ix-composer textarea,
+body.page-inkorg .ix-newmail textarea,
+body.page-inkorg .regler-page textarea {
+    width: 100%;
+    min-height: 44px;
+    overflow: auto;
+    resize: none;
+    field-sizing: content;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    padding: 12px;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+body.page-inkorg .ix-composer.is-note textarea {
+    background: color-mix(in srgb, var(--warning) 10%, var(--bg-field));
+}
+
+body.page-inkorg .ix-composer.is-note .ix-replyonly {
+    display: none;
+}
+
+body.page-inkorg .ix-cfoot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+body.page-inkorg .ix-cfoot .chips {
+    flex: 1 1 100%;
+}
+
+body.page-inkorg .ix-composer input[type="text"] {
+    min-height: 44px;
+    min-width: 0;
+    flex: 1 1 200px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    padding: 0 12px;
+    font: inherit;
+    font-size: 14px;
+}
+
+body.page-inkorg form[data-autosave] {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+}
+
+body.page-inkorg .ix-ai b {
+    color: var(--warning);
+}
+
+body.page-inkorg .regel-form label:has(input[type="checkbox"]) {
+    flex-direction: row;
+    align-items: center;
+}
+
+body.page-inkorg .ix-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.page-inkorg .ix-btn.is-primary {
+    border: 0;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+}
+
+body.page-inkorg .ix-btn.is-primary:hover {
+    background: var(--brand-hover);
+}
+
+body.page-inkorg .ix-side .ix-btn:disabled,
+body.page-inkorg .ix-side .ix-btn.is-primary:disabled,
+body.page-inkorg .ix-side .ix-btn.is-primary:disabled:hover {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: var(--bg-control);
+    color: var(--text-secondary);
+    -webkit-text-fill-color: var(--text-secondary);
+    box-shadow: none;
+}
+
+body.page-inkorg .ix-btn.is-danger {
+    border-color: transparent;
+    background: transparent;
+    color: var(--danger);
+    -webkit-text-fill-color: var(--danger);
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-trash-dialog {
+    max-width: 28rem;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: var(--bg-elevated, #1c1c1e);
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-trash-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.62);
+}
+
+body.page-inkorg .ix-trash-dialog p {
+    margin: 0 0 16px;
+}
+
+body.page-inkorg .ix-trash-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+body.page-inkorg form {
+    margin: 0;
+}
+
+body.page-inkorg .ix-testdata {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-newmail {
+    width: min(560px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-newmail::backdrop {
+    background: color-mix(in srgb, var(--bg-page) 72%, transparent);
+}
+
+body.page-inkorg .ix-newmail h3 {
+    margin: 0 0 16px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: left;
+}
+
+body.page-inkorg .ix-newmail label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-newmail input,
+body.page-inkorg .regler-page input[type="text"],
+body.page-inkorg .regler-page input[type="number"],
+body.page-inkorg .regler-page select {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    padding: 0 12px;
+    font: inherit;
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-newmail input {
+    font-size: 16px;
+}
+
+body.page-inkorg .regler-page select {
+    appearance: none;
+    padding-right: 32px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-secondary) 50%), linear-gradient(135deg, var(--text-secondary) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 50%, calc(100% - 12px) 50%;
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+body.page-inkorg .ix-newmail .ix-dl {
+    margin-top: 16px;
+}
+
+/* Regler */
+body.page-inkorg .rg-wrap {
+    display: block;
+    margin: 0;
+    border: 0;
+}
+
+body.page-inkorg .regler-page {
+    max-width: none;
+    padding-top: 0;
+}
+
+body.page-inkorg .rg-wrap.apple-app {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+body.page-inkorg .regler-page .crm-title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+}
+
+body.page-inkorg .regler-page .rg-jump {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+}
+
+body.page-inkorg .regler-page .rg-jump .tab {
+    min-height: 36px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body.page-inkorg .regler-page .rg-jump .tab.is-on {
+    background: var(--bg-raised);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+body.page-inkorg .rg-back {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--brand);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg .rg-lead,
+body.page-inkorg .ink-muted {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+body.page-inkorg .regel-form,
+body.page-inkorg .rc,
+body.page-inkorg .regel {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 16px;
+}
+
+body.page-inkorg .rc.is-off,
+body.page-inkorg .regel.is-off {
+    opacity: 0.65;
+}
+
+body.page-inkorg .regel-form .ink-plate {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: start;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+}
+
+body.page-inkorg .regel-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .regel-form .full,
+body.page-inkorg .regel-form .ink-row {
+    grid-column: 1 / -1;
+}
+
+body.page-inkorg .regel-form h2,
+body.page-inkorg .regel-group {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .regel-form h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+}
+
+body.page-inkorg .regel-cond {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+body.page-inkorg .regel-cond textarea {
+    grid-column: 1 / -1;
+}
+
+body.page-inkorg .regel-check span,
+body.page-inkorg .ink-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .regel-check input {
+    width: 20px;
+    height: 20px;
+}
+
+body.page-inkorg .regler-page .btn {
+    width: auto;
+    min-height: 44px;
+    border-radius: 999px;
+}
+
+body.page-inkorg .regler-page .btn-ghost {
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+body.page-inkorg .rc-t,
+body.page-inkorg .regel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+body.page-inkorg .regel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body.page-inkorg .regel-nr {
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .regel-main,
+body.page-inkorg .rc-name {
+    flex: 1;
+    min-width: 160px;
+}
+
+body.page-inkorg .regel-name {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .regel-desc,
+body.page-inkorg .rc-sent {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+body.page-inkorg .rc-sent,
+body.page-inkorg .rc-test {
+    margin-left: 32px;
+}
+
+body.page-inkorg .rc-test {
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 12px;
+    background: var(--bg-page);
+    font-size: 14px;
+}
+
+body.page-inkorg .rc-test a,
+body.page-inkorg .regel-hits a {
+    color: var(--brand);
+}
+
+body.page-inkorg .regel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+body.page-inkorg .rg-tog {
+    width: 44px;
+    min-width: 44px;
+    height: 28px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--brand);
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+}
+
+body.page-inkorg .rg-tog::after {
+    content: "";
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--text-inverse);
+}
+
+body.page-inkorg .rg-tog.is-off {
+    background: var(--bg-control);
+}
+
+body.page-inkorg .rg-tog.is-off::after {
+    right: auto;
+    left: 4px;
+    background: var(--text-secondary);
+}
+
+body.page-inkorg .rg-bad { color: var(--danger); }
+body.page-inkorg .rg-good { color: var(--success); }
+
+body.page-inkorg .ink-label {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+body.page-inkorg .regel-hits {
+    margin: 0;
+    padding-left: 18px;
+}
+
+@media (max-width: 1100px) {
+    body.page-inkorg .ix-conv {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (max-width: 760px) {
+    body.page-inkorg .crm-stats.smart-grid {
+        display: flex;
+        flex: 0 0 auto;
+        height: auto;
+        min-height: min-content;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+    }
+
+    body.page-inkorg .crm-stats .smart-tile {
+        flex: 0 0 auto;
+        min-width: 112px;
+    }
+
+    body.page-inkorg .ix-split {
+        display: block;
+    }
+
+    body.page-inkorg .ix:not(.is-open) .ix-conv {
+        display: none;
+    }
+
+    body.page-inkorg .ix-type-menu {
+        position: static;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    body.page-inkorg .ix.is-open .crm-top,
+    body.page-inkorg .ix.is-open .ix-banner,
+    body.page-inkorg .ix.is-open .ix-folders,
+    body.page-inkorg .ix.is-open .ix-settings,
+    body.page-inkorg .ix.is-open .ix-list {
+        display: none;
+    }
+
+    body.page-inkorg .ix.is-open .ix-back {
+        display: inline-flex;
+    }
+
+    body.page-inkorg .ix-custbtn {
+        display: none;
+    }
+
+    body.page-inkorg .ix-cust,
+    body.page-inkorg .ix-conv.is-nocust .ix-cust {
+        display: block;
+    }
+
+    body.page-inkorg .ix-composer {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        margin: 16px 0 0;
+        border-radius: 18px 18px 0 0;
+        padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+        box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.45);
+    }
+
+    body.page-inkorg .ix-cfoot {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    body.page-inkorg .ix-cfoot .chips,
+    body.page-inkorg .ix-cfoot .ix-btn.is-primary {
+        grid-column: 1 / -1;
+    }
+
+    body.page-inkorg .ix-composer.is-note .ix-cfoot {
+        grid-template-columns: 1fr;
+    }
+
+    body.page-inkorg .regel-form .ink-plate,
+    body.page-inkorg .regel-cond {
+        grid-template-columns: 1fr;
+    }
+
+    body.page-inkorg .rc-sent,
+    body.page-inkorg .rc-test {
+        margin-left: 0;
+    }
+}
+
+/* Avsnittskort på Regler. Ett nytt avsnitt är jeab_inkorg_section_open(). */
+body.page-inkorg .rg-sec {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .rg-sec.regel-form {
+    padding: 0;
+}
+
+body.page-inkorg .rg-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+body.page-inkorg .rg-sec-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 0;
+    padding: 12px 16px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+body.page-inkorg .rg-sec-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+}
+
+body.page-inkorg .rg-sec-title,
+body.page-inkorg .rg-sec-toggle h2,
+body.page-inkorg .regler-page .rg-sec h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .rg-sec-sum {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+body.page-inkorg .rg-chev {
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    color: var(--text-secondary);
+    transition: transform 0.15s ease;
+}
+
+body.page-inkorg .rg-sec.is-open .rg-chev {
+    transform: rotate(180deg);
+}
+
+body.page-inkorg .rg-sec-panel {
+    padding: 0 16px 16px;
+}
+
+body.page-inkorg .rg-sec-panel > h2.rg-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+body.page-inkorg .rg-sec-foot {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+body.page-inkorg .rg-save[hidden] {
+    display: none;
+}
+
+body.page-inkorg .rg-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+body.page-inkorg .rg-save:hover {
+    background: var(--brand-hover);
+}
+
+body.page-inkorg .rg-save:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+body.page-inkorg .rg-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.page-inkorg .rg-del {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-left: 8px;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    color: var(--danger);
+    -webkit-text-fill-color: var(--danger);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+body.page-inkorg .regel-name,
+body.page-inkorg .rc-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .regler-page textarea[data-clamp] {
+    field-sizing: fixed;
+    min-height: calc(1.5em * 6 + 24px);
+    max-height: calc(1.5em * 12 + 24px);
+    overflow: auto;
+}
+
+body.page-inkorg .regler-page textarea[data-clamp].is-editing,
+body.page-inkorg .regler-page textarea[data-clamp].is-full {
+    max-height: none;
+    overflow: hidden;
+}
+
+body.page-inkorg .rg-more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 32px;
+    margin-top: 8px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--brand);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+body.page-inkorg .rg-split {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+body.page-inkorg .rg-help {
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-raised);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+body.page-inkorg .rg-board {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body.page-inkorg .rg-board > li,
+body.page-inkorg .regler-page .rg-board .rc,
+body.page-inkorg .regler-page .rg-board .regel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-raised);
+}
+
+@media (min-width: 1024px) {
+    body.page-inkorg .rg-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        align-items: start;
+    }
+
+    body.page-inkorg .rg-grid .rg-sec.is-open {
+        grid-column: 1 / -1;
+    }
+
+    body.page-inkorg .rg-split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+        align-items: start;
+    }
+
+    body.page-inkorg .rg-board {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Vyer och etiketter */
+body.page-inkorg-vyer .vyer-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+body.page-inkorg-vyer .vyer-page .head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+body.page-inkorg-vyer .vyer-page h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+body.page-inkorg-vyer .vyer-page h2 {
+    margin: 8px 0 0;
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-inkorg-vyer .vy-back {
+    color: var(--brand);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg-vyer .vy-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+body.page-inkorg-vyer .vy {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    flex-wrap: wrap;
+}
+
+body.page-inkorg-vyer .vy-main {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+body.page-inkorg-vyer .vy-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-inkorg-vyer .vy-count {
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg-vyer .vy-desc {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+body.page-inkorg-vyer .vy-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-left: auto;
+}
+
+body.page-inkorg-vyer .vy-actions form {
+    margin: 0;
+}
+
+body.page-inkorg-vyer .vy-link,
+body.page-inkorg-vyer .vy-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg-vyer .vy-link {
+    padding: 0 8px;
+    color: var(--brand);
+    background: transparent;
+}
+
+body.page-inkorg-vyer .vy-ghost {
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+}
+
+body.page-inkorg-vyer .vy-del {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-left: 8px;
+    padding: 0 8px;
+    border: 0;
+    background: transparent;
+    color: var(--danger);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+body.page-inkorg-vyer .vy-form {
+    width: 100%;
+}
+
+body.page-inkorg-vyer .vy-form .plate {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: start;
+    padding: 0;
+    background: transparent;
+}
+
+body.page-inkorg-vyer .vy-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg-vyer .vy-form input[type="text"],
+body.page-inkorg-vyer .vy-form select,
+body.page-inkorg-vyer .vy-field {
+    min-height: 44px;
+    border-radius: 8px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 0 12px;
+    font: inherit;
+    font-size: 14px;
+}
+
+body.page-inkorg-vyer .vy-form .full {
+    grid-column: 1 / -1;
+}
+
+body.page-inkorg-vyer .vy-choice {
+    margin: 0;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg-raised);
+}
+
+body.page-inkorg-vyer .vy-choice legend {
+    padding: 0 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-inkorg-vyer .vy-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+body.page-inkorg-vyer .vy-form label.vy-check {
+    flex-direction: row;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body.page-inkorg-vyer .vy-row .vy-field {
+    flex: 1;
+    min-width: 160px;
+}
+
+body.page-inkorg-vyer .vy-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body.page-inkorg-vyer .vy-check:has(input:checked) {
+    border-color: var(--border-strong);
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+body.page-inkorg-vyer .vy-check input {
+    width: 18px;
+    height: 18px;
+}
+
+body.page-inkorg-vyer .vy-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+body.page-inkorg-vyer .vy-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    height: 44px;
+    width: auto;
+    padding: 0 16px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    font: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+body.page-inkorg-vyer .vy-note {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+@media (max-width: 640px) {
+    body.page-inkorg-vyer .vy-form .plate {
+        grid-template-columns: 1fr;
+    }
+
+    body.page-inkorg-vyer .vy-actions {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+body.page-inkorg .ix-items .item.ix-it {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    padding: 0;
+    touch-action: pan-y;
+}
+
+body.page-inkorg .ix-under {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+body.page-inkorg .ix-under-read,
+body.page-inkorg .ix-under-close {
+    opacity: 0;
+}
+
+body.page-inkorg .ix-it.is-swipe-left .ix-under {
+    background: #c23b30;
+}
+
+body.page-inkorg .ix-it.is-swipe-left .ix-under-close {
+    opacity: 1;
+    margin-left: auto;
+}
+
+body.page-inkorg .ix-it.is-swipe-right .ix-under {
+    background: #2563eb;
+}
+
+body.page-inkorg .ix-it.is-swipe-right .ix-under-read {
+    opacity: 1;
+}
+
+body.page-inkorg .ix-face {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    background: var(--bg-subtle);
+}
+
+body.page-inkorg .ix-it.is-on .ix-face {
+    background: var(--bg-raised);
+}
+
+body.page-inkorg .ix-it.is-loading .ix-face {
+    box-shadow: inset 3px 0 0 var(--accent, #1f8a70);
+}
+
+body.page-inkorg .ix-face.is-swiping {
+    transition: none;
+}
+
+body.page-inkorg .ix-face.is-snap {
+    transition: transform 160ms ease;
+}
+
+body.page-inkorg .ix-acts {
+    display: none !important;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    gap: 6px;
+}
+
+body.page-inkorg .ix-act {
+    min-height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--bg-control);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+body.page-inkorg .ix-act-close {
+    background: #c23b30;
+    color: #fff;
+}
+
+body.page-inkorg .ix-l1 {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+body.page-inkorg .ix-l1 .ix-nm {
+    flex: 0 1 auto;
+    min-width: 0;
+    font-weight: 700;
+}
+
+body.page-inkorg .ix-l1 .ix-dt {
+    flex: 0 0 auto;
+    margin-left: auto;
+}
+
+body.page-inkorg .ix-l2 {
+    display: block;
+    min-width: 0;
+    margin-top: 2px;
+}
+
+body.page-inkorg .ix-l2 .ix-sub {
+    display: block;
+    margin-top: 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-it.is-unread .ix-nm {
+    font-weight: 700;
+}
+
+body.page-inkorg .ix-prod {
+    flex: 0 1 auto;
+    max-width: 9rem;
+    padding: 0 6px;
+    border-radius: 9px;
+    background: var(--bg-control);
+    color: var(--text-secondary);
+    font-size: 10.5px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+body.page-inkorg .ix-it.is-ix-current {
+    box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+body.page-inkorg .ix-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 40;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 8px 8px 8px 16px;
+    border-radius: 999px;
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-toast button {
+    min-height: 44px;
+    padding: 0 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--brand);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Vykort under 640px. En rad som scrollar, namnet hålls ihop. */
+@media (max-width: 640px) {
+    body.page-inkorg .crm-stats.smart-grid {
+        display: flex;
+        flex: 0 0 auto;
+        flex-wrap: nowrap;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        min-width: 0;
+        min-height: min-content;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    body.page-inkorg .crm-stats .smart-tile {
+        flex: 0 0 auto;
+        min-width: max-content;
+        max-width: none;
+        min-height: 64px;
+        padding: 8px 12px;
+    }
+
+    body.page-inkorg .crm-stats .smart-tile b {
+        font-size: 1.25rem;
+    }
+
+    body.page-inkorg .crm-stats .smart-tile span {
+        white-space: nowrap;
+        overflow: visible;
+        line-height: 1.25;
+        font-size: 12px;
+        display: block;
+    }
+
+    body.page-inkorg .crm-stats .smart-tile.is-on {
+        background: var(--bg-raised);
+        color: var(--text-primary);
+        box-shadow: inset 0 0 0 2px var(--brand);
+    }
+}
+
+/* Trådvyn, skiss v2. Mått från skissen. Statusfärgerna är --status-open/park/closed
+   (mint, gul, grå). Ytor och primärfärg följer befintliga tema-variabler. */
+body.page-inkorg .ix-conv:has(.ix-v2) {
+    display: block;
+}
+
+body.page-inkorg .ix.is-open .ix-v2 .ix-back {
+    display: inline-flex;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+html.theme-light body.page-inkorg .ix-v2 {
+    --ix-note: #fff6d6;
+    --ix-noteBd: #f0d77a;
+}
+
+html.theme-dark body.page-inkorg .ix-v2 {
+    --ix-note: #2e2814;
+    --ix-noteBd: #6b5a1e;
+}
+
+body.page-inkorg .ix-v2 .ix-casehead {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+body.page-inkorg .ix-v2 .ix-casehead .ix-flash {
+    flex: 1 1 100%;
+}
+
+body.page-inkorg .ix-v2 .ix-h1 {
+    flex: 1 1 160px;
+    margin: 0;
+    min-width: 0;
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-v2 .ix-grok {
+    margin: 8px 0 0;
+    padding: 0;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-grok b {
+    color: var(--brand);
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-v2 .ix-field {
+    margin: 8px 0 0;
+}
+
+body.page-inkorg .ix-v2 .ix-field > span,
+body.page-inkorg .ix-v2 .ix-field > select {
+    display: block;
+}
+
+body.page-inkorg .ix-v2 .ix-field > span {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-field select {
+    width: 100%;
+    min-height: 44px;
+    margin-top: 2px;
+    padding: 4px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 13px;
+}
+
+body.page-inkorg .ix-v2 .ix-hint {
+    margin: 6px 0 10px;
+    font-size: 11.5px;
+    color: var(--text-secondary);
+}
+
+@media (min-width: 761px) {
+    body.page-inkorg .ix-kund-toggle {
+        display: none;
+    }
+
+    body.page-inkorg .ix-kund-body,
+    body.page-inkorg .ix-kund-body[hidden] {
+        display: block !important;
+    }
+
+    body.page-inkorg .ix-v2 .ix-side {
+        min-width: 260px;
+    }
+}
+
+body.page-inkorg .ix-v2 .ix-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+body.page-inkorg .ix-v2 form.ix-headform {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+}
+
+body.page-inkorg .ix-v2 .ix-chip {
+    height: auto;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: 500 14px/1 var(--font);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+body.page-inkorg .ix-v2 .ix-pill {
+    border: none;
+    height: auto;
+    min-height: 44px;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-s-open,
+body.page-inkorg .ix-v2 .ix-s-open {
+    background: var(--status-open);
+    color: var(--status-open-ink);
+    -webkit-text-fill-color: var(--status-open-ink);
+}
+
+body.page-inkorg .ix-s-park,
+body.page-inkorg .ix-v2 .ix-s-park {
+    background: var(--status-park);
+    color: var(--status-park-ink);
+    -webkit-text-fill-color: var(--status-park-ink);
+}
+
+body.page-inkorg .ix-s-closed,
+body.page-inkorg .ix-v2 .ix-s-closed {
+    background: var(--status-closed);
+    color: var(--status-closed-ink);
+    -webkit-text-fill-color: var(--status-closed-ink);
+}
+
+body.page-inkorg .ix-status {
+    display: inline-flex;
+    align-items: center;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 22px;
+    padding: 0 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+body.page-inkorg .ix-v2 .ix-av {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font-size: 11px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+}
+
+body.page-inkorg .ix-v2 .ix-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    flex: 0 0 auto;
+}
+
+body.page-inkorg .ix-v2 .ix-dd,
+body.page-inkorg .ix-v2 .ix-split {
+    position: relative;
+}
+
+body.page-inkorg .ix-v2 .ix-menu {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    z-index: 20;
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    padding: 6px;
+    min-width: 210px;
+}
+
+body.page-inkorg .ix-v2 .ix-menu.ix-up {
+    top: auto;
+    bottom: 50px;
+    right: 0;
+    left: auto;
+}
+
+body.page-inkorg .ix-v2 .ix-mi {
+    width: 100%;
+    margin: 0;
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font: 400 16px/1.3 var(--font);
+    text-align: left;
+    position: relative;
+    min-height: 44px;
+}
+
+body.page-inkorg .ix-v2 .ix-mi:hover,
+body.page-inkorg .ix-v2 .ix-mi:has(input:checked) {
+    background: var(--bg-raised);
+}
+
+body.page-inkorg .ix-v2 .ix-mi:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+body.page-inkorg .ix-v2 .ix-mi input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.page-inkorg .ix-v2 .ix-menu form {
+    display: block;
+    width: auto;
+}
+
+body.page-inkorg .ix-v2 .ix-cls {
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+}
+
+body.page-inkorg .ix-v2 .ix-cls b {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-v2 .ix-card,
+body.page-inkorg .ix-v2 .ix-msg,
+body.page-inkorg .ix-v2 .ix-side {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 12px 16px;
+}
+
+body.page-inkorg .ix-v2 .ix-panel {
+    margin-top: 10px;
+}
+
+body.page-inkorg .ix-v2 .ix-pgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+body.page-inkorg .ix-v2 .ix-panel h2,
+body.page-inkorg .ix-v2 .ix-side h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-v2 .ix-opt {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+body.page-inkorg .ix-v2 .ix-opt:hover {
+    background: var(--bg-raised);
+}
+
+body.page-inkorg .ix-v2 .ix-t16,
+body.page-inkorg .ix-v2 .ix-mh .ix-t16 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-v2 .ix-meta,
+body.page-inkorg .ix-v2 .ix-mh .ix-meta {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-sec {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-body {
+    font-size: 14px;
+    line-height: 1.55;
+}
+
+body.page-inkorg .ix-v2 .ix-body.ix-clip {
+    max-height: 90px;
+    overflow: hidden;
+    -webkit-mask: linear-gradient(#000 60%, transparent);
+    mask: linear-gradient(#000 60%, transparent);
+}
+
+body.page-inkorg .ix-v2 .ix-msg.is-expanded .ix-body.ix-clip {
+    max-height: none;
+    -webkit-mask: none;
+    mask: none;
+}
+
+body.page-inkorg .ix-v2 .ix-morelink,
+body.page-inkorg .ix-v2 .ix-cc {
+    background: none;
+    border: 0;
+    padding: 0 8px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--brand);
+    -webkit-text-fill-color: var(--brand);
+    font: 500 14px var(--font);
+    cursor: pointer;
+}
+
+body.page-inkorg .ix-v2 .ix-origbtn {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+body.page-inkorg .ix-v2 .ix-vgrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+    gap: 16px;
+    margin-top: 16px;
+    align-items: start;
+}
+
+body.page-inkorg .ix-v2 .ix-side {
+    max-height: none;
+    height: auto;
+    overflow: visible;
+}
+
+body.page-inkorg .ix-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+body.page-inkorg .ix-panel .ix-btn {
+    width: 100%;
+}
+
+body.page-inkorg .ix-panel-mobile {
+    display: none;
+}
+
+body.page-inkorg .ix-v2 .ix-kv {
+    margin: 8px 0;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-v2 .ix-kv span {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-custacts {
+    margin-top: 12px;
+}
+
+body.page-inkorg .ix-v2 .ix-k {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-v2 .ix-mcust {
+    display: none;
+    margin-top: 12px;
+}
+
+body.page-inkorg .ix-v2 .ix-mhead-contact {
+    display: none;
+}
+
+body.page-inkorg .ix-v2 .ix-mcust-btn {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 12px;
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    font-size: 16px;
+    line-height: 1.25;
+    cursor: pointer;
+    text-align: left;
+}
+
+body.page-inkorg .ix-v2 .ix-side a.ix-t16,
+body.page-inkorg .ix-v2 .ix-side .ix-t16 a {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+body.page-inkorg .ix-v2 .ix-quote-preview {
+    white-space: pre-wrap;
+    margin: 8px 0;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--bg-field);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+}
+
+body.page-inkorg .ix-v2 .ix-parkdate,
+body.page-inkorg .ix-v2 .ix-sendpark {
+    display: none;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-headform:has(input[name="status"][value="parked"]:checked) .ix-parkdate,
+body.page-inkorg .ix-v2 .ix-composer:has(input[name="status_after"][value="parked"]:checked) .ix-sendpark {
+    display: flex;
+}
+
+body.page-inkorg .ix-v2 .ix-parkdate input,
+body.page-inkorg .ix-v2 .ix-sendpark input {
+    height: 36px;
+    min-height: 36px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    padding: 0 8px;
+    font: 16px var(--font);
+}
+
+body.page-inkorg .ix-v2 .ix-composer {
+    gap: 8px;
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 18px;
+}
+
+@media (min-width: 761px) {
+    body.page-inkorg .ix-v2 .ix-readreply > .ix-composer.ix-attached {
+        position: static;
+        margin-top: -16px;
+        border-top: 0;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    body.page-inkorg .ix-v2 .ix-readreply > .ix-msg:has(+ .ix-composer) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+body.page-inkorg .ix-v2 .ix-ctabs .ix-tab {
+    min-height: 44px;
+    padding: 8px 14px;
+    border-radius: 18px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-ctabs label:has(input:checked) {
+    background: var(--bg-raised);
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+body.page-inkorg .ix-v2 .ix-composer textarea {
+    min-height: 110px;
+    border-radius: 14px;
+    resize: vertical;
+    field-sizing: fixed;
+    font-size: 16px;
+    background: var(--bg-page);
+}
+
+body.page-inkorg .ix-v2 .ix-composer.is-note textarea {
+    background: var(--ix-note);
+    border-color: var(--ix-noteBd);
+}
+
+body.page-inkorg .ix-v2 .ix-msg.is-note {
+    background: var(--ix-note);
+    border-color: var(--ix-noteBd);
+}
+
+body.page-inkorg .ix-v2 .ix-cfoot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+}
+
+body.page-inkorg .ix-v2 .ix-split {
+    display: inline-flex;
+    gap: 0;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    border-radius: 22px;
+    background: var(--brand);
+    overflow: hidden;
+}
+
+body.page-inkorg .ix-v2 .ix-pri {
+    height: 44px;
+    min-height: 44px;
+    padding: 0 20px;
+    border: none;
+    border-radius: 22px;
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font: 500 14px var(--font);
+}
+
+body.page-inkorg .ix-v2 .ix-split .ix-pri:first-child {
+    border-radius: 22px 0 0 22px;
+    border: 0;
+    margin: 0;
+}
+
+body.page-inkorg .ix-v2 .ix-split .ix-car {
+    border-radius: 0 22px 22px 0;
+    padding: 0 14px;
+    margin: 0;
+    border: 0;
+    border-left: 0;
+    box-shadow: none;
+}
+
+body.page-inkorg .ix-v2 .ix-composer.is-note [data-savebtn] {
+    border-radius: 22px;
+}
+
+body.page-inkorg .ix-v2 .ix-cc-field {
+    min-height: 44px;
+    min-width: 140px;
+    flex: 1 1 160px;
+    border-radius: 10px;
+}
+
+body.page-inkorg .ix-v2 .ix-saved[data-saved] {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+body.page-inkorg .ix-composer.is-note .ix-draftsave {
+    display: none;
+}
+
+body.page-inkorg .ix-v2 .ix-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+body.page-inkorg .ix-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 50;
+    background: #16191f;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 22px;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+html.theme-light body.page-inkorg .ix-toast {
+    background: #16191f;
+    color: #fff;
+}
+
+html.theme-dark body.page-inkorg .ix-toast {
+    background: #e9ecf1;
+    color: #16191f;
+}
+
+body.page-inkorg .ix-toast button {
+    margin-left: 12px;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 0;
+    background: none;
+    font: inherit;
+    font-weight: 600;
+    color: #8fd3c1;
+    -webkit-text-fill-color: #8fd3c1;
+    cursor: pointer;
+}
+
+html.theme-dark body.page-inkorg .ix-toast button {
+    color: #127a63;
+    -webkit-text-fill-color: #127a63;
+}
+
+body.page-inkorg .ix-toast[hidden] {
+    display: none !important;
+}
+
+@media (max-width: 760px) {
+    body.page-inkorg .ix-v2 .ix-vgrid {
+        grid-template-columns: 1fr;
+    }
+
+    body.page-inkorg .ix-v2 .ix-side {
+        display: block;
+        order: -1;
+        min-width: 0;
+        border: 0;
+        background: transparent;
+        padding: 0;
+    }
+
+    body.page-inkorg .ix-v2 .ix-vgrid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.page-inkorg .ix-kund-toggle {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-height: 44px;
+        margin: 0 0 8px;
+        padding: 0 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+        font: inherit;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    body.page-inkorg .ix-kund-body[hidden] {
+        display: none !important;
+    }
+
+    body.page-inkorg .ix-panel-mobile {
+        display: block;
+    }
+
+    body.page-inkorg .ix-v2 .ix-mcust {
+        display: block;
+    }
+
+    body.page-inkorg .ix-v2 .ix-mhead-contact {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: stretch;
+        margin-top: 8px;
+    }
+
+    body.page-inkorg .ix-v2 .ix-mhead-contact a {
+        display: inline-flex;
+        align-items: center;
+        box-sizing: border-box;
+        flex: 1 1 140px;
+        min-height: 44px;
+        min-width: 44px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg-subtle);
+        color: var(--text-primary);
+        font-size: 16px;
+        line-height: 1.25;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+    }
+
+    body.page-inkorg .ix-v2 .ix-composer {
+        position: sticky;
+        bottom: 0;
+        z-index: 8;
+        border-radius: 18px 18px 0 0;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-msgs {
+        padding-bottom: calc(12px + 30vh);
+    }
+
+    body.page-inkorg .ix.is-open .ix-cmain,
+    body.page-inkorg .ix.is-open .ix-vcol {
+        overflow: visible;
+    }
+
+    body.page-inkorg .ix-v2 .ix-pgrid {
+        grid-template-columns: 1fr;
+    }
+
+    body.page-inkorg .ix-v2 .ix-composer textarea {
+        min-height: 80px;
+    }
+
+    body.page-inkorg .ix-v2 .ix-cfoot {
+        display: flex;
+        grid-template-columns: none;
+    }
+
+    body.page-inkorg .ix-v2 .ix-cfoot .ix-split,
+    body.page-inkorg .ix-v2 .ix-cfoot .ix-pri {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 430px) {
+    body.page-inkorg .ix.is-open .ix-cmain,
+    body.page-inkorg .ix.is-open .ix-v2,
+    body.page-inkorg .ix.is-open .ix-vgrid,
+    body.page-inkorg .ix.is-open .ix-vcol,
+    body.page-inkorg .ix.is-open .ix-thread {
+        overflow: visible;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-composer {
+        position: sticky;
+        bottom: 0;
+        z-index: 8;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-msgs {
+        padding-bottom: calc(12px + 30vh);
+    }
+
+    body.page-inkorg .ix-v2 .ix-cfoot {
+        flex-wrap: wrap;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.page-inkorg .ix-v2 .ix-split {
+        flex-wrap: wrap;
+        flex: 1 1 auto;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.page-inkorg .ix-v2 .ix-cfoot .ix-btn,
+    body.page-inkorg .ix-v2 .ix-cfoot .ix-pri,
+    body.page-inkorg .ix-v2 .ix-cfoot .ix-cc {
+        min-height: 44px;
+        height: auto;
+        max-width: 100%;
+    }
+}
+
+/* Skrivbord: två rutor som Help Scout. Listan och tråden rullar var för sig.
+   Under 1024px gäller reglerna ovan, oförändrade. */
+@media (min-width: 1024px) {
+    html:has(body.page-inkorg #ix) {
+        overflow: hidden;
+        height: 100%;
+    }
+
+    body.page-inkorg:has(#ix) {
+        --ix-desk-head: var(--nav-height, 56px);
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    body.page-inkorg:has(#ix) > .main {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.page-inkorg:has(#ix) .apple-app.ix {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.page-inkorg:has(#ix) .apple-app.ix > .ix-split {
+        flex: 1 1 auto;
+        min-height: 0;
+        align-items: stretch;
+        overflow: hidden;
+        grid-template-rows: minmax(0, 1fr);
+    }
+
+    body.page-inkorg:has(#ix) .crm-stats.smart-grid {
+        flex: 0 0 auto;
+        height: auto;
+        min-height: min-content;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    body.page-inkorg:has(#ix) #ix-list {
+        align-self: stretch;
+        min-height: 0;
+        min-width: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        height: auto;
+        max-height: none;
+    }
+
+    body.page-inkorg:has(#ix) #ix-conv {
+        position: sticky;
+        top: var(--ix-desk-head);
+        align-self: start;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        height: calc(100vh - var(--ix-desk-head));
+        max-height: calc(100vh - var(--ix-desk-head));
+        max-height: 100%;
+    }
+}
+
+/* Tre rutor som skissen. Köflikarna är primära. Kategorierna (Inkorg, Service, …) är en tunnare rad. */
+body.page-inkorg .ix-queues {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 2px;
+    margin: 0 0 8px;
+    padding: 0 0 6px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--border);
+}
+
+body.page-inkorg .ix-qtab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: 0 0 auto;
+    min-height: 36px;
+    padding: 0 12px;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 550;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-qtab.is-on {
+    background: color-mix(in srgb, var(--brand) 18%, var(--bg-subtle));
+    color: var(--text-primary);
+    font-weight: 650;
+}
+
+body.page-inkorg .ix-qcount {
+    font-variant-numeric: tabular-nums;
+    font-weight: 650;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-qtab.is-on .ix-qcount {
+    color: var(--brand);
+}
+
+body.page-inkorg .crm-stats.ix-folders .smart-tile {
+    flex-direction: row;
+    gap: 6px;
+    min-height: 32px;
+    padding: 4px 12px;
+    border-radius: 999px;
+}
+
+body.page-inkorg .crm-stats.ix-folders .smart-tile b {
+    font-size: 13px;
+    order: 1;
+}
+
+body.page-inkorg .crm-stats.ix-folders .smart-tile span {
+    font-size: 13px;
+}
+
+body.page-inkorg .ix-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+body.page-inkorg .ix-filters label {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+body.page-inkorg .ix-filters select {
+    min-height: 44px;
+    max-width: 100%;
+    padding: 0 28px 0 10px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    font-size: 14px;
+}
+
+body.page-inkorg .ix-items {
+    gap: 2px;
+}
+
+body.page-inkorg .ix-items .item.ix-it {
+    border: 0;
+    border-radius: 10px;
+    padding: 0;
+    background: transparent;
+}
+
+body.page-inkorg .ix-items .item.is-on {
+    border: 0;
+    background: transparent;
+}
+
+body.page-inkorg .ix-it.is-on .ix-face,
+body.page-inkorg .ix-items a.ix-face.is-on {
+    background: color-mix(in srgb, var(--brand) 16%, var(--bg-subtle));
+    border-radius: 10px;
+}
+
+body.page-inkorg .ix-l1 .ix-nm {
+    font-weight: 600;
+}
+
+body.page-inkorg .ix-it.is-unread .ix-l1 .ix-nm {
+    font-weight: 700;
+}
+
+body.page-inkorg .ix-l2 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+body.page-inkorg .ix-l2 .ix-sub {
+    flex: 1 1 auto;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+body.page-inkorg .ix-card-copy .ix-addr,
+body.page-inkorg .ix-card-copy .ix-pre {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+}
+
+body.page-inkorg .ix-card-copy .ix-addr {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+body.page-inkorg .ix-card-copy .ix-pre {
+    display: -webkit-box;
+    min-width: 0;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+@media (max-width: 375px) {
+    body.page-inkorg .ix-items a.ix-face.item-main {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    body.page-inkorg .ix-card-copy,
+    body.page-inkorg .ix-l1,
+    body.page-inkorg .ix-addr,
+    body.page-inkorg .ix-l2,
+    body.page-inkorg .ix-pre {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    body.page-inkorg .ix-l1 .ix-nm,
+    body.page-inkorg .ix-card-copy .ix-addr,
+    body.page-inkorg .ix-l2 .ix-sub {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    body.page-inkorg .ix-card-copy .ix-pre {
+        display: -webkit-box;
+        overflow: hidden;
+        white-space: normal;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+    }
+}
+
+body.page-inkorg .ix-prod {
+    background: color-mix(in srgb, var(--brand) 14%, var(--bg-subtle));
+    color: var(--text-primary);
+}
+
+body.page-inkorg .is-unread .ix-dot {
+    background: var(--brand);
+}
+
+body.page-inkorg .ix-v2 .ix-grokstrip:not([hidden]) {
+    margin: 8px 0 0;
+    padding: 8px 12px;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--brand) 12%, var(--bg-subtle));
+}
+
+body.page-inkorg .ix-v2 .ix-msg.is-note .ix-notewho {
+    font-weight: 650;
+    color: var(--text-primary);
+}
+
+body.page-inkorg .ix-v2 .ix-kund-label {
+    margin: 0 0 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+body.page-inkorg .ix-v2 .ix-ctabs label:has(input:checked) {
+    background: color-mix(in srgb, var(--brand) 18%, var(--bg-subtle));
+    color: var(--brand);
+}
+
+body.page-inkorg .ix-v2 .ix-custacts .ix-chip {
+    border-radius: 10px;
+    background: var(--bg-page);
+}
+
+@media (min-width: 1024px) {
+    body.page-inkorg .ix.is-open > .ix-split {
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--bg-subtle);
+    }
+
+    body.page-inkorg .ix.is-open #ix-list {
+        padding: 10px 10px 16px;
+        border-right: 1px solid var(--border);
+        background: var(--bg-page);
+    }
+
+    /* Trådrutan fyller kolumnen. Mejlen rullar, svaret sitter kvar underst. */
+    body.page-inkorg:has(#ix) #ix-conv {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        top: auto;
+        height: auto;
+        max-height: none;
+        min-height: 0;
+        align-self: stretch;
+        overflow: hidden;
+    }
+
+    body.page-inkorg .ix.is-open .ix-cmain.ix-v2 {
+        display: grid;
+        flex: 1 1 auto;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+        grid-template-rows: auto auto minmax(0, 1fr);
+        height: auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-casehead {
+        grid-column: 1;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-grokstrip {
+        grid-column: 1;
+        grid-row: 2;
+        min-width: 0;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-vgrid {
+        display: contents;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-vcol {
+        display: flex;
+        flex-direction: column;
+        grid-column: 1;
+        grid-row: 3;
+        min-height: 0;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-thread {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-msgs {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-composer {
+        flex: 0 0 auto;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-side {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        align-self: stretch;
+        border: 0;
+        border-left: 1px solid var(--border);
+        border-radius: 0;
+        background: var(--bg-subtle);
+        min-height: 0;
+        overflow: auto;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-back {
+        display: none;
+    }
+}
+
+@media (max-width: 760px) {
+    body.page-inkorg .ix.is-open .ix-filters {
+        display: none;
+    }
+
+    body.page-inkorg .ix-v2 .ix-composer {
+        width: 100%;
+    }
+}
+
+/* ——— Inkorg på dator i Påminnelsers stil (egna ix-klasser; paminnelser.css rörs inte) ———
+   Tre kort: lista | tråd | Kund. Tråden är störst och krymper sist. Varje kort rullar
+   för sig, men sidan i sig låses inte (ingen overflow:hidden på html/body).
+   Smalare fönster: Kund fälls in först (pil), sedan döljs listan. Toppmenyn rörs inte. */
+body.page-inkorg .ix-sidefold {
+    display: none;
+}
+
+@media (min-width: 761px) {
+    body.page-inkorg .ix-v2 .ix-sidefold {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 auto;
+        width: 32px;
+        height: 32px;
+        margin: 0 0 8px auto;
+        padding: 0;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg-raised);
+        color: var(--text-secondary);
+        font-size: 20px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    body.page-inkorg .ix-v2 .ix-sidefold:hover {
+        color: var(--text-primary);
+        border-color: var(--border-strong);
+    }
+
+    body.page-inkorg .ix-v2 .ix-cust {
+        display: flex;
+        flex-direction: column;
+    }
+
+    body.page-inkorg .ix-sidefold-arrow {
+        display: inline-block;
+        transition: transform 0.15s ease;
+    }
+
+    /* Infälld kundruta: bara en smal list med pilen kvar. */
+    body.page-inkorg .ix.ix-side-off .ix-v2 .ix-cust > :not(.ix-sidefold) {
+        display: none !important;
+    }
+
+    body.page-inkorg .ix.ix-side-off .ix-v2 .ix-cust {
+        padding: 8px 6px !important;
+        min-width: 0 !important;
+        align-items: center;
+    }
+
+    body.page-inkorg .ix.ix-side-off .ix-v2 .ix-sidefold {
+        margin: 0;
+    }
+
+    body.page-inkorg .ix.ix-side-off .ix-sidefold-arrow {
+        transform: rotate(180deg);
+    }
+
+    body.page-inkorg .ix.ix-side-off .ix-v2 .ix-vgrid {
+        grid-template-columns: minmax(0, 1fr) 46px;
+    }
+}
+
+/* Surfplatta (761–1023): Kund är infälld som standard och listan döljs när ett ärende är öppet. */
+@media (min-width: 761px) and (max-width: 1023px) {
+    body.page-inkorg .ix.is-open > .ix-split {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    body.page-inkorg .ix.is-open #ix-list {
+        display: none;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-back {
+        display: inline-flex;
+    }
+
+    body.page-inkorg .ix:not(.ix-side-on) .ix-v2 .ix-vgrid {
+        grid-template-columns: minmax(0, 1fr) 46px;
+    }
+
+    body.page-inkorg .ix:not(.ix-side-on) .ix-v2 .ix-cust > :not(.ix-sidefold) {
+        display: none !important;
+    }
+
+    body.page-inkorg .ix:not(.ix-side-on) .ix-v2 .ix-cust {
+        padding: 8px 6px !important;
+        min-width: 0 !important;
+        align-items: center;
+    }
+
+    body.page-inkorg .ix:not(.ix-side-on) .ix-sidefold-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+@media (min-width: 1024px) {
+    /* Sidan får rulla; korten har egen höjd och rullar inuti. */
+    html:has(body.page-inkorg #ix) {
+        overflow: visible;
+        height: auto;
+    }
+
+    body.page-inkorg:has(#ix) {
+        height: auto;
+        min-height: 100vh;
+        min-height: 100dvh;
+        overflow: visible;
+    }
+
+    body.page-inkorg:has(#ix) > .main,
+    body.page-inkorg:has(#ix) .apple-app.ix {
+        overflow: visible;
+        min-height: 0;
+    }
+
+    /* Mitten får bli bredare än sidans vanliga maxbredd på stora skärmar. */
+    body.page-inkorg:has(.ix.is-open) > .main {
+        max-width: min(1920px, 100%);
+    }
+
+    body.page-inkorg:has(#ix) .apple-app.ix > .ix-split,
+    body.page-inkorg .ix.is-open > .ix-split {
+        height: calc(100vh - var(--nav-height, 56px) - 24px);
+        height: calc(100dvh - var(--nav-height, 56px) - 24px);
+        min-height: 480px;
+        grid-template-rows: minmax(0, 1fr);
+        align-items: stretch;
+        gap: 12px;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
+    }
+
+    body.page-inkorg .ix.is-open > .ix-split {
+        grid-template-columns: clamp(260px, 22vw, 360px) minmax(0, 1fr);
+    }
+
+    /* Vänster: listkortet. */
+    body.page-inkorg:has(#ix) #ix-list,
+    body.page-inkorg .ix.is-open #ix-list {
+        min-width: 0;
+        min-height: 0;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg-subtle);
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    /* Mitten + höger. */
+    body.page-inkorg:has(#ix) #ix-conv {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        min-height: 0;
+        height: auto;
+        max-height: none;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    body.page-inkorg .ix.is-open .ix-cmain.ix-v2 {
+        position: relative;
+        flex: 1 1 auto;
+        grid-template-columns: minmax(0, 1fr) clamp(260px, 20vw, 340px);
+        column-gap: 12px;
+        row-gap: 0;
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    /* Mittkortet ritas som bakgrund bakom kolumn 1 (rubrik, Grok-rad, tråd). */
+    body.page-inkorg .ix.is-open .ix-cmain.ix-v2::before {
+        content: "";
+        grid-column: 1;
+        grid-row: 1 / -1;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg-subtle);
+        z-index: 0;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-casehead,
+    body.page-inkorg .ix.is-open .ix-v2 .ix-grokstrip,
+    body.page-inkorg .ix.is-open .ix-v2 .ix-vcol {
+        position: relative;
+        z-index: 1;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-casehead {
+        padding-top: 14px;
+    }
+
+    body.page-inkorg .ix.is-open .ix-v2 .ix-vcol {
+        padding-bottom: 14px;
+    }
+
+    /* Höger: Kund-kortet. */
+    body.page-inkorg .ix.is-open .ix-v2 .ix-side {
+        grid-column: 2;
+        grid-row: 1 / -1;
+        min-width: 0;
+        min-height: 0;
+        padding: 12px 16px 16px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: var(--bg-subtle);
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    body.page-inkorg .ix.is-open.ix-side-off .ix-cmain.ix-v2 {
+        grid-template-columns: minmax(0, 1fr) 46px;
+    }
+
+    /* Samma piller som Påminnelsers filterchips. */
+    body.page-inkorg .ix-queues {
+        gap: 8px;
+        border-bottom: 0;
+    }
+
+    body.page-inkorg .ix-qtab {
+        min-height: 36px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg-subtle);
+        font-weight: 450;
+    }
+
+    body.page-inkorg .ix-qtab.is-on {
+        border-color: var(--border-strong);
+        background: color-mix(in oklab, var(--text-primary) 12%, var(--bg-raised));
+        font-weight: 550;
+    }
+}
+
+/* 1024–1279: Kund fälls in först (om man inte själv fällt ut den). Listan ligger kvar. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    body.page-inkorg .ix.is-open:not(.ix-side-on) .ix-cmain.ix-v2 {
+        grid-template-columns: minmax(0, 1fr) 46px;
+    }
+
+    body.page-inkorg .ix.is-open:not(.ix-side-on) .ix-v2 .ix-cust > :not(.ix-sidefold) {
+        display: none !important;
+    }
+
+    body.page-inkorg .ix.is-open:not(.ix-side-on) .ix-v2 .ix-side {
+        padding: 8px 6px;
+        min-width: 0 !important;
+        align-items: center;
+    }
+
+    body.page-inkorg .ix.is-open:not(.ix-side-on) .ix-v2 .ix-sidefold {
+        margin: 0;
+    }
+
+    body.page-inkorg .ix.is-open:not(.ix-side-on) .ix-sidefold-arrow {
+        transform: rotate(180deg);
+    }
+
+    body.page-inkorg .ix.is-open > .ix-split {
+        grid-template-columns: clamp(240px, 24vw, 300px) minmax(0, 1fr);
+    }
+}
+
+/*
+ * Dator (minst 1024 px, där lista och tråd står bredvid varandra): tre fält redan
+ * innan ett ärende valts, med tom mitt och neutral KUND-panel. JS väljer sedan
+ * översta ärendet. Platta och mobil (under 1024 px) är oförändrade.
+ */
+@media (min-width: 1024px) {
+    body.page-inkorg #ix.ix:not(.is-open) > .ix-split {
+        grid-template-columns: minmax(240px, 340px) minmax(0, 1fr);
+        gap: 0;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: var(--bg-subtle);
+    }
+
+    body.page-inkorg:has(#ix.ix:not(.is-open)) > .main {
+        width: 100%;
+        max-width: min(1920px, 100%);
+    }
+
+    body.page-inkorg #ix.ix:not(.is-open) #ix-list {
+        padding: 10px 10px 16px;
+        border-right: 1px solid var(--border);
+        background: var(--bg-page);
+    }
+
+    body.page-inkorg:has(#ix) #ix.ix:not(.is-open) #ix-conv {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+        align-items: start;
+        padding: 16px;
+    }
+}
+
+@media (min-width: 1101px) {
+    body.page-inkorg:has(#ix) #ix.ix:not(.is-open) #ix-conv {
+        grid-template-columns: minmax(0, 1fr) minmax(240px, 300px);
+    }
+}
+
+body.page-inkorg .ix-cust-empty h3 {
+    margin: 0 0 6px;
+}
+
+/*
+ * Dator: menyerna i mittenpanelen (status, Tilldelad, ⋯, pilen vid Skicka) läggs med
+ * position: fixed vid knappen av JS (ixMenuPlace) så att overflow: hidden på .ix-cmain,
+ * .ix-vcol och .ix-split inte klipper dem. Lagren menyn ligger i (t.ex. .ix-casehead med
+ * z-index 1 under .ix-vcol) lyfts med .ix-menu-lift medan menyn är öppen.
+ * Under 1024 px sätts klasserna aldrig.
+ */
+@media (min-width: 1024px) {
+    body.page-inkorg .ix-v2 .ix-menu.ix-float {
+        position: fixed;
+        z-index: 1000;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    body.page-inkorg .ix-menu-lift {
+        z-index: 50 !important;
+    }
+}

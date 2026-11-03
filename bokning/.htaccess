@@ -1,0 +1,13 @@
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Samma HTTPS-hopp som i roten. Den här katalogen har eget RewriteEngine.
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteCond %{HTTP_HOST} ^[A-Za-z0-9.-]+(?::[0-9]+)?$
+    RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+    # Appen bor i webbroten. /bokning/... ska dit.
+    RewriteRule ^(.*)$ /$1 [R=302,L,QSA]
+</IfModule>

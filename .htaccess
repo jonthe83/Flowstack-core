@@ -1,0 +1,86 @@
+# Flowstack-demo — demo.flowstack.se
+# Mall: AuthUserFile är en platshållare. Skapa .htpasswd själv. Inget lösenord i den här filen.
+Options -Indexes
+
+AuthType Basic
+AuthName "Flowstack-demo"
+AuthUserFile /ABSOLUT/SOKVAG/TILL/.htpasswd
+Require valid-user
+
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set Referrer-Policy "same-origin"
+    Header always set X-Robots-Tag "noindex, nofollow"
+    # Bara /assets med ?v=mtime. Nginx ignorerar det här. Samma sak ligger i .github/loopia-nginx.conf.
+    Header set Cache-Control "public, max-age=31536000, immutable" env=JEAB_ASSET_IMMUTABLE
+</IfModule>
+<FilesMatch "\.(?:css|js|mjs|svg|woff2?)$">
+    FileETag MTime Size
+</FilesMatch>
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/css application/javascript image/svg+xml
+</IfModule>
+# HSTS sätts från PHP i src/shield.php (bara på HTTPS, max-age=31536000). Nginx ignorerar Header-direktiv.
+
+<IfModule mod_mime.c>
+    AddDefaultCharset UTF-8
+</IfModule>
+
+<FilesMatch "^(config\.php|config\.example\.php|passwords\.json|passwords\.example\.json|README\.md|AGENTS\.md|.*\.sql)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/assets/.+\.(css|js|svg|woff2?)$
+    RewriteCond %{QUERY_STRING} (^|&)v=[0-9]+
+    RewriteRule ^ - [E=JEAB_ASSET_IMMUTABLE:1]
+    RewriteRule ^data/ - [F,L]
+    RewriteRule ^private/ - [F,L]
+    RewriteRule ^private$ - [F,L]
+    RewriteRule ^privat/fullmakt/signed/ - [F,L]
+    RewriteRule ^data/\.private/fullmakt/signed/ - [F,L]
+    RewriteRule ^src/ - [F,L]
+    RewriteRule ^tests/ - [F,L]
+    RewriteRule ^fullmakt/data/ - [F,L]
+    RewriteRule ^fullmakt/lib/ - [F,L]
+    RewriteRule ^fullmakt/vendor/ - [F,L]
+    RewriteRule ^gi/data/ - [F,L]
+    RewriteRule ^tools/ - [F,L]
+    RewriteRule \.(?:sqlite|sqlite-wal|sqlite-shm|log)$ - [F,L]
+    RewriteRule ^schema/ - [F,L]
+    RewriteRule (?:^|/)(?:README|AGENTS)\.md$ - [F,L,NC]
+    RewriteRule ^rot/(?:address_lookup|fortnox|logger)\.php$ - [F,L]
+    # Vanlig HTTP når PHP och sajten svarar 500. Skicka till HTTPS innan PHP.
+    # Hoppa över när en proxy redan terminerat TLS, annars loopar nginx→Apache.
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteCond %{HTTP_HOST} ^[A-Za-z0-9.-]+(?::[0-9]+)?$
+    RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+    RewriteCond %{REQUEST_METHOD} =POST
+    RewriteRule ^rot/?$ /index.php?p=manuell-order [R=307,L,QSA]
+    RewriteCond %{REQUEST_METHOD} =POST
+    RewriteRule ^rot/index\.php$ /index.php?p=manuell-order [R=307,L,QSA]
+    RewriteRule ^rot/?$ /index.php?p=manuell-order [R=302,L,QSA]
+    RewriteRule ^rot/index\.php$ /index.php?p=manuell-order [R=302,L,QSA]
+    RewriteRule ^bokning/rot/?$ /index.php?p=manuell-order [R=302,L,QSA]
+    RewriteRule ^bokning/rot/index\.php$ /index.php?p=manuell-order [R=302,L,QSA]
+</IfModule>
+
+<IfModule mod_php.c>
+    <Files "filer.php">
+        php_value auto_prepend_file "src/filer_boot.php"
+    </Files>
+</IfModule>
+<IfModule mod_php8.c>
+    <Files "filer.php">
+        php_value auto_prepend_file "src/filer_boot.php"
+    </Files>
+</IfModule>

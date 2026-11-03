@@ -1,0 +1,92 @@
+# Kända fel på main. De rapporteras och fäller inte jobbet.
+# En rad: tests/fil.php<TAB>text som måste finnas i utdata.
+# Annan text i samma fil fäller. php-cgi-testerna ingår inte: de ska vara gröna.
+# Grön känd rad skrivs ut så den kan tas bort ur listan.
+
+tests/address_extract_test.php	ny kontakt tar geokod i stället för Älvsbyn
+tests/batteri_duration_test.php	ledig batteridag är 07:00–16:00
+tests/batteri_neo_pdf_test.php	offer.send_malmo bifogar Malmö-PDF:en och NEO-raderna
+tests/bokmalen_ordrar_webhook_test.php	varken beställ eller webhook defaultar antal till 1
+tests/calendar_pdo_peak_test.php	src öppnar ingen egen PDO eller mysqli: src/send_guard_brake.php
+tests/filter_pills_test.php	solorder träffar Sam L
+tests/fortnox_gt_follows_kalkyl_test.php	sparad ansökan 90 208, inte capped
+tests/fullmakt_api_log_test.php	personalmejlet eller PDF-filnamnet har fått tillbaka token
+tests/inkorg_audit_followup_test.php	solpåminnelsen stänger även solleadet
+tests/inkorg_auto_test.php	rättad typ blir exempel
+tests/inkorg_autooffer_diag_fields_test.php	bara leadtråden får offerten
+tests/inkorg_case_classify_test.php	Nordsolen-stil är leadsäljare
+tests/inkorg_close_quoted_test.php	nytt mejl med offert och påminnelse stängs utan utskick
+tests/inkorg_contact_box_test.php	boxen visar sparad kundadress och telefonen i mejlet
+tests/inkorg_contact_mismatch_test.php	sparad testkontakt visas inte för den riktiga kunden
+tests/inkorg_contact_set_email_test.php	skrivning byter och skickar inget
+tests/inkorg_count_tiles_test.php	saknad cache räknas in i sidans HTML
+tests/inkorg_counts_historik_search_test.php	sidan ritar Inkorg-talet utan cache
+tests/inkorg_desk_panes_test.php	curl: trådrutan är sticky på skrivbord
+tests/inkorg_folder_counts_test.php	sök i Information visar egna träffar före andras
+tests/inkorg_follow_receipt_test.php	ny kvittens använder texten från Regler
+tests/inkorg_follow_selftest_test.php	nytt självtest tar leadvägen och öppnar inte Elins riktiga påminnelse
+tests/inkorg_follow_sender_test.php	av som standard: ingen kvittens, påminnelsen öppnas med ring
+tests/inkorg_form_reminder_test.php	påminnelse skapas när kundmejlet är av
+tests/inkorg_helpscout_import_ids_test.php	klassning körs i torrkörning
+tests/inkorg_helpscout_import_round2_test.php	ärende open skrivs
+tests/inkorg_helpscout_import_round3_test.php	ärende flip skrivs
+tests/inkorg_helpscout_import_round4_test.php	ärende komma skrivs
+tests/inkorg_helpscout_import_round5_test.php	ärende pekad skrivs
+tests/inkorg_helpscout_import_test.php	checkpointen står kvar på sida 1
+tests/inkorg_historik_sort_test.php	import 200
+tests/inkorg_hs_datum_test.php	konversation sparas
+tests/inkorg_klassning_test.php	Egna visar bara egna
+tests/inkorg_kund_clean_test.php	rad som finns i tre mejl från källan tas bort
+tests/inkorg_lead_backfill_test.php	nytt lead utan produkt hålls med en påminnelse
+tests/inkorg_leadseller_recipient_test.php	kända leadsäljare är förifyllda
+tests/inkorg_list_category_test.php	gammal import sparas
+tests/inkorg_malmo_helpscout_test.php	utan val stannar inkorgen på Järfälla
+tests/inkorg_malmo_hs_sync_test.php	första since=1 hämtar öppna ärenden och sätter vattenstämpel
+tests/inkorg_open_cap_test.php	import jf-00 skrivs
+tests/inkorg_open_once_test.php	klicket anropar ixShowPending
+tests/inkorg_park_cleanup_test.php	förberäknat tal följer listan efter stängning
+tests/inkorg_quote_diag_links_test.php	tom produktetikett på Wix blir elbilsladdare och Elin
+tests/inkorg_quote_hold_test.php	avstängt utskick håller och skickar inte
+tests/inkorg_quote_list_source_test.php	vanligt svar håller fortfarande utskicksspärren
+tests/inkorg_quote_product_test.php	utan force_product skickas den klassade produkten
+tests/inkorg_rebook_test.php	tickern skickar inte bekräftelsen igen
+tests/inkorg_reclassify_leads_test.php	modellen sa Information, köpord fyller produkt utan att byta typ
+tests/inkorg_relabel_save_test.php	oklassad när modellen kastar
+tests/inkorg_reminder_epost_test.php	E-post är en mailto-länk
+tests/inkorg_reminder_restore_test.php	öppen påminnelse får testraden
+tests/inkorg_reopen_hsi_test.php	automatiken skickar inget
+tests/inkorg_reply_to_line_test.php	båda svarsrutorna ritas
+tests/inkorg_review_min_test.php	ommärkning skrivs i corrections
+tests/inkorg_send_quote_test.php	utgående mejl i inkorgen stoppar offerten med datum
+tests/inkorg_service_cap_live_test.php	import jf-active-00 skrivs
+tests/inkorg_sql_migration_test.php	migrate utan dry skriver inte
+tests/inkorg_support_history_test.php	kontaktens order ger sol och Sam L
+tests/inkorg_test.php	koden innehåller inte «hemsol»
+tests/inkorg_thread_mobile_contact_test.php	trådhuvudet har ix-mhead-contact före kund-accordionen
+tests/inkorg_threads_fast_test.php	inbox.threads limit=50 på 2000 ärenden är under 5 s och utan Graph
+tests/inkorg_unknown_product_selftest_test.php	avstängd brytare skickar inget i det vanliga flödet
+tests/kalender_vyer_test.php	Vecka går till dagens vecka
+tests/kontakter_link_conflicts_test.php	extra e-post läggs en gång i Övrigt
+tests/kontakter_step1_test.php	purchase_start läser inte kontakten
+tests/log_store_test.php	felloggen läser import och ny rad från SQL
+tests/lookup_owner_match_test.php	saknad klass loggas under lookup
+tests/mail_diag_test.php	markerad som skickad efteråt
+tests/offer_send_malmo_test.php	gron_teknik=0 skickar NEO-raderna från Kim utan teambild
+tests/ordrar_malmo_kim_book_test.php	Järfälla-laddbox bokas fortfarande på Elin
+tests/ordrar_o23_k1_test.php	curl visar bekräftelsen med rad och Tillbaka
+tests/ordrar_owner_backfill_test.php	FAIL auditen i SQL har id och ägare
+tests/ordrar_payout_test.php	logg maskerar kontonummer
+tests/ordrar_postnummer_test.php	nytt köp sparar inte postnummer från leaden
+tests/ordrar_purchase_concurrent_test.php	torrkörning räknar namn som skulle fyllas
+tests/ordrar_set_mobil_test.php	dry=0 skriver
+tests/p3_security_test.php	sms-raden sparas i en SQL-transaktion
+tests/pdo_one_connection_test.php	aktiv rad sätts före hämtningen
+tests/reminder_contact_source_test.php	annan adress på samma e-post länkar kontakten
+tests/webshop_inbox_order_test.php	samma kundmejl stängs, en annan kund lämnas öppen
+# Kända fel på main 786f036e: mängden FAIL-rader per test måste stämma exakt, bevisat med run_php_tests.py --changed --cap 200 --budget 900 (PHP_TEST_TIMEOUT=15) på ren main-worktree 2026-10-31. Exakt matchning.
+tests/login_diag_assign_test.php	FAIL ompekad kaka är Sam L utan ny inloggning
+tests/who_default_login_test.php	FAIL config-koppling till Sam L är inte admin
+tests/sam_city_identity_test.php	FAIL SamL-huvud är Sam L och admin
+tests/boot_login_smoke_test.php	FAIL clearstatcache ligger före require av test_lead.php
+tests/boot_login_smoke_test.php	FAIL test_lead.php laddas efter db.php
+tests/sql_sole_source_test.php	FAIL sql-vägen lämnar messages.json

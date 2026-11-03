@@ -1,0 +1,6 @@
+{
+  "api_url": "https://app.solkoll.se/external/v1",
+  "api_key": "",
+  "_comment": "Föredra data/secrets/solkoll.json eller Cursor-secret SOLKOLL_API_KEY."
+}
+

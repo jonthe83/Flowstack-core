@@ -1,0 +1,218 @@
+.page-rot .inkop-val-row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+    margin: 0 0 var(--space-3);
+}
+
+.page-rot .inkop-val-row .cal-company {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--space-2);
+}
+
+.page-rot .inkop-val-row .chip {
+    min-height: var(--tap);
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    font-weight: 600;
+}
+
+.page-rot .inkop-val-row .chip.is-on {
+    border-color: var(--border-strong);
+    background: var(--bg-card-tint);
+    color: var(--text-primary);
+}
+
+.page-rot .inkop-nasta {
+    flex: 0 0 auto;
+    min-height: var(--tap);
+    height: var(--tap);
+    padding: 0 var(--space-3);
+    border: 0;
+    border-radius: var(--radius-btn);
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font-size: 16px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.page-rot .inkop-toggle {
+    flex: 0 0 auto;
+    margin-left: auto;
+    min-width: var(--tap);
+    min-height: var(--tap);
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-btn);
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.page-rot .inkop-toggle svg {
+    display: block;
+    margin: auto;
+}
+
+.page-rot.inkop-article-on .inkop-nasta {
+    display: none;
+}
+
+.page-rot .inkop-order {
+    overflow: hidden;
+}
+
+.page-rot .inkop-order.is-collapsed {
+    display: none;
+}
+
+.page-rot .inkop-dummy-mall {
+    display: none;
+}
+
+.page-rot .inkop-step {
+    display: none;
+    margin-top: var(--space-4);
+}
+
+.page-rot.inkop-article-on .inkop-step {
+    display: block;
+}
+
+.page-rot .inkop-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    padding: var(--space-4);
+}
+
+.page-rot .inkop-card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    border-radius: var(--radius-btn);
+    padding: var(--space-3);
+}
+
+.page-rot .inkop-kind {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--space-2);
+}
+
+.page-rot .inkop-help,
+.page-rot .inkop-leverans-lbl,
+.page-rot .inkop-mall-lbl {
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.page-rot .inkop-mall-row,
+.page-rot .inkop-leverans {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+}
+
+.page-rot .inkop-mall-pick,
+.page-rot .inkop-name,
+.page-rot .inkop-line input {
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.page-rot .inkop-leverans-box {
+    position: relative;
+    width: 100%;
+}
+
+.page-rot .inkop-leverans-input {
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0 var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font: inherit;
+    box-sizing: border-box;
+}
+
+.page-rot .inkop-leverans-word {
+    display: none;
+    position: absolute;
+    inset: 1px 2.75em 1px 1px;
+    align-items: center;
+    padding: 0 var(--space-3);
+    background: var(--bg-subtle);
+    color: var(--text-primary);
+    font-weight: 600;
+    pointer-events: none;
+    border-radius: var(--radius-btn);
+}
+
+.page-rot .inkop-leverans-box.is-snarast .inkop-leverans-word {
+    display: flex;
+}
+
+.page-rot .inkop-leverans-box.is-snarast .inkop-leverans-input {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-rot .inkop-lines {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.page-rot .inkop-line {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) 4.75rem;
+    gap: var(--space-2);
+}
+
+.page-rot .inkop-line input[name="qty"] {
+    text-align: right;
+}
+
+.page-rot .inkop-save {
+    min-height: var(--tap);
+    height: var(--tap);
+    padding: 0 var(--space-3);
+    border: 0;
+    border-radius: var(--radius-btn);
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.page-rot .inkop-status {
+    min-height: 1.2em;
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}

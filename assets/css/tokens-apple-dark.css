@@ -1,0 +1,83 @@
+:root {
+    /* Orchid facit — keep app variable names, orchid values */
+    color-scheme: dark;
+    --bg-page: #0b0c0e;
+    --bg-subtle: #13151a; /* surface */
+    --bg-glass: rgba(11, 12, 14, 0.90);
+    --bg-raised: #1b1e26;
+    --bg-panel: #16181d;
+    --bg-field: #0f1115;
+    --bg-control: #22252c;
+    --bg-control-hover: #2a2e36;
+    --bg-card-tint: rgba(143, 208, 194, 0.12);
+    --text-primary: #eef0f3;
+    --text-secondary: #9aa3b2;
+    --text-subtle: #6d7684;
+    --text-inverse: #0b0c0e; /* text on accent */
+    --brand: #8fd0c2;
+    --brand-hover: #a8ddd2;
+    --border: rgba(238, 240, 243, 0.10);
+    --border-strong: rgba(238, 240, 243, 0.18);
+    --success: #7dcc9a;
+    --danger: #e57373;
+    --warning: #d7c48a;
+    --status-open: var(--brand);
+    --status-open-ink: var(--text-inverse);
+    --status-park: #e6c15a;
+    --status-park-ink: #1c1404;
+    --status-closed: #7b8492;
+    --status-closed-ink: #ffffff;
+    --channel-sms: #6ea8ff;
+    --channel-chat: #e0a15a;
+    --channel-call: #62d08a;
+    --radius-btn: 8px;
+    --radius-card: 12px;
+    --radius-lg: 18px;
+    --tap: 44px;
+    --nav-height: 56px;
+    --blur: 8px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+    --text-body: 16px;
+    --container: 72rem;
+}
+
+/* Ljust läge — samma variabelnamn, ljusa värden. Klassen sätts på <html>
+   av jeab_theme_class() (cookie) och av temaknappen i layoutens jeab_theme_boot_html(). */
+:root.theme-light {
+    color-scheme: light;
+    --bg-page: #f4f6f8;
+    --bg-subtle: #ffffff;
+    --bg-glass: rgba(244, 246, 248, 0.90);
+    --bg-raised: #e6eaf0;
+    --bg-panel: #ffffff;
+    --bg-field: #f3f5f9;
+    --bg-control: #e9edf3;
+    --bg-control-hover: #dde3ec;
+    --bg-card-tint: rgba(15, 124, 108, 0.10);
+    --text-primary: #101319;
+    --text-secondary: #5b6472;
+    --text-subtle: #7b8494;
+    --text-inverse: #ffffff;
+    --brand: #0f7c6c;
+    --brand-hover: #0b6559;
+    --border: rgba(16, 19, 25, 0.12);
+    --border-strong: rgba(16, 19, 25, 0.24);
+    --success: #1f8f4e;
+    --danger: #c23b30;
+    --warning: #8a6d16;
+    --status-open: var(--brand);
+    --status-open-ink: var(--text-inverse);
+    --status-park: #e8b423;
+    --status-park-ink: #1c1404;
+    --status-closed: #6e7786;
+    --status-closed-ink: #ffffff;
+    --channel-sms: #2563eb;
+    --channel-chat: #a25a13;
+    --channel-call: #157f3f;
+}

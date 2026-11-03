@@ -1,0 +1,12 @@
+---
+description: Affärsdata ska i SQL, inte nya JSON-filer under data/.
+alwaysApply: true
+---
+
+# Ingen ny affärsdata i JSON
+
+Följ `AGENTS.md`, avsnittet «Affärsdata i SQL». Ny lagring skapas med `jeab_ensure_*` i `src/db.php` för både MySQL och SQLite. `schema/` deployas inte.
+
+Inkorgen (meddelanden, trådar och anteckningar i `messages.json`) har SQL-tabeller, men inställningen `inkorg_storage` är av som standard. Live läser JSON tills hooken `inbox.sql_cutover`.
+
+Kontakter (`data/kontakter.json` och inkorgens `contacts.json`) har tabellerna `contacts` och `inkorg_contacts`, skapade av `jeab_ensure_contacts_tables()` i `src/db.php`. Flaggan `kontakter_storage` är av som standard. Live läser JSON tills `kontakter.sql_cutover`. Därefter läser och skriver `kontakt_store` SQL. JSON ligger kvar som backup och läses bara om SQL-tabellen är tom.

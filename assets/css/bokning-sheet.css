@@ -1,0 +1,255 @@
+/* Datumet i bokningsarket är en tryckyta, inte en statisk etikett. */
+.outlook .field-when {
+    align-items: flex-start;
+}
+
+.outlook .field-when > .ico {
+    margin-top: 14px;
+}
+
+.outlook .when-edit {
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: var(--space-2);
+}
+
+.outlook .when-day {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex: 1 1 100%;
+    min-width: 0;
+    min-height: var(--tap);
+    margin: 2px 0;
+    padding: 0 10px 0 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-btn);
+    background: var(--bg-control);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.outlook .when-day:hover,
+.outlook .when-day:focus-within {
+    background: var(--bg-control-hover);
+    border-color: var(--brand);
+}
+
+.outlook .when-day-ico,
+.outlook .when-day-chevron {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+}
+
+.outlook .when-day-ico {
+    color: var(--brand);
+}
+
+.outlook .when-day-chevron {
+    margin-left: auto;
+    color: var(--text-secondary);
+}
+
+.outlook .when-edit .when-day #booking-start-day {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+    min-height: 36px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-weight: 650;
+    line-height: 1.2;
+    text-align: left;
+    cursor: pointer;
+    color-scheme: inherit;
+}
+
+.outlook .when-day input[type="date"]::-webkit-datetime-edit,
+.outlook .when-day input[type="date"]::-webkit-datetime-edit-fields-wrapper,
+.outlook .when-day input[type="date"]::-webkit-datetime-edit-text,
+.outlook .when-day input[type="date"]::-webkit-datetime-edit-month-field,
+.outlook .when-day input[type="date"]::-webkit-datetime-edit-day-field,
+.outlook .when-day input[type="date"]::-webkit-datetime-edit-year-field {
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.outlook .when-day input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: transparent;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.outlook .when-times {
+    flex: 1 1 auto;
+    min-height: 44px;
+}
+
+.outlook .outlook-foot {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    gap: var(--space-2);
+    min-width: 0;
+}
+
+.outlook .outlook-foot .btn-danger,
+.outlook .outlook-foot .btn-ignore,
+.outlook .outlook-foot .btn-save {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    width: auto;
+    min-width: min-content;
+    min-height: var(--tap);
+    height: var(--tap);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-btn);
+    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.outlook .outlook-foot .btn-save {
+    background: var(--brand);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    border: 0;
+}
+
+.outlook .outlook-foot .btn-ignore {
+    background: var(--bg-glass);
+    color: var(--text-primary);
+    -webkit-text-fill-color: var(--text-primary);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
+}
+
+.outlook .outlook-foot .btn-danger {
+    background: var(--danger);
+    color: var(--text-inverse);
+    -webkit-text-fill-color: var(--text-inverse);
+    border: 0;
+}
+
+.outlook .outlook-foot [hidden] {
+    display: none;
+}
+
+.outlook .booking-name-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.outlook .booking-name-wrap #booking-customer {
+    width: 100%;
+    flex: none;
+}
+
+.outlook .booking-name-suggest[hidden],
+.outlook .booking-name-suggest:empty {
+    display: none;
+}
+
+.outlook .booking-name-suggest {
+    display: block;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    right: 0;
+    z-index: 40;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: min(40vh, 280px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-btn, 8px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--bg-page) 55%, transparent);
+}
+
+.outlook .booking-name-suggest li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-height: 44px;
+    padding: 8px 12px;
+    list-style: none;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--text);
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+}
+
+.outlook .booking-name-suggest li:last-child {
+    border-bottom: 0;
+}
+
+.outlook .booking-name-suggest li.is-on,
+.outlook .booking-name-suggest li:active {
+    background: var(--bg-subtle);
+}
+
+.outlook .booking-name-suggest-name {
+    font-weight: 600;
+}
+
+@keyframes jeabAutofillStart {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#booking-form input:-webkit-autofill {
+    animation-name: jeabAutofillStart;
+    animation-duration: 1ms;
+}
+
+.outlook .booking-name-suggest-addr {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.outlook .sheet-contact-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-left: 8px;
+    overflow-wrap: anywhere;
+}

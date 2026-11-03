@@ -1,0 +1,5 @@
+Flowstack-demo (demo.flowstack.se). Packa upp i docroot. Kod, data och SQLite ligger i docroot. Inget ovanför webbroten.
+Kopiera .htaccess.example till .htaccess. Byt AuthUserFile till den absoluta sökvägen till .htpasswd.
+Skapa .htpasswd själv (htpasswd). Inget lösenord finns i paketet.
+Data är data/.private, spärrad med .htaccess. Annan plats senare: miljövariabel JEAB_DATA_DIR. Ingen cron.
+PHP 8.x och PDO SQLite. Kampanjkod: cola. Kalkyl och Omtago är av.

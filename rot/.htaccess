@@ -1,0 +1,34 @@
+# Appen ligger på index.php?p=manuell-order.
+# oauth_setup.php ska gå att öppna (Laga här om trasig, JEAB + MEAB).
+# JSON och Fortnox-config får inte läsas över HTTP.
+
+<FilesMatch "(?i)\.json$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<FilesMatch "(?i)^(fortnox_config\.php|fortnox_tokens\.json|tokens\.json|\.env)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule (?i)\.json$ - [F,L]
+    RewriteRule (?i)^fortnox_config\.php$ - [F,L]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+    RewriteCond %{HTTP_HOST} ^[A-Za-z0-9.-]+(?::[0-9]+)?$
+    RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,QSA]
+    RewriteRule ^$ /index.php?p=manuell-order [R=302,L,QSA]
+    RewriteRule ^index\.php$ /index.php?p=manuell-order [R=302,L,QSA]
+</IfModule>

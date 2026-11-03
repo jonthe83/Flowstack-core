@@ -1,0 +1,2 @@
+Flowstack deploy-check
+Ofarlig statisk fil.

@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^ https://www.jarfalla.example.test/ [R=301,L]

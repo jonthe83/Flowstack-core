@@ -1,0 +1,1 @@
+FPDF 1.9.0 — see license.txt. Vendored so the module can be dropped onto a host without Composer.
