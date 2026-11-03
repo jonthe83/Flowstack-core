@@ -1,0 +1,64 @@
+# Ska ligga som .github/workflows/ci-hygiene.yml för att GitHub ska köra den.
+# Den ligger här för att push-token saknar OAuth-scopet workflow och därför
+# vägrar skapa filer under .github/workflows. Cody flyttar filen dit.
+# Ritning, UTF-8, frågetak, staging-självtest och webbläsarflöden.
+# Anropar inte flowstack.example.test. Startar inte deploy.
+
+name: CI-hygien
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-hygiene-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php:
+    name: Sidor, SQL-tak och rök
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: PHP
+        run: |
+          set -euo pipefail
+          if ! command -v php >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y php-cli php-sqlite3 php-mbstring
+          fi
+          php tests/page_utf8_test.php
+          php tests/sql_budget_test.php
+          php tests/security_public_error_test.php
+          php tests/webshop_wix_key_test.php
+          python3 .github/scripts/staging_smoke.py --self-test
+          python3 .github/scripts/staging_smoke.py
+
+  e2e:
+    name: Webbläsarflöden
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: PHP
+        run: |
+          if ! command -v php >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y php-cli
+          fi
+
+      - name: Playwright
+        working-directory: tests/e2e
+        run: |
+          set -euo pipefail
+          npm ci
+          npx playwright install --with-deps chromium
+          npx playwright test

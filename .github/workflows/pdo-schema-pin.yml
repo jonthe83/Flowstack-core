@@ -1,0 +1,45 @@
+# Pin av schema/sqlite.php och schema/mysql.php. Ett glömt pin-värde
+# gör att live hoppar över CREATE för nya tabeller.
+# Jobbet startar på varje pull request så checknamnet pdo_schema_pin rapporteras.
+# Utan pin-filer avslutas det grönt direkt.
+
+name: Schema-pin
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pdo-schema-pin:
+    name: pdo_schema_pin
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 1
+
+      - name: Berörs filerna
+        id: gate
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          git diff --name-only FETCH_HEAD HEAD > /tmp/changed.txt
+          if grep -E '^(schema/sqlite\.php|schema/mysql\.php|src/db\.php|src/bootstrap\.php|tests/pdo_schema_pin_test\.php|\.github/workflows/pdo-schema-pin\.yml)$' /tmp/changed.txt >/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Inga pin-filer. pdo_schema_pin är grön."
+          fi
+
+      - name: Pin-test
+        if: steps.gate.outputs.run == 'true'
+        run: php tests/pdo_schema_pin_test.php

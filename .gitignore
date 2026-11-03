@@ -58,4 +58,3 @@ Thumbs.db
 !/config.example.php
 .htpasswd
 tinyfilemanager.php
-/.github/workflows/

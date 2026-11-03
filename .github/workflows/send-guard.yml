@@ -1,0 +1,48 @@
+# Kör bara spärrens tester. De åtta röda sviterna på main ingår inte.
+# Jobbet startar på varje pull request så checknamnet send_guard rapporteras.
+# Utan berörda filer avslutas det grönt direkt.
+
+name: Utskicksspärr
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  send-guard:
+    name: send_guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 1
+
+      - name: Berörs filerna
+        id: gate
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          git diff --name-only FETCH_HEAD HEAD > /tmp/changed.txt
+          if grep -E '\.php$|^\.github/workflows/send-guard\.yml$' /tmp/changed.txt >/dev/null; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Inga PHP-filer. send_guard är grön."
+          fi
+
+      - name: Spärrens tester
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          php tests/send_guard_stats_test.php
+          php tests/send_guard_test.php
+          php tests/send_guard_transport_test.php
+          php tests/send_guard_queue_diag_test.php

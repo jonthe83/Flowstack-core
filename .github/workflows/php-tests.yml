@@ -1,0 +1,53 @@
+# När en PR öppnas, uppdateras, markeras redo, eller får etiketten tests.
+# Kör tester vars filnamn matchar ändrade src/*.php (src/sms.php → tests/sms*.php).
+# Taket rymmer hela inkorgspoolen (src/inkorg.php träffar tests/inkorg*.php).
+# Ingen MariaDB-tjänst.
+# concurrency avbryter en äldre körning på samma gren. Deploy gör inte det.
+
+name: php-tests
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review, synchronize, labeled]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: php-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-tests:
+    name: php-tests
+    if: github.event_name == 'workflow_dispatch' || github.event.action == 'ready_for_review' || github.event.label.name == 'tests' || ((github.event.action == 'opened' || github.event.action == 'reopened' || github.event.action == 'synchronize') && github.event.pull_request.draft == false)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          fetch-depth: 1
+
+      - name: Matchande tester
+        env:
+          PHP_TEST_TIMEOUT: "15"
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            base=main
+          else
+            base="${{ github.base_ref }}"
+          fi
+          git fetch --no-tags --depth=1 origin "$base"
+          git diff --name-only FETCH_HEAD HEAD > /tmp/changed.txt
+          if ! command -v php >/dev/null 2>&1; then
+            if ! grep -E '^(src/.*\.php|tests/.*\.php)$' /tmp/changed.txt >/dev/null; then
+              echo "inga matchande tester"
+              exit 0
+            fi
+            sudo apt-get update
+            sudo apt-get install -y php-cli php-sqlite3 php-mbstring
+          fi
+          python3 .github/scripts/run_php_tests.py --changed /tmp/changed.txt --cap 200 --budget 900

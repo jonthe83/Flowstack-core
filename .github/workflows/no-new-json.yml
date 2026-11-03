@@ -1,0 +1,71 @@
+# Stoppar PR:er som lägger till nya PHP-skrivningar till .json/.jsonl under data/.
+#
+# Allowlisten skannas från basgrenen. Undantag: inställningar och mallar,
+# hemligheter i private/ och data/secrets, backuper och exporter.
+# Bara tillagda rader.
+# Jobbet startar på varje pull request så checknamnet rapporteras.
+# Bara testfiler: grönt direkt, utan skanningen.
+
+name: Inga nya JSON-skrivningar
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  no-new-json:
+    name: Inga nya JSON-skrivningar under data/
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 1
+
+      - name: Berörs filerna
+        id: gate
+        run: |
+          set -euo pipefail
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          git diff --name-only FETCH_HEAD HEAD > /tmp/changed.txt
+          if awk '/^tests\// { next } /\.php$/ { found=1 } /^\.github\/scripts\/no_new_json\.py$/ { found=1 } /^\.github\/workflows\/no-new-json\.yml$/ { found=1 } END { exit found ? 0 : 1 }' /tmp/changed.txt; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Inga PHP-filer utanför tests/. Checken är grön."
+          fi
+
+      - name: Självtest
+        if: steps.gate.outputs.run == 'true'
+        run: python3 .github/scripts/no_new_json.py --self-test
+
+      - name: Hämta basgren
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -euo pipefail
+          base="${{ github.base_ref }}"
+          if [ -z "$base" ]; then
+            base=main
+          fi
+          git fetch --no-tags --unshallow origin || true
+          git fetch --no-tags origin "$base"
+          echo "BASE=$base" >> "$GITHUB_ENV"
+
+      - name: Kontrollera diffen
+        if: steps.gate.outputs.run == 'true'
+        run: python3 .github/scripts/no_new_json.py --base "origin/${BASE}"
+
+      # Icke-blockerande tills Einstein slår på shrink som krav.
+      - name: Krymp allowlist (icke-blockerande)
+        if: steps.gate.outputs.run == 'true'
+        continue-on-error: true
+        run: python3 .github/scripts/no_new_json.py --shrink --base "origin/${BASE}"

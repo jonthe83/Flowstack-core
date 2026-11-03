@@ -1,0 +1,73 @@
+# Ska ligga som .github/workflows/mysql-nightly.yml för att GitHub ska köra den.
+# Den ligger här för att push-token saknar OAuth-scopet workflow och därför
+# vägrar skapa filer under .github/workflows. Cody flyttar filen dit.
+# Nattlig körning: hela PHP-sviten mot SQLite, plus prefixindex mot MySQL.
+# Anropar inte flowstack.example.test. Startar inte deploy. Kända fel fäller inte SQLite-jobbet.
+
+name: Nattliga tester
+
+on:
+  schedule:
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mysql-nightly-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sqlite-suite:
+    name: Hela PHP-sviten
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: PHP
+        run: |
+          set -euo pipefail
+          if ! command -v php >/dev/null 2>&1; then
+            sudo apt-get update
+            sudo apt-get install -y php-cli php-sqlite3 php-mbstring
+          fi
+
+      - name: Alla tester
+        env:
+          PHP_TEST_TIMEOUT: "30"
+        run: python3 .github/scripts/run_php_tests.py --budget 5400
+
+  mysql-schema:
+    name: MySQL-schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: nightly
+          MYSQL_DATABASE: jeab
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -pnightly"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    steps:
+      - name: Hämta kod
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+
+      - name: PHP och MySQL-schema
+        env:
+          JEAB_MYSQL_DSN: mysql:host=127.0.0.1;port=3306;dbname=jeab;charset=utf8mb4
+          JEAB_MYSQL_USER: root
+          JEAB_MYSQL_PASS: nightly
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y php-cli php-mysql php-mbstring php-sqlite3
+          php tests/db_mysql_nightly_test.php
