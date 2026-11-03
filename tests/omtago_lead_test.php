@@ -502,11 +502,11 @@ om_assert_open_test([
     'contact' => [
         'first_name' => 'Erik',
         'last_name' => 'Holm',
-        'email' => 'jeab+test-inkorg@mail.grokbot.com',
+        'email' => 'inkorg+test-inkorg@example.test',
         'phone' => '0701112233',
     ],
     'test' => true,
-], 'jeab+test-inkorg@mail.grokbot.com', '0701112233', 'test=true med jeab+test');
+], 'inkorg+test-inkorg@example.test', '0701112233', 'test=true med inkorg+test');
 
 $ownId = (string) ($GLOBALS['_OM_TEST_IDS'][0] ?? '');
 $liveBefore = (string) (jeab_inkorg_thread_meta($liveId)['status'] ?? '');

@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/test_lead_address.php';
+
 require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 
@@ -51,11 +53,12 @@ function jeab_test_lead_email_reason(string $email): string
     }
     $local = (string) strstr($email, '@', true);
     $domain = (string) substr((string) strrchr($email, '@'), 1);
-    if (in_array($domain, ['example.org', 'example.com', 'example.net', 'mail.grokbot.com'], true)
+    if (in_array($domain, ['example.org', 'example.com', 'example.net'], true)
+        || jeab_test_lead_domain_match($domain)
         || str_ends_with($domain, '.example.org')
         || str_ends_with($domain, '.example.com')
         || str_ends_with($domain, '.example.net')
-        || str_ends_with($domain, '.mail.grokbot.com')) {
+        ) {
         return 'mejldomän';
     }
     $labels = array_values(array_filter(explode('.', $domain), static fn(string $label): bool => $label !== ''));
@@ -108,9 +111,9 @@ function jeab_test_lead_strict_email_reason(string $email): string
     }
     $local = (string) strstr($email, '@', true);
     $domain = (string) substr((string) strrchr($email, '@'), 1);
-    $grokbot = $domain === 'mail.grokbot.com' || str_ends_with($domain, '.mail.grokbot.com');
-    if ($grokbot && str_starts_with($local, 'jeab+test-')) {
-        return 'jeab+test';
+    $ownDomain = jeab_test_lead_domain_match($domain);
+    if ($ownDomain && str_starts_with($local, jeab_test_lead_test_prefix())) {
+        return 'testadress';
     }
     if (in_array($domain, ['example.com', 'example.org', 'example.net'], true)
         || str_ends_with($domain, '.example.com')
@@ -407,8 +410,8 @@ function is_test_lead(array $lead): bool
 
 /**
  * Spärr för Fortnox, SMS, Graph och mejlkopia. Mejldomän kräver att varje
- * icke-tom kundadress (email, customer_email, epost, emails) är jeab+test-*
- * på mail.grokbot.com (eller underdomän) eller example.com/.org/.net.
+ * icke-tom kundadress (email, customer_email, epost, emails) är <lokal>+test-*
+ * på testleadsdomänen (eller underdomän) eller example.com/.org/.net.
  * En riktig adress räcker för att mejldomänen inte ska träffa. is_test gäller ändå.
  * Självtestets egna adresser räknas inte: de används som kundmejl på riktiga ärenden.
  *

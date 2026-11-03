@@ -62,18 +62,18 @@ $oldId = (string) $old['id'];
 
 $test = jeab_kontakt_find_or_create([
     'name' => 'Test Laddare3',
-    'email' => 'jeab+laddare3@mail.grokbot.com',
+    'email' => 'inkorg+laddare3@example.test',
     'phone' => $phone,
     'address' => $street,
 ], false, false);
 lb(is_array($test) && (string) ($test['id'] ?? '') !== $oldId, 'testlead får en egen kontakt');
-lb(jeab_kontakt_row_email($test) === 'jeab+laddare3@mail.grokbot.com', 'testlead behåller grokbot-adressen');
+lb(jeab_kontakt_row_email($test) === 'inkorg+laddare3@example.test', 'testlead behåller example-adressen');
 lb(jeab_kontakt_row_name(jeab_kontakt_get($oldId) ?: []) === 'Anna Kund', 'gamla kontakten byter inte namn');
 
 $rem = $store->insertReminder([
     'title' => 'Test Laddare3 – Elbilsladdare',
     'customer_name' => 'Test Laddare3',
-    'email' => 'jeab+laddare3@mail.grokbot.com',
+    'email' => 'inkorg+laddare3@example.test',
     'phone' => $phone,
     'address' => $street,
     'company' => 'jarfalla',
@@ -83,14 +83,14 @@ $rem = $store->insertReminder([
 ]);
 $bound = jeab_reminder_bind_contact($store, $rem, [
     'name' => 'Test Laddare3',
-    'email' => 'jeab+laddare3@mail.grokbot.com',
+    'email' => 'inkorg+laddare3@example.test',
     'phone' => $phone,
     'address' => $street,
 ]);
 $boundId = (string) ($bound['contact_id'] ?? '');
 lb($boundId !== '' && $boundId !== $oldId, 'påminnelsen kopplas inte till den gamla kontakten');
 lb(jeab_kontakt_row_name(jeab_kontakt_get($oldId) ?: []) === 'Anna Kund', 'anteckningen byter inte den gamla kontakten');
-lb(jeab_kontakt_row_email(jeab_kontakt_get($boundId) ?: []) === 'jeab+laddare3@mail.grokbot.com', 'kopplad kontakt har testleadets e-post');
+lb(jeab_kontakt_row_email(jeab_kontakt_get($boundId) ?: []) === 'inkorg+laddare3@example.test', 'kopplad kontakt har testleadets e-post');
 
 $erik = jeab_kontakt_find_or_create([
     'name' => 'Erik Berg',
@@ -114,10 +114,10 @@ lb(is_array($erikAgain) && (string) ($erikAgain['id'] ?? '') === (string) $erik[
 lb(jeab_kontakt_row_name(jeab_kontakt_get((string) $erik['id']) ?: []) === 'Erik Berg', 'Eriks kontakt byter inte namn');
 
 $form = static function (string $title): string {
-    return "A site visitor just submitted your form {$title}\n\nNamn:\n\nTest Laddare3\n\nE-post:\n\njeab+laddare3@mail.grokbot.com\n\nTelefon:\n\n070-111 22 33\n";
+    return "A site visitor just submitted your form {$title}\n\nNamn:\n\nTest Laddare3\n\nE-post:\n\ninkorg+laddare3@example.test\n\nTelefon:\n\n070-111 22 33\n";
 };
 $ladbox = [
-    'from' => 'jeab@mail.grokbot.com',
+    'from' => 'inkorg@example.test',
     'from_name' => 'JEAB',
     'subject' => 'JEAB Ladbox lead',
     'body' => $form('Ladbox lead'),
@@ -129,7 +129,7 @@ lb(!empty($classified['is_test']) && jeab_inkorg_klassning_own($ladbox), 'avsän
 
 foreach (['Batteri lead', 'Solceller lead', 'Sol+batteri', 'Laddbox lead'] as $title) {
     $one = jeab_inkorg_classify([
-        'from' => 'test.produkt@mail.grokbot.com',
+        'from' => 'test.produkt@example.test',
         'from_name' => 'Test Produkt',
         'subject' => 'JEAB ' . $title,
         'body' => $form($title),
@@ -150,7 +150,7 @@ $dry = jeab_inkorg_hook([
     'dry' => 1,
     'message' => [
         'message_id' => 'dry-laddare3@lead.test',
-        'from' => 'jeab@mail.grokbot.com',
+        'from' => 'inkorg@example.test',
         'from_name' => 'JEAB',
         'to' => 'kontakt@jarfalla.example.test',
         'subject' => 'JEAB Ladbox lead',
@@ -165,7 +165,7 @@ lb($GLOBALS['_SENT'] === [], 'dry=1 skickar inget');
 
 $wet = jeab_inkorg_ingest([
     'message_id' => 'wet-laddare3@lead.test',
-    'from' => 'jeab+laddare3@mail.grokbot.com',
+    'from' => 'inkorg+laddare3@example.test',
     'from_name' => 'Test Laddare3',
     'to' => 'kontakt@jarfalla.example.test',
     'subject' => 'JEAB Ladbox lead',
@@ -179,7 +179,7 @@ lb(count(jeab_inkorg_messages()) === $before + 1, 'intag utan dry skriver mejlet
 $oldRem = $store->insertReminder([
     'title' => 'Tidigare batteri',
     'customer_name' => 'Test Batteri3',
-    'email' => 'jeab+batteri3@mail.grokbot.com',
+    'email' => 'inkorg+batteri3@example.test',
     'phone' => '070-333 44 55',
     'address' => 'Annan gata 1',
     'company' => 'jarfalla',
@@ -189,11 +189,11 @@ $oldRem = $store->insertReminder([
 ]);
 $batteri = jeab_inkorg_ingest([
     'message_id' => 'wet-batteri3@lead.test',
-    'from' => 'jeab+batteri3@mail.grokbot.com',
+    'from' => 'inkorg+batteri3@example.test',
     'from_name' => 'Test Batteri3',
     'to' => 'kontakt@jarfalla.example.test',
     'subject' => 'JEAB Batteri lead',
-    'body_text' => "A site visitor just submitted your form Batteri lead\n\nNamn:\n\nTest Batteri3\n\nE-post:\n\njeab+batteri3@mail.grokbot.com\n\nTelefon:\n\n070-333 44 55\n\nAdress:\n\nBatterivägen 3, 177 32 Järfälla\n",
+    'body_text' => "A site visitor just submitted your form Batteri lead\n\nNamn:\n\nTest Batteri3\n\nE-post:\n\ninkorg+batteri3@example.test\n\nTelefon:\n\n070-333 44 55\n\nAdress:\n\nBatterivägen 3, 177 32 Järfälla\n",
     'source' => 'graph-jarfalla',
     'graph_mailbox' => 'kontakt@jarfalla.example.test',
     'preset_labels' => [

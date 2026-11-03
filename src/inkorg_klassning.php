@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/test_lead_address.php';
+
 require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 
@@ -1220,7 +1222,7 @@ function jeab_inkorg_klassning_lead_sender(array $msg): bool
 
 /**
  * Wix-sammanfattning för Sol, Batteri eller Laddbox.
- * Bron skickar kundens adress som avsändare. Egen post (jeab@, jeab+inkorg@) är aldrig lead.
+ * Bron skickar kundens adress som avsändare. Egen post (inkorgsadresserna från test_lead_address) är aldrig lead.
  * Kräver Wix-strukturen «A site visitor just submitted your form» och ett produktformulär.
  * «JEAB … lead» ensamt räcker inte. Kontakt Formulär är inte ett lead.
  */

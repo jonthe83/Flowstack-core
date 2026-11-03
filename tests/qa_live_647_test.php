@@ -40,7 +40,7 @@ function qa(bool $ok, string $message): void
 
 $store = jeab_store();
 $today = (new DateTimeImmutable('today', new DateTimeZone(date_default_timezone_get())))->format('Y-m-d');
-$email = 'jeab+test-qa@mail.grokbot.com';
+$email = 'inkorg+test-qa@example.test';
 
 $_GET = ['p' => 'reminders', 'co' => 'jarfalla', 'v' => 'today', 'tag' => 'none', 'who' => 'Roberto'];
 $saved = jeab_reminder_create_action($store, [

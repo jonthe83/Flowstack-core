@@ -33,8 +33,8 @@ $GLOBALS['_JEAB_GRAPH_HTTP'] = function (string $method, string $url, ?array $bo
     return ['code' => 500, 'body' => []];
 };
 
-rt(jeab_inkorg_own_address('saljare4@jarfalla.example.test') && jeab_inkorg_own_address('saljare3@malmo.example.test') && jeab_inkorg_own_address('agenter@flowstack.example.test') && jeab_inkorg_own_address('jeab@mail.grokbot.com') && jeab_inkorg_own_address('jeab+inkorg@mail.grokbot.com'), 'personal och jeab@/jeab+inkorg@ är egna');
-rt(!jeab_inkorg_own_address('kund@gmail.com') && !jeab_inkorg_own_address('form@kalkyl.jarfalla.example.test') && !jeab_inkorg_own_address('jeab+test-1@mail.grokbot.com') && !jeab_inkorg_own_address('kund@mail.grokbot.com'), 'kund, kalkyl och övriga grokbot-adresser är inte egna brevlådor');
+rt(jeab_inkorg_own_address('saljare4@jarfalla.example.test') && jeab_inkorg_own_address('saljare3@malmo.example.test') && jeab_inkorg_own_address('agenter@flowstack.example.test') && jeab_inkorg_own_address('inkorg@example.test') && jeab_inkorg_own_address('inkorg+inkorg@example.test'), 'personal och inkorg@/inkorg+inkorg@ är egna');
+rt(!jeab_inkorg_own_address('kund@gmail.com') && !jeab_inkorg_own_address('form@kalkyl.jarfalla.example.test') && !jeab_inkorg_own_address('inkorg+test-1@example.test') && !jeab_inkorg_own_address('kund@example.test'), 'kund, kalkyl och övriga example-adresser är inte egna brevlådor');
 rt(jeab_inkorg_mailbox_address('kontakt@jarfalla.example.test') && !jeab_inkorg_mailbox_address('saljare4@jarfalla.example.test'), 'bara kontakt@ är den delade brevlådan');
 rt(jeab_lead_platform('noreply@weply.dk') === 'weply.dk' && jeab_lead_platform('orders@wix.com') === 'wix.com' && jeab_lead_platform('bounce@mandrillapp.com') === 'mandrillapp.com', 'weply.dk, Wix Stores och mandrill är plattformar');
 

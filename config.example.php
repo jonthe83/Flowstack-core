@@ -21,6 +21,8 @@ return [
 
     // Delad hemlighet för hook.php. Genereras automatiskt om tom.
     'incoming_webhook_token' => '',
+    // Adress for egen inkorg och testleads (<lokal>+test-*@<doman>). Tom = inkorg@example.test.
+    'test_lead_address' => '',
 
     // Loopia-cron (tick.php och sms-cron.php) tar fortfarande ?token= i URL:en.
     // tick.php läser privat/jeab_tick_token. sms-cron.php läser suresms tick_token.

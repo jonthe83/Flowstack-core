@@ -272,12 +272,12 @@ wp(count($disaAgain) === 1 && (string) ($disaAgain[0]['id'] ?? '') === $disaId, 
 wp(count($GLOBALS['_SENT']) === $beforeSent && empty($supAgainAuto['sent']) && empty($supAgainAuto['quoted']), 'en andra kontakta-oss skickar ingen offert');
 wp(count(jeab_list_reminders(jeab_store(), true)) === $beforeRem, 'en andra kontakta-oss skapar ingen påminnelse');
 
-$testSupport = str_replace('disa.fraga@gmail.com', 'jeab+fraga@mail.grokbot.com', $support);
+$testSupport = str_replace('disa.fraga@gmail.com', 'inkorg+fraga@example.test', $support);
 $testIn = $ingest('support-test', $testSupport, 'kontakta-oss');
 $testAuto = jeab_auto_on_message((string) ($testIn['id'] ?? ''));
-$testHits = $contactsFor('jeab+fraga@mail.grokbot.com');
+$testHits = $contactsFor('inkorg+fraga@example.test');
 wp(count($testHits) === 1 && (string) ($testHits[0]['id'] ?? '') !== $disaId, 'testadress får en egen kontakt');
-wp(jeab_kontakt_row_email($testHits[0] ?? []) === 'jeab+fraga@mail.grokbot.com', 'testkontaktens e-post är grokbot-adressen');
+wp(jeab_kontakt_row_email($testHits[0] ?? []) === 'inkorg+fraga@example.test', 'testkontaktens e-post är example-adressen');
 wp(count($contactsFor('disa.fraga@gmail.com')) === 1, 'testadressen slås inte ihop med gmail-kunden');
 wp(count($GLOBALS['_SENT']) === $beforeSent && ($testAuto['sent'] ?? 1) === 0 && count(jeab_list_reminders(jeab_store(), true)) === $beforeRem, 'testad kontakta-oss ger varken offert eller påminnelse');
 

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Tre QA-fixar: manuellt «Skicka offert» till jeab+test-*@mail.grokbot.com,
+ * Tre QA-fixar: manuellt «Skicka offert» till inkorg+test-*@example.test,
  * sök på kundnamn/e-post inklusive Historik, och personvalet i Påminnelser
  * som ska ligga kvar när man söker.
  */
@@ -44,17 +44,17 @@ $_SESSION['jeab_email'] = 'demo@example.test';
 $_SERVER['REQUEST_METHOD'] = 'GET';
 $_SERVER['SCRIPT_NAME'] = '/index.php';
 
-$inbox = 'jeab+test-batteri4@mail.grokbot.com';
+$inbox = 'inkorg+test-batteri4@example.test';
 $lead = ['platform' => 'wix-forms.com', 'name' => 'Test Batteri4', 'email' => $inbox];
 
 qa(jeab_auto_manual_test_inbox($inbox), 'egen testinkorg känns igen');
 qa(jeab_auto_manual_test_inbox('Test Batteri4 <' . $inbox . '>'), 'adress i visningsnamn räknas');
-qa(jeab_auto_manual_test_inbox('JEAB+Test-Batteri4@Mail.Grokbot.com'), 'skiftläge spelar ingen roll');
+qa(jeab_auto_manual_test_inbox('INKORG+Test-Batteri4@Example.TEST'), 'skiftläge spelar ingen roll');
 qa(!jeab_auto_manual_test_inbox('user@example.org'), 'example.org är inte testinkorgen');
-qa(!jeab_auto_manual_test_inbox('jeab+test-x@example.org'), 'jeab+test- på example.org släpps inte');
-qa(!jeab_auto_manual_test_inbox('jeab+test@mail.grokbot.com'), 'jeab+test utan suffix släpps inte');
-qa(!jeab_auto_manual_test_inbox('jeab+batteri4@mail.grokbot.com'), 'annan grokbot-adress släpps inte');
-qa(!jeab_auto_manual_test_inbox('jeab+test-x@a.mail.grokbot.com'), 'underdomän släpps inte');
+qa(!jeab_auto_manual_test_inbox('inkorg+test-x@example.org'), 'inkorg+test- på example.org släpps inte');
+qa(!jeab_auto_manual_test_inbox('inkorg+test@example.test'), 'inkorg+test utan suffix släpps inte');
+qa(!jeab_auto_manual_test_inbox('inkorg+batteri4@example.test'), 'annan example-adress släpps inte');
+qa(!jeab_auto_manual_test_inbox('inkorg+test-x@a.example.test'), 'underdomän släpps inte');
 
 qa(jeab_auto_quote_block($lead, $inbox, true) === '', 'manuellt utskick till testinkorgen blockeras inte');
 $autoBlocked = jeab_auto_quote_block($lead, $inbox, false);
@@ -70,8 +70,8 @@ $example = ['platform' => 'wix-forms.com', 'name' => 'Test Batteri4', 'email' =>
 $exampleWhy = jeab_auto_quote_block($example, 'user@example.org', true);
 qa(str_contains($exampleWhy, 'ser ut som ett test'), 'manuellt till example.org stoppas, fick ' . $exampleWhy);
 qa(
-    str_contains(jeab_auto_quote_block($lead, 'jeab+test-x@example.org', true), 'ser ut som ett test'),
-    'manuellt till jeab+test- på example.org stoppas'
+    str_contains(jeab_auto_quote_block($lead, 'inkorg+test-x@example.org', true), 'ser ut som ett test'),
+    'manuellt till inkorg+test- på example.org stoppas'
 );
 qa(
     str_contains(jeab_auto_quote_block($lead, 'no-reply@wixforms.com', true), 'no-reply'),

@@ -528,7 +528,7 @@ $blockedSamples = [
     'saljare4@jarfalla.example.test',
     'info@malmo.example.test',
     'hej@flowstack.example.test',
-    'bot@mail.grokbot.com',
+    'bot@example.test',
     'form@kalkyl.jarfalla.example.test',
     'form@wix-forms.com',
     'lead@crm.wix.com',

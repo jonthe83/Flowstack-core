@@ -24,7 +24,7 @@ function ux(bool $ok, string $m): void
 $mail = fn(string $id, string $from, string $to, string $subj, string $body) => ['message_id' => "<{$id}@ux>", 'from' => $from, 'from_name' => 'Kund ' . $id, 'to' => $to, 'subject' => $subj, 'body_text' => $body, 'source' => 'test-ux', 'test' => true];
 $a = jeab_inkorg_ingest($mail('a', 'anna@example.se', 'info@malmo.example.test', 'Solceller till villan', "Hej, vill ha solceller.\nAnna\nStorgatan 12, 211 22 Malmö\n070-123 45 67"));
 $b = jeab_inkorg_ingest($mail('b', 'bo@example.se', 'info@jarfalla.example.test', 'Batteri', 'Hej, vi vill ha ett batteri.'));
-$c = jeab_inkorg_ingest($mail('c', 'okand@example.se', 'jeab+inkorg@mail.grokbot.com', 'Fråga', 'Hej, en fråga om faktura.'));
+$c = jeab_inkorg_ingest($mail('c', 'okand@example.se', 'inkorg+inkorg@example.test', 'Fråga', 'Hej, en fråga om faktura.'));
 ux($a['ok'] && $b['ok'] && $c['ok'], 'tre testmejl intagna');
 
 // Vyer: Sol = etikett sol, Batteri = etikett batteri, Allt = alla öppna, standard = Öppna.

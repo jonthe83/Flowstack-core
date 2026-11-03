@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/test_lead_address.php';
+
 require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 
@@ -351,7 +353,7 @@ function jeab_wix_spam_test_domain(string $domain): bool
     if (in_array('test', $labels, true)) {
         return true;
     }
-    foreach (['example.com', 'example.org', 'example.net', 'example.se', 'mail.grokbot.com'] as $known) {
+    foreach (['example.com', 'example.org', 'example.net', 'example.se', jeab_test_lead_domain()] as $known) {
         if ($domain === $known || str_ends_with($domain, '.' . $known)) {
             return true;
         }

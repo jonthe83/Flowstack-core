@@ -20,7 +20,7 @@ function ik(bool $ok, string $m): void
     echo "OK  {$m}\n";
 }
 
-$mail = fn(string $id, string $from, string $subj, string $body, array $h = []) => ['message_id' => "<{$id}@test>", 'from' => $from, 'to' => 'jeab+inkorg@mail.grokbot.com', 'subject' => $subj, 'body_text' => $body, 'headers' => $h, 'source' => 'test-unit', 'test' => true];
+$mail = fn(string $id, string $from, string $subj, string $body, array $h = []) => ['message_id' => "<{$id}@test>", 'from' => $from, 'to' => 'inkorg+inkorg@example.test', 'subject' => $subj, 'body_text' => $body, 'headers' => $h, 'source' => 'test-unit', 'test' => true];
 
 // 1) Utvärderaren är generisk: tomma regler och listor ger ingen träff.
 $rulesPath = jeab_inkorg_dir() . '/rules.json';

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Testlead (jeab+test-*@mail.grokbot.com) skriver inte till Fortnox, SMS, Outlook eller installatörskopia.
+ * Testlead (inkorg+test-*@example.test) skriver inte till Fortnox, SMS, Outlook eller installatörskopia.
  */
 
 $tmp = sys_get_temp_dir() . '/jeab-shield-' . bin2hex(random_bytes(4));
@@ -46,7 +46,7 @@ $GLOBALS['_JEAB_FORTNOX_REQUEST'] = static function () use (&$calls): array {
 $GLOBALS['_JEAB_FORTNOX_TEST_LOG'] = [];
 
 $api = new FortnoxAPI('Jarfalla');
-$testOrder = $api->createKopOrder(['email' => 'jeab+test-1@mail.grokbot.com']);
+$testOrder = $api->createKopOrder(['email' => 'inkorg+test-1@example.test']);
 sh(($testOrder['orderNumber'] ?? '') === 'TEST' && ($testOrder['customerNumber'] ?? '') === 'TEST', 'testorder får TEST');
 sh(($testOrder['taxReductionError'] ?? 'x') === '' && !empty($testOrder['test']), 'testorder har tomt skattefel');
 sh($calls === 0, 'createKopOrder för testlead anropar inte Fortnox');
@@ -67,7 +67,7 @@ sh(($real['orderNumber'] ?? '') === '4242' && $calls > $before, 'vanlig order n�
 $before = $calls;
 $updated = $api->updateKopOrder('TEST', ['email' => 'ada@kund.se', 'name' => 'Ada Kund']);
 sh(($updated['orderNumber'] ?? '') === 'TEST' && !empty($updated['updated']) && $calls === $before, 'order TEST uppdateras inte i Fortnox');
-$byMail = $api->updateKopOrder('99', ['email' => 'jeab+test-2@mail.grokbot.com']);
+$byMail = $api->updateKopOrder('99', ['email' => 'inkorg+test-2@example.test']);
 sh(($byMail['orderNumber'] ?? '') === 'TEST' && $calls === $before, 'uppdatering med testmejl hoppar över Fortnox');
 
 $before = $calls;
@@ -83,7 +83,7 @@ $before = $calls;
 $named = $api->findOrCreateCustomer(['name' => 'Test Kund'], 'test@example.com', '0700000000');
 sh($named === 'TEST' && $calls === $before, 'example.com skapas inte i Fortnox');
 $before = $calls;
-$skippedCustomer = $api->findOrCreateCustomer(['name' => 'Ada Kund'], 'jeab+test-4@mail.grokbot.com', '0701234567');
+$skippedCustomer = $api->findOrCreateCustomer(['name' => 'Ada Kund'], 'inkorg+test-4@example.test', '0701234567');
 sh($skippedCustomer === 'TEST' && $calls === $before, 'testkund skapas inte i Fortnox');
 
 $ref = new ReflectionMethod(FortnoxAPI::class, 'request');
@@ -94,7 +94,7 @@ sh($calls === $before + 1, 'löneunderlag utan testlead skrivs');
 
 $before = $calls;
 $push = jeab_fortnox_leveransdatum_push([
-    'email' => 'jeab+test-1@mail.grokbot.com',
+    'email' => 'inkorg+test-1@example.test',
     'company' => 'jarfalla',
     'fortnox_order' => '4242',
     'steps' => ['bokad_tid' => '2026-11-16 09:00:00'],
@@ -115,10 +115,10 @@ $smsTest = jeab_sms_send('0700000000', 'Hej', 'jarfalla', null, [
 sh($smsHits === 0 && ($smsTest['reason'] ?? '') === 'testlead', 'example.com går inte till SMS-transporten');
 $smsLead = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, [
     'guard_mode' => 'manual',
-    'email' => 'jeab+test-1@mail.grokbot.com',
+    'email' => 'inkorg+test-1@example.test',
     'name' => 'Ada',
 ]);
-sh($smsHits === 0 && ($smsLead['reason'] ?? '') === 'testlead', 'SMS med jeab+test-adress skickas inte');
+sh($smsHits === 0 && ($smsLead['reason'] ?? '') === 'testlead', 'SMS med inkorg+test-adress skickas inte');
 $smsReal = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, ['guard_mode' => 'manual', 'email' => 'ada@kund.se']);
 sh($smsHits === 1 && ($smsReal['ok'] ?? false) === true, 'SMS till vanligt nummer går till transporten');
 $smsGmail = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, [
@@ -141,7 +141,7 @@ $GLOBALS['_JEAB_GRAPH_HTTP'] = static function (string $method, string $url, ?ar
 $store = jeab_store();
 $testBooking = jeab_create_booking($store, 'Ada', ['Elin'], '2026-11-16 09:00:00', '2026-11-16 10:00:00', 'laddbox', [
     'company' => 'jarfalla',
-    'email' => 'jeab+test-3@mail.grokbot.com',
+    'email' => 'inkorg+test-3@example.test',
     'phone' => '0701234567',
 ], false);
 $fresh = $store->getBooking((int) $testBooking['id']);
@@ -164,8 +164,8 @@ $GLOBALS['JEAB_GRAPH_SEND'] = static function (array $args) use (&$seen): array 
 
     return ['ok' => true];
 };
-$sent = jeab_outbound_graph_send('jarfalla', 'jeab+test-9@mail.grokbot.com', 'Hej', 'Text', false, [], ['saljare4@jarfalla.example.test'], [
-    'email' => 'jeab+test-9@mail.grokbot.com',
+$sent = jeab_outbound_graph_send('jarfalla', 'inkorg+test-9@example.test', 'Hej', 'Text', false, [], ['saljare4@jarfalla.example.test'], [
+    'email' => 'inkorg+test-9@example.test',
 ]);
 sh(($sent['ok'] ?? false) === true && ($seen['cc'] ?? null) === [] && !empty($seen['opts']['strip_cc']), 'testadress får mejlet utan installatörskopia');
 $seen = null;
@@ -185,7 +185,7 @@ $gmailKept = jeab_outbound_graph_send('jarfalla', 'demo.person@example.invalid',
 sh(($gmailKept['ok'] ?? false) === true && ($seen['cc'] ?? null) === ['saljare4@jarfalla.example.test'], 'Sams gmail som kundmejl behåller kopia');
 $seen = null;
 $blocked = jeab_outbound_graph_send('jarfalla', 'saljare4@jarfalla.example.test', 'Hej', 'Text', false, [], ['saljare4@jarfalla.example.test'], [
-    'email' => 'jeab+test-9@mail.grokbot.com',
+    'email' => 'inkorg+test-9@example.test',
 ]);
 sh($seen === null && ($blocked['reason'] ?? '') === 'testlead', 'testlead skickas inte till installatören');
 

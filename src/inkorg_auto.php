@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/test_lead_address.php';
+
 require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 require_once __DIR__ . '/quote_outbox.php';
@@ -4802,7 +4804,7 @@ function jeab_auto_test_name(string $name): bool
 
 /**
  * Vår egen testinkorg. Bara manuellt «Skicka offert» får gå hit.
- * jeab+test-*@mail.grokbot.com, inte example.org och inte andra grokbot-adresser.
+ * <lokal>+test-*@<testleadsdomän> (config test_lead_address), inte example.org och inte andra adresser på domänen.
  */
 function jeab_auto_manual_test_inbox(string $email): bool
 {
@@ -4817,7 +4819,7 @@ function jeab_auto_manual_test_inbox(string $email): bool
     $local = (string) strstr($email, '@', true);
     $domain = (string) substr((string) strrchr($email, '@'), 1);
 
-    return $domain === 'mail.grokbot.com' && preg_match('/^jeab\+test-.+$/', $local) === 1;
+    return $domain === jeab_test_lead_domain() && str_starts_with($local, jeab_test_lead_test_prefix()) && strlen($local) > strlen(jeab_test_lead_test_prefix());
 }
 
 /** Mottagare som inte är en kund (formulär, no-reply, egen kontakt@). */

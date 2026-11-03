@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/test_lead_address.php';
+
 require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 require_once __DIR__ . '/idnr.php';
@@ -717,7 +719,7 @@ function jeab_kontakt_address_blocked(string $email): bool
     }
     $dom = mb_strtolower((string) substr(strrchr($email, '@') ?: '', 1));
     $blocked = [
-        'jarfalla.example.test', 'malmo.example.test', 'flowstack.example.test', 'mail.grokbot.com', 'kalkyl.jarfalla.example.test',
+        'jarfalla.example.test', 'malmo.example.test', 'flowstack.example.test', jeab_test_lead_domain(), 'kalkyl.jarfalla.example.test',
         'wix-forms.com', 'wix.com', 'stores-emails.com',
         'leadkit.com', 'nettbureau.no', 'nettbureau.se',
         'weply.se', 'weply.dk',
@@ -2339,7 +2341,7 @@ function jeab_kontakt_party_names_agree(string $a, string $b): bool
     return $a === $b || str_contains($a, $b) || str_contains($b, $a);
 }
 
-/** mail.grokbot.com är kundens adress på ett testlead. Övriga spärrade domäner är det inte. */
+/** Testleadsdomänen (test_lead_address) är kundens adress på ett testlead. Övriga spärrade domäner är det inte. */
 function jeab_kontakt_test_email_kept(string $email): bool
 {
     $email = jeab_kontakt_email($email);
@@ -2348,10 +2350,10 @@ function jeab_kontakt_test_email_kept(string $email): bool
     }
     $dom = mb_strtolower((string) substr(strrchr($email, '@') ?: '', 1));
 
-    return $dom === 'mail.grokbot.com' || str_ends_with($dom, '.mail.grokbot.com');
+    return jeab_test_lead_domain_match($dom);
 }
 
-/** jeab+…@mail.grokbot.com. jeab@ utan plus är den egna inkorgen. */
+/** <lokal>+…@<testleadsdomän>. <lokal>@ utan plus är den egna inkorgen. */
 function jeab_kontakt_known_test_address(string $email): bool
 {
     $email = jeab_kontakt_email($email);
@@ -2360,11 +2362,11 @@ function jeab_kontakt_known_test_address(string $email): bool
     }
     $local = (string) strstr($email, '@', true);
     $dom = mb_strtolower((string) substr(strrchr($email, '@') ?: '', 1));
-    if ($dom !== 'mail.grokbot.com' && !str_ends_with($dom, '.mail.grokbot.com')) {
+    if (!jeab_test_lead_domain_match($dom)) {
         return false;
     }
 
-    return preg_match('/^jeab\+.+/', $local) === 1;
+    return str_starts_with($local, jeab_test_lead_local() . '+') && strlen($local) > strlen(jeab_test_lead_local()) + 1;
 }
 
 /**

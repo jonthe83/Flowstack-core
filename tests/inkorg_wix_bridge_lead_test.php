@@ -41,9 +41,9 @@ jeab_auto_settings_save([
     'tpl' => jeab_auto_quote_seed(),
 ]);
 
-wb(jeab_inkorg_own_address('jeab@mail.grokbot.com') && jeab_inkorg_own_address('jeab+inkorg@mail.grokbot.com'), 'jeab@ och jeab+inkorg@ är egna');
-wb(!jeab_inkorg_own_address('jeab+test-1@mail.grokbot.com') && !jeab_inkorg_own_address('ada@mail.grokbot.com') && !jeab_inkorg_own_address('kund@example.com'), 'jeab+test, annan grokbot och example.com är inte egna');
-wb(!isset(jeab_inkorg_klassning_staff_sets()['domains']['mail.grokbot.com']), 'mail.grokbot.com är inte en personaldomän');
+wb(jeab_inkorg_own_address('inkorg@example.test') && jeab_inkorg_own_address('inkorg+inkorg@example.test'), 'inkorg@ och inkorg+inkorg@ är egna');
+wb(!jeab_inkorg_own_address('inkorg+test-1@example.test') && !jeab_inkorg_own_address('ada@example.test') && !jeab_inkorg_own_address('kund@example.com'), 'inkorg+test, annan example och example.com är inte egna');
+wb(!isset(jeab_inkorg_klassning_staff_sets()['domains']['example.test']), 'example.test är inte en personaldomän');
 
 $summary = static function (string $form, string $email, string $name): string {
     return "A site visitor just submitted your form {$form}\n\nNamn:\n\n{$name}\n\nE-post:\n\n{$email}\n\nTelefon:\n\n070-123 45 67\n\nAdress:\n\nSolvägen 1, 177 32 Järfälla\n\nMeddelande:\n\nVi vill ha en offert.\n";
@@ -61,15 +61,15 @@ $metaForm['body'] = "A site visitor just submitted your form Batteri lead\n\nTes
 wb(jeab_inkorg_klassning_wix_lead_summary($metaForm) && jeab_inkorg_klassning_lead_sender($metaForm) && !jeab_inkorg_klassning_own($metaForm), 'Wix Batteri-formulär med Test inskick är lead och inte egen');
 wb(jeab_inkorg_klassning_route($metaForm) === 'kop' && jeab_test_lead_fields($metaForm)['test'] === true, 'Wix Batteri-formulär med Test inskick klassas som lead (test)');
 $intern = [
-    'from' => 'jeab@mail.grokbot.com',
+    'from' => 'inkorg@example.test',
     'from_name' => 'JEAB',
     'subject' => 'JEAB Batteri lead',
     'body' => "JEAB Batteri lead\nIntern anteckning.",
 ];
-wb(!jeab_inkorg_klassning_wix_lead_summary($intern) && !jeab_inkorg_klassning_lead_sender($intern) && jeab_inkorg_klassning_own($intern) && jeab_inkorg_klassning_route($intern) === 'egen', 'internpost från jeab@ med JEAB Batteri lead är inte ett lead');
+wb(!jeab_inkorg_klassning_wix_lead_summary($intern) && !jeab_inkorg_klassning_lead_sender($intern) && jeab_inkorg_klassning_own($intern) && jeab_inkorg_klassning_route($intern) === 'egen', 'internpost från inkorg@ med JEAB Batteri lead är inte ett lead');
 $internForm = $intern;
 $internForm['body'] = "A site visitor just submitted your form Batteri lead\n\nJEAB Batteri lead\n";
-wb(!jeab_inkorg_klassning_lead_sender($internForm) && jeab_inkorg_klassning_own($internForm), 'jeab@ med Wix-text är fortfarande egen post');
+wb(!jeab_inkorg_klassning_lead_sender($internForm) && jeab_inkorg_klassning_own($internForm), 'inkorg@ med Wix-text är fortfarande egen post');
 
 $kontakt = [
     'from' => 'luis.form@gmail.com',
@@ -112,7 +112,7 @@ $remindersFor = static function (string $email): array {
 };
 
 $cases = [
-    ['id' => 'grok', 'from' => 'jeab+test-9@mail.grokbot.com', 'name' => 'Test Bron', 'subject' => 'JEAB Batteri lead', 'form' => 'Batteri lead', 'test' => true],
+    ['id' => 'grok', 'from' => 'inkorg+test-9@example.test', 'name' => 'Test Bron', 'subject' => 'JEAB Batteri lead', 'form' => 'Batteri lead', 'test' => true],
     ['id' => 'ex', 'from' => 'ada.bridge@example.com', 'name' => 'Ada Bridge', 'subject' => 'JEAB Solceller lead', 'form' => 'Solceller lead', 'test' => true],
     ['id' => 'real', 'from' => 'vera.bridge@gmail.com', 'name' => 'Vera Bridge', 'subject' => 'JEAB Batteri lead', 'form' => 'Batteri lead', 'test' => false],
 ];
@@ -157,9 +157,9 @@ jeab_auto_settings_save([
     'tpl' => jeab_auto_quote_seed(),
 ]);
 $sentBefore = count($GLOBALS['_SENT']);
-$quoteOn = $ingest('quoteon', 'jeab+test-3@mail.grokbot.com', 'Ladd Test', 'JEAB Laddbox lead', $summary('Laddbox lead', 'jeab+test-3@mail.grokbot.com', 'Ladd Test'));
+$quoteOn = $ingest('quoteon', 'inkorg+test-3@example.test', 'Ladd Test', 'JEAB Laddbox lead', $summary('Laddbox lead', 'inkorg+test-3@example.test', 'Ladd Test'));
 $quoteAuto = jeab_auto_on_message((string) ($quoteOn['id'] ?? ''));
-$quoteRems = $remindersFor('jeab+test-3@mail.grokbot.com');
+$quoteRems = $remindersFor('inkorg+test-3@example.test');
 $quoteThread = $thread((string) ($quoteOn['thread_id'] ?? ''));
 wb(count($GLOBALS['_SENT']) === $sentBefore
     && ($quoteAuto['why'] ?? '') === 'testlead'

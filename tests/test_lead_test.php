@@ -104,10 +104,10 @@ $promptText = (string) ($prompt[0]['content'] ?? '');
 tl(str_contains($promptText, '"is_test":false') && str_contains($promptText, 'Testa') && str_contains($promptText, 'is_test true'), 'prompten ber Grok sätta is_test och undanta Testa');
 
 tl(is_test_lead(['email' => 'ada@example.org', 'name' => 'Ada Andersson']), 'example.org är test');
-tl(jeab_test_lead_match(['email' => 'jeab+test-1@mail.grokbot.com'])['reason'] === 'mejldomän', 'mail.grokbot.com är mejldomän');
-tl(jeab_test_lead_match(['email' => 'ada@mail.grokbot.com'])['reason'] === 'mejldomän', 'adress utan test i lokaldelen på mail.grokbot.com är test');
-tl(!is_test_lead(['email' => 'ada@grokbot.com', 'name' => 'Ada Andersson']), 'grokbot.com utan mail. är inte test');
-tl(str_contains($promptText, 'mail.grokbot.com'), 'prompten nämner mail.grokbot.com');
+tl(jeab_test_lead_match(['email' => 'inkorg+test-1@example.test'])['reason'] === 'mejldomän', 'example.test är mejldomän');
+tl(jeab_test_lead_match(['email' => 'ada@example.test'])['reason'] === 'mejldomän', 'adress utan test i lokaldelen på example.test är test');
+tl(!is_test_lead(['email' => 'ada@exempelbolag.se', 'name' => 'Ada Andersson']), 'annan domän är inte test');
+tl(str_contains($promptText, 'example.test'), 'prompten nämner example.test');
 tl(jeab_test_lead_match(['email' => 'Ada <ada@mail.example.org>'])['reason'] === 'mejldomän', 'underdomän till example.org är test');
 tl(is_test_lead(['email' => 'ada@example.com']) && is_test_lead(['email' => 'ada@example.net']), 'example.com och example.net är test');
 tl(is_test_lead(['email' => 'ada@test.se']) && is_test_lead(['email' => 'ada@foo.test']) && is_test_lead(['email' => 'ada@bar.invalid']), 'test.* *.test och *.invalid är test');
@@ -243,7 +243,7 @@ $manualSms = send_guard_check('sms', '0700000000', 'sms', 'manual', 'manual', 'h
 tl(($manualSms['send'] ?? false) === true && ($manualSms['reason'] ?? '') !== 'testlead', 'manuellt SMS till testnummer och testnamn går igenom');
 $manualSmsLead = send_guard_check('sms', '0707654321', 'sms', 'manual', 'manual', 'hook', hash('sha256', 'sms-lead'), [
     'body' => 'Hej',
-    'email' => 'jeab+test-1@mail.grokbot.com',
+    'email' => 'inkorg+test-1@example.test',
 ]);
 tl(($manualSmsLead['send'] ?? true) === false && ($manualSmsLead['reason'] ?? '') === 'testlead', 'manuellt SMS med testmejlet stoppas');
 $manualSmsReal = send_guard_check('sms', '0707654321', 'sms', 'manual', 'manual', 'hook', hash('sha256', 'sms-real'), ['body' => 'Hej']);

@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 /**
- * Strikt spärr: jeab+test-*@mail.grokbot.com, example.com/.org/.net och is_test.
- * Namn, .test, testnummer, grokbot utan jeab+test- och Sams egna adresser skriver ändå.
+ * Strikt spärr: inkorg+test-*@example.test, example.com/.org/.net och is_test.
+ * Namn, .test, testnummer, example utan inkorg+test- och Sams egna adresser skriver ändå.
  * test_lead.audit är bara läsning: id, domän och flaggor, inte namn, personnummer eller telefon.
  */
 
@@ -47,17 +47,17 @@ $api = new FortnoxAPI('Jarfalla');
 $gmailLead = jeab_test_lead_strict(['email' => 'demo.person@example.invalid']);
 $workLead = jeab_test_lead_strict(['email' => 'demo@example.test']);
 st($gmailLead['test'] === false && $workLead['test'] === false, 'Sams gmail och jobbmejl är inte strikta');
-st(jeab_test_lead_strict(['email' => 'jeab+test-1@mail.grokbot.com'])['reason'] === 'jeab+test', 'jeab+test på mail.grokbot.com är strikt');
-st(jeab_test_lead_strict(['email' => 'jeab+test-1@box.mail.grokbot.com'])['reason'] === 'jeab+test', 'jeab+test på underdomän är strikt');
-st(jeab_test_lead_strict(['email' => 'ada@mail.grokbot.com'])['test'] === false, 'annan lokaldel på mail.grokbot.com är inte strikt');
-st(jeab_test_lead_strict(['email' => 'jeab+test-1@gmail.com'])['test'] === false, 'jeab+test på gmail är inte strikt');
+st(jeab_test_lead_strict(['email' => 'inkorg+test-1@example.test'])['reason'] === 'testadress', 'inkorg+test på example.test är strikt');
+st(jeab_test_lead_strict(['email' => 'inkorg+test-1@box.example.test'])['reason'] === 'testadress', 'inkorg+test på underdomän är strikt');
+st(jeab_test_lead_strict(['email' => 'ada@example.test'])['test'] === false, 'annan lokaldel på example.test är inte strikt');
+st(jeab_test_lead_strict(['email' => 'inkorg+test-1@gmail.com'])['test'] === false, 'inkorg+test på gmail är inte strikt');
 st(jeab_test_lead_strict(['email' => 'a@example.com'])['reason'] === 'mejldomän'
     && jeab_test_lead_strict(['email' => 'a@example.org'])['test'] === true
     && jeab_test_lead_strict(['email' => 'a@example.net'])['test'] === true
     && jeab_test_lead_strict(['email' => 'a@example.test'])['test'] === false, 'example.com, .org och .net är strikta, example.test är det inte');
 st(jeab_test_lead_strict(['email' => 'a@example.com', 'customer_email' => 'kund@gmail.com'])['test'] === false, 'en riktig adress bland example är inte mejldomän');
 st(jeab_test_lead_strict(['epost' => 'a@example.com', 'emails' => ['b@example.net']])['reason'] === 'mejldomän', 'bara example-adresser är mejldomän');
-st(jeab_test_lead_strict(['emails' => ['jeab+test-4@mail.grokbot.com', 'jeab+test-5@box.mail.grokbot.com']])['reason'] === 'jeab+test', 'bara jeab+test-adresser är strikta');
+st(jeab_test_lead_strict(['emails' => ['inkorg+test-4@example.test', 'inkorg+test-5@box.example.test']])['reason'] === 'testadress', 'bara inkorg+test-adresser är strikta');
 st(jeab_test_lead_strict(['email' => 'kund@gmail.com', 'emails' => ['a@example.com'], 'is_test' => true])['reason'] === 'is_test', 'is_test gäller när en adress är riktig');
 
 $before = $calls;
@@ -122,9 +122,9 @@ $held = $api->createKopOrder([
     'personnummer' => '19800101-0000',
     'fastighetsbeteckning' => 'ADA 1:1',
     'price' => 9990,
-    'email' => 'jeab+test-3@gmail.com',
+    'email' => 'inkorg+test-3@gmail.com',
 ]);
-st($calls > $before && ($held['orderNumber'] ?? '') === '4242', 'jeab+test på gmail skrivs');
+st($calls > $before && ($held['orderNumber'] ?? '') === '4242', 'inkorg+test på gmail skrivs');
 $before = $calls;
 $grokHeld = $api->createKopOrder([
     'kind' => 'laddbox',
@@ -132,9 +132,9 @@ $grokHeld = $api->createKopOrder([
     'personnummer' => '19800101-0000',
     'fastighetsbeteckning' => 'ADA 1:3',
     'price' => 9990,
-    'email' => 'jeab+test-3@mail.grokbot.com',
+    'email' => 'inkorg+test-3@example.test',
 ]);
-st($calls === $before && ($grokHeld['orderNumber'] ?? '') === 'TEST', 'jeab+test på mail.grokbot.com skrivs inte');
+st($calls === $before && ($grokHeld['orderNumber'] ?? '') === 'TEST', 'inkorg+test på example.test skrivs inte');
 $before = $calls;
 $marked = $api->createKopOrder([
     'kind' => 'laddbox',
@@ -166,14 +166,14 @@ $namedSms = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, [
 st($smsHits === 3 && ($namedSms['ok'] ?? false) === true, 'calendar_pdo_peak: Test Peak och example.test skickas som SMS');
 $openSms = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, [
     'guard_mode' => 'manual',
-    'email' => 'ada@box.mail.grokbot.com',
+    'email' => 'ada@box.example.test',
 ]);
-st($smsHits === 4 && ($openSms['ok'] ?? false) === true, 'underdomän utan jeab+test skickas');
+st($smsHits === 4 && ($openSms['ok'] ?? false) === true, 'underdomän utan inkorg+test skickas');
 $blockedSms = jeab_sms_send('0707654321', 'Hej', 'jarfalla', null, [
     'guard_mode' => 'manual',
-    'email' => 'jeab+test-z@box.mail.grokbot.com',
+    'email' => 'inkorg+test-z@box.example.test',
 ]);
-st($smsHits === 4 && ($blockedSms['reason'] ?? '') === 'testlead', 'jeab+test på underdomän skickas inte');
+st($smsHits === 4 && ($blockedSms['reason'] ?? '') === 'testlead', 'inkorg+test på underdomän skickas inte');
 
 $graphHits = 0;
 $GLOBALS['_JEAB_GRAPH_HTTP'] = static function (string $method, string $url) use (&$graphHits): array {
@@ -212,12 +212,12 @@ st($graphHits > $noteBefore && is_array($noteRow) && str_contains((string) ($not
 $strictBefore = $graphHits;
 $strictBooking = jeab_create_booking($store, 'Ada', ['Elin'], '2026-11-18 09:00:00', '2026-11-18 11:00:00', 'Besiktning', [
     'company' => 'jarfalla',
-    'email' => 'jeab+test-8@mail.grokbot.com',
+    'email' => 'inkorg+test-8@example.test',
     'phone' => '0707654321',
     'address' => 'Storgatan 3',
     'notes' => '',
 ], false);
-st($graphHits === $strictBefore && (int) ($strictBooking['id'] ?? 0) > 0, 'jeab+test-adress får lokal bokning utan Graph');
+st($graphHits === $strictBefore && (int) ($strictBooking['id'] ?? 0) > 0, 'inkorg+test-adress får lokal bokning utan Graph');
 
 $now = date('Y-m-d H:i:s');
 $broadReminder = $store->insertReminder([
@@ -232,7 +232,7 @@ $broadReminder = $store->insertReminder([
 $strictReminder = $store->insertReminder([
     'title' => 'Strikt',
     'customer_name' => 'Ada',
-    'email' => 'jeab+test-r@a.mail.grokbot.com',
+    'email' => 'inkorg+test-r@a.example.test',
     'phone' => '0707654321',
     'company' => 'jarfalla',
     'created_at' => $now,
@@ -257,7 +257,7 @@ jeab_purchase_put([
 jeab_purchase_put([
     'reminder_id' => (int) $strictReminder['id'],
     'customer_name' => 'Ada',
-    'email' => 'jeab+test-2@mail.grokbot.com',
+    'email' => 'inkorg+test-2@example.test',
     'phone' => '0701112233',
 ]);
 jeab_kontakter_mutate(static function (array &$contacts): void {
@@ -271,7 +271,7 @@ jeab_kontakter_mutate(static function (array &$contacts): void {
     $contacts['c-strict'] = [
         'id' => 'c-strict',
         'name' => 'Ada',
-        'email' => 'jeab+test-9@mail.grokbot.com',
+        'email' => 'inkorg+test-9@example.test',
         'phone' => '0707654321',
         'owners' => [['name' => 'Ada', 'personnummer' => '198001018888']],
     ];
@@ -318,19 +318,19 @@ $strictIds = static function (array $tables, string $table) : array {
     }
     return $ids;
 };
-st(in_array('c-strict', $tables['contacts']['strict']['reasons']['jeab+test']['ids'] ?? [], true)
+st(in_array('c-strict', $tables['contacts']['strict']['reasons']['testadress']['ids'] ?? [], true)
     && in_array('c-example', $tables['contacts']['strict']['reasons']['mejldomän']['ids'] ?? [], true)
     && !in_array('c-broad', $strictIds($tables, 'contacts'), true)
     && !in_array('c-sam', $strictIds($tables, 'contacts'), true)
     && in_array('c-broad', $tables['contacts']['broad']['reasons']['mejldomän']['ids'] ?? [], true), 'example.com är strikt, example.test är bara bred, Sams gmail är ingen träff');
-st(in_array((string) $strictReminder['id'], $tables['purchases']['strict']['reasons']['jeab+test']['ids'] ?? [], true)
+st(in_array((string) $strictReminder['id'], $tables['purchases']['strict']['reasons']['testadress']['ids'] ?? [], true)
     && in_array((string) $broadReminder['id'], $tables['purchases']['broad']['reasons']['mejldomän']['ids'] ?? [], true)
     && !in_array((string) $broadReminder['id'], $strictIds($tables, 'purchases'), true), 'ordern med example.test räknas bara av den breda matchningen');
-st(in_array((string) $strictReminder['id'], $tables['reminders']['strict']['reasons']['jeab+test']['ids'] ?? [], true)
+st(in_array((string) $strictReminder['id'], $tables['reminders']['strict']['reasons']['testadress']['ids'] ?? [], true)
     && in_array((string) $broadReminder['id'], $tables['reminders']['broad']['reasons']['mejldomän']['ids'] ?? [], true)
     && !in_array((string) $broadReminder['id'], $strictIds($tables, 'reminders'), true)
     && !in_array((string) $gmailReminder['id'], $strictIds($tables, 'reminders'), true), 'påminnelsen med testnamn och Sams gmail är inte strikta träffar');
-st(in_array((string) $strictBooking['id'], $tables['bookings']['strict']['reasons']['jeab+test']['ids'] ?? [], true)
+st(in_array((string) $strictBooking['id'], $tables['bookings']['strict']['reasons']['testadress']['ids'] ?? [], true)
     && in_array((string) $peak['id'], $tables['bookings']['broad']['reasons']['mejldomän']['ids'] ?? [], true)
     && !in_array((string) $peak['id'], $strictIds($tables, 'bookings'), true), 'bokningen Test Peak är bred men inte strikt');
 $auditHit = static function (array $tables, string $table, string $side, string $reason, string $id): ?array {
@@ -342,14 +342,14 @@ $auditHit = static function (array $tables, string $table, string $side, string 
     return null;
 };
 $exampleHit = $auditHit($tables, 'contacts', 'strict', 'mejldomän', 'c-example');
-$grokHit = $auditHit($tables, 'contacts', 'strict', 'jeab+test', 'c-strict');
+$grokHit = $auditHit($tables, 'contacts', 'strict', 'testadress', 'c-strict');
 st(is_array($exampleHit)
     && ($exampleHit['domains'] ?? null) === ['example.com']
     && ($exampleHit['has_real_email'] ?? null) === false
     && ($exampleHit['is_test'] ?? null) === false
     && ($exampleHit['has_name'] ?? null) === true
     && is_array($grokHit)
-    && ($grokHit['domains'] ?? null) === ['mail.grokbot.com']
+    && ($grokHit['domains'] ?? null) === ['example.test']
     && ($grokHit['has_real_email'] ?? null) === false
     && ($grokHit['is_test'] ?? null) === false
     && ($grokHit['has_name'] ?? null) === true, 'auditträff visar domän, has_real_email, is_test och has_name');
@@ -379,11 +379,11 @@ st($probeReal['test'] === false, 'mottagare och avsändare gör inte en riktig b
 $ownSam = jeab_test_lead_mail_cc('saljare4@jarfalla.example.test', $cc, ['email' => 'demo.person@example.invalid']);
 st($ownSam['block_to'] === false && $ownSam['cc'] === $cc, 'kundens eget mejl demo.person@example.invalid stoppar inte avisering');
 $ownGrok = jeab_test_lead_mail_cc('saljare4@jarfalla.example.test', ['saljare4@jarfalla.example.test'], [
-    'reminder' => ['email' => 'jeab+test-x@mail.grokbot.com'],
+    'reminder' => ['email' => 'inkorg+test-x@example.test'],
 ]);
-st($ownGrok['block_to'] === true, 'kundens eget jeab+test-mejl stoppar avisering');
-$toOwn = jeab_test_lead_mail_cc('jeab+test-x@mail.grokbot.com', ['saljare4@jarfalla.example.test', 'demo@example.test'], [
-    'lead' => ['email' => 'jeab+test-x@mail.grokbot.com'],
+st($ownGrok['block_to'] === true, 'kundens eget inkorg+test-mejl stoppar avisering');
+$toOwn = jeab_test_lead_mail_cc('inkorg+test-x@example.test', ['saljare4@jarfalla.example.test', 'demo@example.test'], [
+    'lead' => ['email' => 'inkorg+test-x@example.test'],
 ]);
 st($toOwn['block_to'] === false && $toOwn['cc'] === [], 'testlead får bara mejl till sin egen adress');
 $smsOwn = jeab_test_lead_send_probe('sms', '0707654321', [
@@ -414,7 +414,7 @@ st(($sentNote['ok'] ?? false) === true && ($seenMail['cc'] ?? null) === ['saljar
 $seenMail = null;
 $sentBlocked = jeab_outbound_graph_send('jarfalla', 'ada@kund.se', 'Hej', 'Text', false, [], $cc, [
     'from' => 'demo@example.test',
-    'order' => ['email' => 'jeab+test-x@mail.grokbot.com'],
+    'order' => ['email' => 'inkorg+test-x@example.test'],
 ]);
 st($seenMail === null && ($sentBlocked['reason'] ?? '') === 'testlead', 'orderns eget testmejl stoppar mejlet till kunden');
 

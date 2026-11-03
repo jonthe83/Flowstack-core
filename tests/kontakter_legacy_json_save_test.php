@@ -5,7 +5,7 @@ declare(strict_types=1);
 /**
  * Varje sparväg i Kontakter med LEGACY_JSON_WRITES 0 och 1.
  * En vanlig kundadress ska gå igenom i båda lägena.
- * Oförändrad spärrad adress och jeab+…@mail.grokbot.com på is_test stoppar inte övrigt.
+ * Oförändrad spärrad adress och inkorg+…@example.test på is_test stoppar inte övrigt.
  * Påhittade personer. Inget skickas.
  */
 
@@ -273,7 +273,7 @@ $inbox = jeab_inkorg_contact_save([
 $inboxId = (string) ($inbox['id'] ?? '');
 ksj($inboxId !== '' && str_contains((string) file_get_contents($inboxPath), 'inkorg övrigt'), 'inkorgskontakten sparas i JSON');
 
-$blockedEmail = 'jeab+test-sol4@mail.grokbot.com';
+$blockedEmail = 'inkorg+test-sol4@example.test';
 $now = jeab_now();
 ksj_plant([
     'id' => 'kt_same_mail',
@@ -373,7 +373,7 @@ ksj_expect(static function (): void {
         'city' => 'Järfälla',
         'owner_name_1' => 'Prov Test',
         'contact_person' => '1',
-        'email' => 'jeab@mail.grokbot.com',
+        'email' => 'inkorg@example.test',
         'phone' => '0701000003',
         'ovrigt' => 'test övrigt',
     ]);
