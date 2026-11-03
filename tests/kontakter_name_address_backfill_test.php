@@ -791,18 +791,18 @@ foreach ($hsCases as $i => $spec) {
     na_ok(($plan['source'] ?? '') === 'helpscout', $person . ' källan är helpscout');
 }
 
-$estrella = $make('Kund', 'estrella.exempel@gmail.com');
+$estrella = $make('Kund', 'estrellaexempel@gmail.com');
 $estrellaId = (string) $estrella['id'];
 jeab_kontakter_mutate(static function (array &$contacts) use ($estrellaId): void {
-    $contacts[$estrellaId]['owners'][0]['name'] = 'estrella.exempel@gmail.com';
+    $contacts[$estrellaId]['owners'][0]['name'] = 'estrellaexempel@gmail.com';
     $contacts[$estrellaId]['street'] = '';
     $contacts[$estrellaId]['city'] = '';
     $contacts[$estrellaId]['postal_code'] = '';
 });
 $estrellaRow = $store->insertReminder([
-    'title' => 'estrella.exempel@gmail.com',
+    'title' => 'estrellaexempel@gmail.com',
     'customer_name' => 'Kund',
-    'email' => 'estrella.exempel@gmail.com',
+    'email' => 'estrellaexempel@gmail.com',
     'address' => '',
     'company' => 'malmo',
     'note' => "Kund: Kund\n",
@@ -814,8 +814,8 @@ na_ok(jeab_kontakt_stamp_reminder($store, (int) $estrellaRow['id'], $estrellaId)
 $estrellaTid = 'trad-estrella-anders';
 na_ok(!empty(jeab_inkorg_ingest([
     'message_id' => 'estrella-anders@example.test',
-    'from' => 'estrella.exempel@gmail.com',
-    'from_name' => 'estrella.exempel@gmail.com',
+    'from' => 'estrellaexempel@gmail.com',
+    'from_name' => 'estrellaexempel@gmail.com',
     'to' => 'saljare.syd@malmo.example.test',
     'subject' => 'Laddbox',
     'body_text' => 'Hej',
@@ -825,9 +825,9 @@ na_ok(!empty(jeab_inkorg_ingest([
     'received_at' => '2026-10-22T09:30:00+02:00',
 ])['ok']), 'Estrellas tråd tas in');
 jeab_inkorg_thread_write($estrellaTid, static function (array $t): array {
-    $t['customer_email'] = 'estrella.exempel@gmail.com';
+    $t['customer_email'] = 'estrellaexempel@gmail.com';
     $t['primaryCustomer'] = [
-        'email' => 'estrella.exempel@gmail.com',
+        'email' => 'estrellaexempel@gmail.com',
         'firstName' => 'Estrella',
         'lastName' => 'Anders',
         'address' => ['lines' => ['Andersgatan 7'], 'city' => 'Malmö', 'postalCode' => '21219'],

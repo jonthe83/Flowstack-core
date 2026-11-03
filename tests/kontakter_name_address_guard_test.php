@@ -83,7 +83,7 @@ ng_ok($odakra['street'] === 'Ängavångsgatan 79' && $odakra['postal'] === '2547
 ng_ok(jeab_name_address_name_real('Lirije', ['lirije@live.se']), 'ensamt förnamn är ett namn');
 ng_ok(!jeab_name_address_name_real('lirije', ['lirije@live.se']), 'gemener är lokaldelen');
 ng_ok(!jeab_name_address_name_real('LIRIJE', ['lirije@live.se']), 'versaler är lokaldelen');
-ng_ok(!jeab_name_address_name_real('Estrellaanders', ['estrella.exempel@gmail.com']), 'lång lokaldel är inget förnamn');
+ng_ok(!jeab_name_address_name_real('Estrellaexempel', ['estrellaexempel@gmail.com']), 'lång lokaldel är inget förnamn');
 ng_ok(!jeab_name_address_given_name('Malmö') && !jeab_name_address_given_name('Test'), 'ort och Test är inga förnamn');
 $fullName = jeab_name_address_merge_facts([
     ['at' => 20, 'name' => 'Lirije', 'street' => '', 'postal' => '', 'city' => '', 'source' => 'ny'],
