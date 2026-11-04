@@ -308,9 +308,5 @@ $remindersSrc = (string) file_get_contents($root . '/src/reminders.php');
 q4(!str_contains($index, 'reminder.send_quote') && !str_contains($remindersSrc, 'function jeab_reminder_send_quote_action'), 'kortets offertåtgärd är borta');
 
 q4(jeab_deploy_flag_ttl() === 180, 'underhållsflaggan är färsk i tre minuter');
-$yml = (string) file_get_contents($root . '/.github/workflows/deploy-loopia.yml');
-q4(str_contains($yml, 'if: always()') && str_contains($yml, '--mode clear-flag') && str_contains($yml, 'Lyft underhåll'), 'deploy tömmer flaggan till sist');
-$py = (string) file_get_contents($root . '/.github/scripts/loopia_deploy.py');
-q4(str_contains($py, '"clear-flag"') && str_contains($py, '3 minuter'), 'clear-flag finns och fönstret är tre minuter');
 
 echo "OK  fyra QA-buggar\n";

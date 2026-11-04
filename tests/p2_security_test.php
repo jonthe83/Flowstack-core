@@ -39,15 +39,8 @@ p2_assert(in_array('README.md', $rules['exact'], true), 'spärrlistan har README
 p2_assert(in_array('AGENTS.md', $rules['exact'], true), 'spärrlistan har AGENTS.md');
 
 $spec = (string) file_get_contents($root . '/deploy/sensitive-paths.txt');
-$nginx = (string) file_get_contents($root . '/.github/loopia-nginx.conf');
-foreach (['/private/', '/data/', '/schema/', '/src/', '/tests/', '/fullmakt/data/', '/fullmakt/lib/', '/fullmakt/vendor/', '/gi/data/'] as $location) {
-    p2_assert(str_contains($nginx, 'location ^~ ' . $location), "nginx-snippet har {$location}");
-}
-p2_assert(str_contains($nginx, 'location ~* (^|/)README\\.md$'), 'nginx-snippet har README.md i valfri katalog');
-p2_assert(str_contains($nginx, 'location ~* (^|/)AGENTS\\.md$'), 'nginx-snippet har AGENTS.md i valfri katalog');
 $htaccess = (string) file_get_contents($root . '/.htaccess');
 p2_assert(str_contains($htaccess, 'RewriteRule (?:^|/)(?:README|AGENTS)\\.md$ - [F,L,NC]'), 'htaccess spärrar README i valfri katalog');
-p2_assert(!str_contains($nginx, 'includeSubDomains'), 'nginx-snippet lägger inte till includeSubDomains');
 p2_assert(str_contains($spec, 'prefix tests'), 'deploy-listan och skölden delar tests');
 p2_assert(str_contains($spec, 'prefix src'), 'deploy-listan och skölden delar src');
 
@@ -262,7 +255,6 @@ $giLib = (string) file_get_contents($root . '/gi/lib.php');
 p2_assert(str_contains($giLib, 'jeab_gi_loans_file'), 'GI läser lånearkivet via privat sökväg');
 p2_assert(str_contains($giLib, "return __DIR__ . '/data/photos'"), 'fotokatalogen är kvar för photo.php');
 p2_assert(!is_file($root . '/gi/photo.php'), 'photo.php ändras inte i repot');
-p2_assert(!str_contains($nginx, 'location ^~ /gi/ '), 'nginx-snippet stänger inte /gi/');
 
 $loanFixture = "{\"loans\":[]}\n";
 $giData = $root . '/gi/data';

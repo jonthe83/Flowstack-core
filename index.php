@@ -8,7 +8,7 @@ $GLOBALS['_JEAB_BOOT_T0'] = is_numeric($jeabBootClock) ? (float) $jeabBootClock 
 require_once __DIR__ . '/src/deploy_guard.php';
 jeab_deploy_guard();
 
-// Graph-validering och notiser. Loopia släpper tom User-Agent hit, inte till graph-hook.php.
+// Graph-validering och notiser. Webbhotellet släpper tom User-Agent hit, inte till graph-hook.php.
 // Filen lämnas kvar. En trasig eller saknad graph-hook.php får inte stoppa inloggningen.
 if ((string) ($_GET['graph_hook'] ?? '') === '1') {
     $jeabGraphHook = __DIR__ . '/graph-hook.php';
@@ -20,7 +20,7 @@ if ((string) ($_GET['graph_hook'] ?? '') === '1') {
 
 require_once __DIR__ . '/src/shield.php';
 
-// Loopia nginx ignorerar .htaccess. /bokning/ är en katalog utan körd
+// Nginx-värdar ignorerar .htaccess. /bokning/ är en katalog utan körd
 // index, så anropet landar här som kampanjsidan om vi inte styr om.
 $jeabUriPath = rawurldecode((string) (parse_url((string) ($_SERVER['REQUEST_URI'] ?? '/'), PHP_URL_PATH) ?? '/'));
 if (jeab_request_is_bokning_index($jeabUriPath)) {

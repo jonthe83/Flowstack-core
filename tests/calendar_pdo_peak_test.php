@@ -40,7 +40,7 @@ function peak_ok(bool $ok, string $msg): void
 $_GET = ['p' => 'bookings', 'co' => 'jarfalla', 'intent' => 'calendar-outlook'];
 $_SERVER['REQUEST_METHOD'] = 'GET';
 
-peak_ok(jeab_pdo_host_limit() === 10, 'värdtak är Loopia Privat, 10');
+peak_ok(jeab_pdo_host_limit() === 10, 'värdtak är 10');
 peak_ok(jeab_calendar_db_peak() === 1, 'kalendern räknar en anslutning per sidladdning');
 peak_ok(jeab_calendar_db_peak() < jeab_pdo_host_limit(), 'toppen ligger under taket');
 

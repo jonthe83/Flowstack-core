@@ -9,7 +9,7 @@ if (!defined('JEAB_ROOT')) {
 }
 
 return <<<'SQL'
--- JEAB Bokning — SQLite (v1-standard). Körs automatiskt vid första sidladdning.
+-- Flowstack — SQLite (v1-standard). Körs automatiskt vid första sidladdning.
 
 CREATE TABLE IF NOT EXISTS reminder_lists (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

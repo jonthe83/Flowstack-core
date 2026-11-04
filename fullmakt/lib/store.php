@@ -351,7 +351,7 @@ function fullmakt_save_pending(array $doc): void
 
 /**
  * Signeringssidan laddas utan JEAB-appen. Vid själva signeringen behövs
- * appens orderlager (MySQL på Loopia) för att hitta ordern bakom token.
+ * appens orderlager (MySQL) för att hitta ordern bakom token.
  * Utan det läses en gammal purchases.json och order_id blir tomt i
  * fullmakt.signed. Appen laddas därför här, en gång, efter att PDF och
  * json är sparade. Går det inte faller vi tillbaka på bara webhook-filen.

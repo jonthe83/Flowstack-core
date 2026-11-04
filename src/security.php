@@ -2067,7 +2067,7 @@ function jeab_cron_capture_query_token(): void
 /**
  * Egen cron-token för tick.php eller sms-cron.php. Inte webbshopens nyckel
  * och inte hookens token: anroparen skickar den hemlighet just den ingången äger.
- * GET ?token= (Loopia kan bara sätta en URL) och POST (Authorization,
+ * GET ?token= (cron kan ofta bara sätta en URL) och POST (Authorization,
  * X-Webhook-Token eller body). Jämförelsen är hash_equals. Värdet loggas inte
  * och skrivs inte tillbaka i svaret.
  */
@@ -2178,7 +2178,7 @@ function jeab_cron_rate_dir(): string
 }
 
 /**
- * Tom tillåtelista och tak 0 betyder av, så Loopia inte behöver ändras.
+ * Tom tillåtelista och tak 0 betyder av, så webbhotellet inte behöver ändras.
  * REMOTE_ADDR används, inte X-Forwarded-For. Returnerar ip, rate eller null.
  * Skriver aldrig token.
  */

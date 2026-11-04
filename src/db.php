@@ -2349,7 +2349,7 @@ function jeab_pdo_connect_sqlite(): PDO
         }
     }
     if (!jeab_pdo_has('sqlite')) {
-        throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+        throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
     }
     if (jeab_store_path_is_public_data($path)) {
         throw new RuntimeException('sqlite skrivs inte under publik data/');
@@ -2416,7 +2416,7 @@ function jeab_pdo_connect_mysql(): PDO
         throw new JeabDbBusyException(jeab_pdo_busy_message());
     }
     if (!jeab_pdo_has('mysql')) {
-        throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+        throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
     }
     $opts = jeab_pdo_base_options() + [
         PDO::ATTR_EMULATE_PREPARES => false,

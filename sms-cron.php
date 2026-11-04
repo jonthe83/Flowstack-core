@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /**
  * Hosting cron entrypoint for calendar SMS + email.
- * Loopia kan bara GET, så ?token= fungerar. POST (Authorization,
+ * Cron kan ofta bara GET, så ?token= fungerar. POST (Authorization,
  * X-Webhook-Token eller body) fungerar också.
  * CLI behöver ingen token. Token är suresms tick_token, inte tick.php:s
  * fil och inte webbshopens nyckel. Värdet loggas inte och ekas inte.

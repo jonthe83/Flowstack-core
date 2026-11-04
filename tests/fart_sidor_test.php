@@ -67,7 +67,5 @@ $shell = (string) file_get_contents($root . '/assets/js/shell.js');
 fart_ok(str_contains($shell, 'QUIET_MS = 1500') && str_contains($shell, 'saveData') && str_contains($shell, 'PREFETCH_MAX = 4') && str_contains($shell, "IDLE_PAGES = ['bookings', 'ordrar', 'offert', 'utskick']"), 'förhämtning väntar 1,5 s, tar kalender och ordrar först och högst fyra flikar');
 $ht = (string) file_get_contents($root . '/.htaccess');
 fart_ok(str_contains($ht, 'FileETag MTime Size') && str_contains($ht, 'immutable'), 'assets får ETag och lång cache');
-$nginx = (string) file_get_contents($root . '/.github/loopia-nginx.conf');
-fart_ok(str_contains($nginx, 'etag on;') && str_contains($nginx, 'immutable'), 'nginx-snippet sätter etag och cache');
 
 exit($fail > 0 ? 1 : 0);

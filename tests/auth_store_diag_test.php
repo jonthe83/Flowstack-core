@@ -119,14 +119,14 @@ as_ok(str_starts_with($siteResolved, $tmp . '/'), 'site-resolver stannar i testk
 as_ok($siteResolved === $siteFile && jeab_auth_path_is_private($siteFile), 'privat/ accepteras när webbroten är siten som innehåller public_html');
 as_ok(!jeab_auth_path_is_private($siteWebFile), 'public_html under siten är fortfarande stängd');
 $siteDiag = jeab_auth_diag();
-as_ok(($siteDiag['source'] ?? '') === 'file' && ($siteDiag['path_kind'] ?? '') === 'privat' && ($siteDiag['private'] ?? 0) === 1 && ($siteDiag['ready'] ?? 0) === 1, 'diag för Loopia-layouten är privat');
+as_ok(($siteDiag['source'] ?? '') === 'file' && ($siteDiag['path_kind'] ?? '') === 'privat' && ($siteDiag['private'] ?? 0) === 1 && ($siteDiag['ready'] ?? 0) === 1, 'diag för privat-layouten är privat');
 as_absent(json_encode($siteDiag, JSON_UNESCAPED_UNICODE), $siteFile, 'site-diag ekar inte sökvägen');
-$siteName = 'Loopia ' . bin2hex(random_bytes(2));
+$siteName = 'Webbhotell ' . bin2hex(random_bytes(2));
 $siteUser = jeab_restricted_username($siteName);
 $siteCode = $siteUser . bin2hex(random_bytes(8));
 $siteAdd = jeab_restricted_add(['name' => $siteName, 'role' => 'solkampanj', 'code' => $siteCode, 'dry' => 0, 'confirm' => 'SAM']);
 as_ok(!empty($siteAdd['ok']) && ($siteAdd['created'] ?? 0) === 1, 'add_restricted går mot privat utanför public_html');
-as_absent(json_encode($siteAdd, JSON_UNESCAPED_UNICODE), $siteCode, 'Loopia-svaret ekar inte koden');
+as_absent(json_encode($siteAdd, JSON_UNESCAPED_UNICODE), $siteCode, 'svaret ekar inte koden');
 as_ok(jeab_auth_password_ok($siteCode), 'inloggningen ser koden som skrevs där');
 
 $GLOBALS['_JEAB_APP_ROOT'] = $public;

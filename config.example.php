@@ -24,7 +24,7 @@ return [
     // Adress for egen inkorg och testleads (<lokal>+test-*@<doman>). Tom = inkorg@example.test.
     'test_lead_address' => '',
 
-    // Loopia-cron (tick.php och sms-cron.php) tar fortfarande ?token= i URL:en.
+    // Webbhotellets cron (tick.php och sms-cron.php) tar fortfarande ?token= i URL:en.
     // tick.php läser privat/jeab_tick_token. sms-cron.php läser suresms tick_token.
     // De är inte hookens token och inte webbshopens nyckel. POST fungerar också.
     // Tom lista och 0 betyder av, så en befintlig cron-URL behöver ingen ändring.

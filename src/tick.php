@@ -6,7 +6,7 @@ require_once __DIR__ . '/shield.php';
 jeab_deny_if_direct(__FILE__);
 
 /**
- * Gemensam Loopia-tick var 5:e minut. Kör tre deljobb som redan finns.
+ * Gemensam cron-tick var 5:e minut. Kör tre deljobb som redan finns.
  * Bokningsnotiser och bokningspåminnelser ligger kvar på sms-cron.php
  * (jeab_sms_tick), varannan timme, så kalendern hinner flyttas.
  *
@@ -199,7 +199,7 @@ function jeab_tick_lease_driver(PDO $pdo): string
 
 /**
  * Hyra i settings. Anslutningen släpps innan Graph, mejl och inkorg så sms-cron
- * får Loopia-platsen. Värdet är utgångstid|token. Första tagningen jämför-och-sätter
+ * får platsen. Värdet är utgångstid|token. Första tagningen jämför-och-sätter
  * när tiden gått ut. Förnyelse jämför-och-sätter med samma token.
  * HS-batchen tar dessutom GET_LOCK på mysql (jeab_tick_hs_lock).
  */

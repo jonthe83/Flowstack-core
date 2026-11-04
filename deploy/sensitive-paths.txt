@@ -3,7 +3,7 @@
 # Deploy denies the same prefixes, except src/, fullmakt/lib/ and fullmakt/vendor/
 # which must still upload. The shield still refuses those URLs.
 # fullmakt/data stays denied for both deploy and the shield.
-# The host snippet is .github/loopia-nginx.conf. This repo cannot install it.
+# Configure the same denies in your web server (nginx/Apache).
 # exact names with no slash match that filename in any directory.
 # README.md denies /README.md and /fullmakt/README.md.
 # private/ is the web tree for the deploy flag and backups. The two deny

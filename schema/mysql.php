@@ -9,7 +9,7 @@ if (!defined('JEAB_ROOT')) {
 }
 
 return <<<'SQL'
--- JEAB Bokning — MySQL (Loopia senare). Kör i phpMyAdmin / Kundzon.
+-- Flowstack — MySQL. Kör i phpMyAdmin / Kundzon.
 -- Byt sedan driver till mysql i data/config.php.
 
 CREATE TABLE IF NOT EXISTS reminder_lists (

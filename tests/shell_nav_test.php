@@ -118,8 +118,7 @@ sh_ok(str_contains($layout, 'jeab_critical_css') && !str_contains($layout, 'medi
 $appCss = (string) file_get_contents($root . '/assets/css/app.css');
 sh_ok(str_contains($appCss, '.page-ordrar .ordrar-list') && str_contains($appCss, 'list-style: none'), 'ordrar-listan har ram i app.css innan ordrar.css');
 $ht = (string) file_get_contents($root . '/.htaccess');
-$nx = (string) file_get_contents($root . '/.github/loopia-nginx.conf');
-sh_ok(str_contains($ht, 'JEAB_ASSET_IMMUTABLE') && str_contains($nx, 'max-age=31536000, immutable'), 'versionerade assets får lång cache i htaccess och nginx');
+sh_ok(str_contains($ht, 'JEAB_ASSET_IMMUTABLE'), 'versionerade assets får lång cache i htaccess');
 
 $emit = shell_exec('php ' . escapeshellarg(__FILE__) . ' --emit');
 $json = json_decode((string) $emit, true);

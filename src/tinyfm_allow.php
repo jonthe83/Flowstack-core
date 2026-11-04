@@ -13,7 +13,7 @@ jeab_deny_if_direct(__FILE__);
  *
  * Klient-IP: REMOTE_ADDR när det är en publik adress. X-Forwarded-For
  * ignoreras då, eftersom klienten kan sätta den själv. Bara när
- * REMOTE_ADDR är privat eller reserverad (Loopia-proxyn på samma nät)
+ * REMOTE_ADDR är privat eller reserverad (webbhotellets proxy på samma nät)
  * används högra publika hoppet i X-Forwarded-For — det hoppet som
  * närmaste proxy lagt till. Saknas en publik klientadress blir det 403.
  */

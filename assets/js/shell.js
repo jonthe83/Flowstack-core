@@ -19,7 +19,7 @@
   var DRAW_MS = 5 * 60 * 1000;
   /* Vila-förhämtning behöver inte göras om varje gång man byter flik. */
   var IDLE_MS = 60000;
-  /* Kort stillhet efter senaste klicket. Scroll avbryter inte. Loopia: en i taget. */
+  /* Kort stillhet efter senaste klicket. Scroll avbryter inte. En i taget. */
   var QUIET_MS = 1500;
   /* Högst en förhämtning åt gången och högst fyra per fliksession (max_user_connections). */
   var PREFETCH_MAX = 4;

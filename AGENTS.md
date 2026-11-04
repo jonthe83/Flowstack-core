@@ -1,25 +1,21 @@
-# Agentregler — JEAB Bokning
+# Agentregler — Flowstack
 
 ## Aldrig deploy, aldrig merge
 
-Agenter deployar **aldrig** till flowstack.example.test och mergar **aldrig** till `main` själva. Cody mergar och deployar.
+Agenter deployar **aldrig** till en produktionsserver och mergar **aldrig** till `main` själva. Ägaren av installationen mergar och deployar.
 
 När du gör kodändringar: **commit + push + öppna eller uppdatera en PR**. Stanna där. Lämna PR:en som utkast om inget annat sägs.
 
 ## Förbjudet för agenter
 
-- TinyFM (`https://flowstack.example.test/filer.php`, `tools/tinyfm_ship.py`, `TINYFM_PASSWORD`, kampanjkod som uppladdning)
-- FTP (`lftp`, `curl ftp://`, `ftplib`, `LOOPIA_FTP_*`, `LFTP_PASS`)
-- Workflowen `.github/workflows/deploy-loopia.yml` (varken `workflow_dispatch` eller någon annan start)
+- Uppladdning till servern (filhanterare, FTP/SFTP eller deploy-skript)
 - `gh pr merge`, GitHub-merge och att själv lägga in tippen på `main`
 
-Rör aldrig remote `data/`. Byt inte ut TinyFM-kroppen i `filer.php`.
-
-Solkoll-nyckeln ligger i Cursor-secret `SOLKOLL_API_KEY` (valfritt `SOLKOLL_API_URL`) och på servern i `data/secrets/solkoll.json`. Agenter laddar inte upp den.
+Rör aldrig serverns `data/`. Hemligheter (API-nycklar, lösenord) ligger på servern i `data/secrets/` eller `privat/`, aldrig i git.
 
 ## Affärsdata i SQL
 
-All affärsdata på flowstack.example.test ska ligga i MySQL/SQL. Ingen ny data får sparas i JSON eller JSONL.
+All affärsdata ska ligga i MySQL/SQL. Ingen ny data får sparas i JSON eller JSONL.
 
 Undantag:
 
@@ -37,4 +33,4 @@ Kontakter ligger i `contacts` och inkorgens `contacts.json` i `inkorg_contacts`.
 
 Mejl och kalender går via Microsoft Graph. Systemmejl försöker Help Scout först och faller sedan tillbaka till Graph från `kontakt@`. Skickat-kollen och personernas kalendrar läser Graph. Det finns ingen separat kalenderkoppling i Bokning.
 
-Graph-nyckeln ligger i `data/secrets/m365.json` (inte git). Rör inte övriga `data/` vid TinyFM-deploy.
+Graph-nyckeln ligger i `data/secrets/m365.json` (inte git).

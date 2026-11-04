@@ -904,7 +904,7 @@ function jeab_url(string $path = ''): string
  * Varje fil har sin egen version, så en delvis deploy bara bustar det som ändrats.
  * En hårdkodad ?v=3 (eller &v=3) i sökvägen byts ut.
  * Nginx ignorerar .htaccess. Hashen är cache-nyckeln tillsammans med
- * Cache-Control immutable i loopia-nginx.conf.
+ * Cache-Control immutable i webbserverns konfiguration.
  */
 function jeab_asset_url(string $path): string
 {
@@ -1376,7 +1376,7 @@ function jeab_merge_json_request(?string $raw = null): void
         return;
     }
     if ($raw === null) {
-        // Loopia's filter rejects the usual reader and the literal wrapper name in this file.
+        // Some hosts' filters reject the usual reader and the literal wrapper name in this file.
         $stream = 'php://' . 'input';
         $handle = fopen($stream, 'rb');
         $read = $handle === false ? '' : stream_get_contents($handle);
@@ -1490,7 +1490,7 @@ function jeab_json(array $payload, int $code = 200): never
 
 /**
  * Sidvisningar ska inte vänta på Graph-delta eller webbshoppens ikappkörning.
- * csrf, AJAX, hookar och tillgångar hoppas över. Loopia kör PHP-FPM bakom nginx,
+ * csrf, AJAX, hookar och tillgångar hoppas över. Webbhotellet kan köra PHP-FPM bakom nginx,
  * så fastcgi_finish_request() finns och släpper klienten. Utan den (CGI) stängs
  * svaret med Connection: close och Content-Length.
  */

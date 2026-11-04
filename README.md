@@ -56,6 +56,27 @@ Den här kärnan innehåller inget demo-specifikt. Demofunktioner (kampanjkoden 
 - **`data/` går att nå från webben:** servern läser inte `.htaccess` (t.ex. nginx). Lägg in en regel som nekar `/data/` eller be webbhotellet göra det.
 - **Kunde inte ansluta till MySQL:** kontrollera värdnamn (inte alltid `localhost`), att användaren har rättigheter på databasen och att lösenordet är rätt.
 
+## Uppdatera till nya versioner
+
+Nya versioner hämtas i första hand från GitHub och laddas upp till webbhotellet med FTP/SFTP. Om FTP inte fungerar (FTP blockeras till exempel ofta från servrar i USA) kan en bot, till exempel Grok Bot, i stället ladda upp via Tiny File Manager (`tinyfilemanager.php`, en webbläsarbaserad filhanterare) på servern. `tinyfilemanager.php` ingår inte i repot. Lägg dit den bara tillfälligt.
+
+### Checklista: GitHub + FTP/SFTP (förstahandsval)
+
+- [ ] Ta backup av databasen och av `data/` innan du börjar.
+- [ ] Hämta nya versionen: `git pull` i din klon, eller ladda ner zip från GitHub.
+- [ ] Ladda upp filerna med FTP/SFTP. Skriv **aldrig över** `data/` eller `data/.private/`, och inte heller din `config.php`.
+- [ ] FTP/SFTP-lösenord skrivs bara i säkra rutor (lösenordsvalv eller formulär), aldrig i vanlig chatt.
+- [ ] Testa efter uppladdningen: startsidan via HTTPS, inloggning, att `https://domän/data/.htaccess` ger 403/404.
+
+### Checklista: Tiny File Manager (när FTP inte fungerar)
+
+- [ ] Ta backup av databasen och av `data/` innan du börjar.
+- [ ] Lägg `tinyfilemanager.php` på servern tillfälligt, med eget starkt lösenord och gärna IP-spärr.
+- [ ] Lösenordet till filhanteraren skrivs bara i säkra rutor, aldrig i vanlig chatt.
+- [ ] Ladda upp de nya filerna (till exempel som zip som packas upp på servern). Skriv **aldrig över** `data/` eller `data/.private/`, och inte heller `config.php`.
+- [ ] Testa efter uppladdningen: startsidan via HTTPS, inloggning, att `data/` inte går att nå.
+- [ ] **Ta bort `tinyfilemanager.php`** från servern när du är klar.
+
 ## Licens
 
 Flowstack är fri programvara under **GNU Affero General Public License v3.0 (AGPL-3.0)**. Du får använda, ändra och dela den. Kör du en ändrad version som andra använder via nätet måste du göra källkoden till din version tillgänglig för dem. Se filen `LICENSE`.
@@ -78,4 +99,5 @@ När användaren säger "installera det här" (eller liknande) ska du som Grok B
 5. **Vid fel:** följ avsnittet Felsökning. 500 efter inloggning = byt till MySQL. Blockerad `.php`-uppladdning = använd FTP/SFTP eller zip.
 6. **Gå sedan igenom det rekommenderade** (backup, cron, SMTP/SMS, GitHub, e-post/kalender, xAI API, Grok Bot med repoåtkomst) och fråga vad användaren vill sätta upp nu.
 7. **Demo-delar (kampanjkod `cola`, exempeldata, `DEMO_MODE`) är inte del av installationen.** Slå inte på dem om användaren inte ber om det.
-8. Rapportera till sist kort: vad som är klart, vad som återstår och vad användaren behöver göra själv.
+8. **Vid uppdatering:** följ avsnittet Uppdatera till nya versioner. Välj GitHub + FTP/SFTP i första hand. Om FTP inte fungerar kan du ladda upp via Tiny File Manager. Skriv aldrig över `data/` eller `data/.private/`, testa efteråt och ta bort `tinyfilemanager.php` när du är klar.
+9. Rapportera till sist kort: vad som är klart, vad som återstår och vad användaren behöver göra själv.

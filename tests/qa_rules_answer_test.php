@@ -168,12 +168,6 @@ $islandDry = jeab_inkorg_hook(['action' => 'inbox.send_quote', 'thread_id' => (s
 $islandBody = (string) ($islandDry['body'] ?? '');
 qa(($islandDry['ok'] ?? false) === true && ($islandDry['action'] ?? '') !== 'hold' && !str_contains($islandBody, '20 000 kr') && !str_contains($islandBody, jeab_auto_answer_safe_line()) && count($GLOBALS['_SENT']) === $before, 'dry: fel ö-driftpris ger inget kort svar och skickar inte');
 
-$deny = trim((string) shell_exec('cd ' . escapeshellarg(dirname(__DIR__)) . ' && python3 -c ' . escapeshellarg(
-    'import importlib.util,sys; p=".github/scripts/loopia_deploy.py"; s=importlib.util.spec_from_file_location("loopia_deploy", p); m=importlib.util.module_from_spec(s); sys.modules["loopia_deploy"]=m; s.loader.exec_module(m); print(m.deny_reason("src/prompts/qa_rules.php") or "ok"); print(m.deny_reason("src/prompts/qa_rules.md") or "ok")'
-)));
-$denyLines = preg_split('/\R/', $deny) ?: [];
-qa(($denyLines[0] ?? '') === 'ok' && ($denyLines[1] ?? '') === 'dokumentation', 'deploy tar med php och nekar md');
-
 $probe = stream_socket_server('tcp://127.0.0.1:0', $errno, $errstr);
 qa($probe !== false, 'kunde inte välja port');
 $addr = stream_socket_get_name($probe, false);

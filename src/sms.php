@@ -2718,7 +2718,7 @@ function jeab_sms_tick_run(JeabStore $store): array
     $tz = new DateTimeZone(date_default_timezone_get());
     $now = new DateTimeImmutable('now', $tz);
     $nowSql = $now->format('Y-m-d H:i:s');
-    // Loopia-cron anropar sms-tick varannan timme. Ingen ny cron.
+    // Webbhotellets cron anropar sms-tick varannan timme. Ingen ny cron.
     // SMS är påminnelsen «kommer imorgon»: start i (now, now+18h].
     // Bara batteri, solceller och laddbox. Service och möten utan den taggen hoppas över.
     // starts_at <= now hoppas över. Det är inte en bekräftelse vid bokningen.

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Loopia nginx ignorerar .htaccess. När den här filen körs ska
+ * Nginx-värdar ignorerar .htaccess. När den här filen körs ska
  * /bokning/ alltid till apex index.php med samma query.
  */
 require dirname(__DIR__) . '/src/shield.php';

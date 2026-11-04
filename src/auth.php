@@ -18,7 +18,7 @@ function jeab_public_script(): bool
 
 /**
  * Collapse "." and ".." without asking the filesystem.
- * realpath() on Loopia often fails for a readable privat/ file when the
+ * realpath() on shared hosts often fails for a readable privat/ file when the
  * path steps through public_html/.. while open_basedir is set.
  */
 function jeab_auth_normalize_path(string $path): string

@@ -23,7 +23,7 @@ Skicka nyckeln i en av dessa headers:
 
 Saknas filen, är den tom eller stämmer nyckeln inte svarar endpointen `401` med `{"ok":false,"error":"Fel nyckel."}`. Jämförelsen är `hash_equals`. Kontrollen sker innan boot och innan någon SQL-fråga. En saknad fil eller en fel nyckel blir därför 401 även när databasen inte svarar.
 
-Nyckeln kan läggas på servern med workflowt «Placera Omtago-nyckel» (`workflow_dispatch` på `main`). Det läser repo-secret `OMTAGO_API_KEY` och skriver den via FTP till `privat/omtago_api_key` med chmod 600. Värdet loggas inte. Saknas secreten skrivs ingen fil.
+Lägg nyckeln själv i `privat/omtago_api_key` (utanför webbroten) med chmod 600. Checka aldrig in den i git.
 
 Fler än 60 godkända anrop per minut och IP svarar `429`. Räkningen sker efter att nyckeln stämt, så den kräver SQL. Tabellerna `omtago_leads` och `omtago_rate` skapas med `CREATE TABLE IF NOT EXISTS` i koden. Ett SQL-fel efter godkänd nyckel svarar `503` och det verkliga felet skrivs i app-errors, utan nyckel och utan kunddata.
 

@@ -186,7 +186,7 @@ $_SERVER['HTTP_X_FORWARDED_FOR'] = $xff;
 p3_assert(jeab_auth_client_ip() === '198.51.100.10', 'publik REMOTE_ADDR litar inte på X-Forwarded-For');
 $_SERVER['REMOTE_ADDR'] = '10.0.0.1';
 $_SERVER['HTTP_X_FORWARDED_FOR'] = '203.0.113.20, 10.0.0.1';
-p3_assert(jeab_auth_client_ip() === '203.0.113.20', 'Loopia-proxy tar högra publika XFF-hoppet');
+p3_assert(jeab_auth_client_ip() === '203.0.113.20', 'proxy tar högra publika XFF-hoppet');
 unset($_SERVER['HTTP_X_FORWARDED_FOR'], $_SERVER['REMOTE_ADDR']);
 
 $GLOBALS['_JEAB_CSRF_AUTH_NONCE'] = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';

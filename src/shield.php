@@ -43,7 +43,7 @@ function jeab_restore_boot_php(string $path): void
 jeab_restore_boot_php(__DIR__ . '/ordrar.php');
 
 /**
- * Loopia nginx ignorerar .htaccess. Saknade filer faller igenom till
+ * Nginx-värdar ignorerar .htaccess. Saknade filer faller igenom till
  * index.php (kampanjkod-HTML). Känsliga adresser svarar 403 där.
  * Adresser med "/." är redan 403 hos nginx. Hemligheter läses från
  * dirname(JEAB_ROOT)/privat/ (prickade namn) och sedan data/.private/.

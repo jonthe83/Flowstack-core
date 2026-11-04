@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * sms-cron.php tar sin egen tick_token via GET (Loopia) och via POST.
+ * sms-cron.php tar sin egen tick_token via GET (cron) och via POST.
  * Tick är utbytt i testservern så inget mejl eller SMS skickas.
  * Tokenvärdet skapas i temp och skrivs inte ut.
  */

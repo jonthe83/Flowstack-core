@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Loopia anropar med GET var 5:e minut. Formuläret kan bara sätta en URL,
+ * Cron anropar med GET var 5:e minut. Formuläret kan bara sätta en URL,
  * så ?token= måste fungera. Samma anrop tar också POST (Authorization,
  * X-Webhook-Token eller body).
  *

@@ -151,12 +151,6 @@ $dk = $ingest('dk', 'dans.kund.sr@gmail.com', 'Dans Kund', "Namn: Dans Kund\nE-p
 $dkDry = jeab_inkorg_hook(['action' => 'inbox.send_quote', 'thread_id' => (string) $dk['thread_id'], 'dry' => 1]);
 sr(($dkDry['why'] ?? '') === 'BRF/företag – ring' && count($GLOBALS['_SENT']) === $before, 'utlandet hålls utan mall');
 
-$deny = trim((string) shell_exec('cd ' . escapeshellarg(dirname(__DIR__)) . ' && python3 -c ' . escapeshellarg(
-    'import importlib.util,sys; p=".github/scripts/loopia_deploy.py"; s=importlib.util.spec_from_file_location("loopia_deploy", p); m=importlib.util.module_from_spec(s); sys.modules["loopia_deploy"]=m; s.loader.exec_module(m); print(m.deny_reason("config/svarsregler.php") or "ok"); print(m.deny_reason("config/svarsregler.md") or "ok")'
-)));
-$denyLines = preg_split('/\R/', $deny) ?: [];
-sr(($denyLines[0] ?? '') === 'ok' && ($denyLines[1] ?? '') === 'dokumentation', 'deploy tar med php och nekar fortfarande md');
-
 $probe = stream_socket_server('tcp://127.0.0.1:0', $errno, $errstr);
 sr($probe !== false, 'kunde inte välja port');
 $addr = stream_socket_get_name($probe, false);

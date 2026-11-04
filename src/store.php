@@ -521,10 +521,10 @@ function jeab_data_dir_ready(string $path): string
 {
     $dir = dirname($path);
     if (!is_dir($dir) && !@mkdir($dir, 0775, true) && !is_dir($dir)) {
-        throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+        throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
     }
     if (!is_writable($dir)) {
-        throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+        throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
     }
     return $dir;
 }
@@ -576,7 +576,7 @@ final class JeabJsonStore implements JeabStore
             $this->write($this->emptyData());
         }
         if (!is_readable($this->path) || !is_writable($this->path)) {
-            throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+            throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
         }
     }
 
@@ -1084,7 +1084,7 @@ final class JeabJsonStore implements JeabStore
         $fp = $this->open();
         if (!flock($fp, LOCK_EX)) {
             fclose($fp);
-            throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+            throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
         }
         $raw = stream_get_contents($fp);
         $data = is_string($raw) && $raw !== '' ? json_decode($raw, true) : null;
@@ -1093,11 +1093,11 @@ final class JeabJsonStore implements JeabStore
             $result = $fn($store);
             $json = json_encode($store, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
             if ($json === false) {
-                throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+                throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
             }
             rewind($fp);
             if (ftruncate($fp, 0) === false || fwrite($fp, $json) === false) {
-                throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+                throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
             }
             fflush($fp);
             return $result;
@@ -1114,7 +1114,7 @@ final class JeabJsonStore implements JeabStore
         $this->refuseClosedJsonStore();
         $json = json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         if ($json === false || @file_put_contents($this->path, $json, LOCK_EX) === false) {
-            throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+            throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
         }
     }
 
@@ -1170,7 +1170,7 @@ final class JeabJsonStore implements JeabStore
     {
         $fp = @fopen($this->path, 'c+');
         if ($fp === false) {
-            throw new RuntimeException('Kunde inte spara i data/. På Loopia: chmod 775 data (eller 777 om 775 inte räcker).');
+            throw new RuntimeException('Kunde inte spara i data/. På webbhotellet: chmod 775 data (eller 777 om 775 inte räcker).');
         }
         return $fp;
     }
